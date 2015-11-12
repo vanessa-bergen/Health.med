@@ -1,0 +1,15 @@
+{
+    "name" : "Health.med",
+    "version" : "0.0",
+    "main" : "health.js",
+    "repository" : {
+        "type" : "git",
+        "url" : "https://github.com/CCMDevel/Health.med"
+    },
+    "dependencies" : {
+        "express" : >=4.0.0,
+        "morgan" : >=0.8.0,
+        "mongoose" : >=3.8.0,
+        "body-parser" : >=1.10.0
+    }
+}
