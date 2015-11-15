@@ -5,12 +5,12 @@ var Schema = mongoose.Schema;
 var AllergySchema = new Schema({
     name : {
         type : String,
-        required true
+        required : true
     },
 
     type : {
         type : String,
-        required true
+        required : true
     },
 
     severity : {
@@ -20,13 +20,13 @@ var AllergySchema = new Schema({
             'moderate',
             'severe'
         ],
-        required true
+        required : true
     },
 
     exposer_type : {
         type : String,
-        required true
-    });
+        required : true
+    }
 });
 
 mongoose.model('Allergy', AllergySchema);
