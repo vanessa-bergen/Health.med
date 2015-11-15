@@ -25,7 +25,13 @@ TestResultSchema = new Schema ({
     files : {
         type: String,
         required: true   
+    },
+
+    // relationships
+    patient_id : {
+        type : Schema.Types.ObjectId,
+        required : true
     }
-});
+}); 
 
 mongoose.model('TestResult', TestResultSchema);
