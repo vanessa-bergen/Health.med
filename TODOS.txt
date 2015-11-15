@@ -1,0 +1,4 @@
+done? | To Do 
+------+-------------------------------------------
+        Make allergy uniqueness validator some how 
+        Make mackenzie su
