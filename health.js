@@ -4,8 +4,8 @@ var mongoScript = require('./config/mongoose.js');
 var db = mongoScript();
 var app = appScript();
 
-app.set('port', 3005);
+app.set('port', 3004);
 
 app.listen(app.get('port'), function(){
-    console.log('health.js now listening on port ' app.get('port'));
+    console.log('health.js now listening on port ' + app.get('port'));
 });
