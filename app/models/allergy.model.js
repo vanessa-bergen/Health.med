@@ -23,7 +23,7 @@ var AllergySchema = new Schema({
         required : true
     },
 
-    exposer_type : {
+    exposure_type : {
         type : String,
         required : true
     }
