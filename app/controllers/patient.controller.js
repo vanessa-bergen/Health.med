@@ -18,10 +18,10 @@ module.exports = function(){
         });
     };
 
-    c.findById = function(req, res, next, id){
-        if (!id) return next();
+    c.findById = function(req, res, next, patient_id){
+        if (!patient_id) return next();
 
-        Patient.findOnd({ _id : id }, function(err, patient){
+        Patient.findOne({ _id : patient_id }, function(err, patient){
             if (err) return reqError(res, 500, err);
 
             req.patient = patient;
@@ -38,10 +38,10 @@ module.exports = function(){
 
 
     c.index = function(req, res, next){
-        User.find({}, function(err, users){
+        Patient.find({}, function(err, patients){
             if (err) return reqError(res, err);
 
-            req.json(users);
+            res.json(patient);
         });
     };
     
