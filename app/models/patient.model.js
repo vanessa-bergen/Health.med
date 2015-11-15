@@ -54,7 +54,33 @@ var PatientSchema = new Schema({
             "male",
             "female"
         ]
-    }
+    },
+    emergency_contact : {
+        type : {
+            name : {
+                type : String,
+                required : true
+            }, 
+            phone_number : {
+                type : String, 
+                required : true
+            },
+            relationship : {
+                type : String, 
+                required : true
+            }
+        }
+    },
+   
+    // relationships
+//    alergies : {
+//        type : [{
+//            type : Schema.Types.ObjectId,
+//            ref : 'Allergy'
+//        }],
+//        default : []
+//    }
+
 });
 
 mongoose.model('Patient', PatientSchema);
