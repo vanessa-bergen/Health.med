@@ -48,7 +48,12 @@ var PatientSchema = new Schema({
         }
     },
     gender : {
-        type : String
+        type : String,
+        required : true,
+        enum : [
+            "male",
+            "female"
+        ]
     }
 });
 

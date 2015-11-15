@@ -6,20 +6,19 @@ var TreatmentSchema = new Schema({
     name : { 
         type: String,
         required: true
-    };
+    },
     instructions : {
         type: String,
         required: true
-    };
+    },
     refills : {
-        type: String
+        type: String,
         required: false 
-    }
-
-   frequency: {
-        type: String
+    },
+    frequency: {
+        type: String,
         required: true    
     }
 });
 
-mongoose.model('treatment', TreatmentSchema);
+mongoose.model('Treatment', TreatmentSchema);

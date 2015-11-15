@@ -4,52 +4,68 @@ var Schema = mongoose.Schema;
 
 var DoctorSchema = new Schema ({
     name_first: {
-        type: String
+        type: String,
         required: true
-     },
+    },
     name_last: {
-        type: String
+        type: String,
         required: true   
     },
     specilization: {
-         type: String
-         required: true
+        type: String,
+        required: true
     },
     phone_numnber: {
         cell: {
-            type: String 
+            type: String, 
             required: true
         },
-       home: {
-           type: String
-           required: false
+        home: {
+            type: String,
+            required: false
         },
-       work: {
-           type: String
-           required: false
-       }     
+        work: {
+            type: String,
+            required: false
+        }     
     },
     email: {
-        type: String
+        type: String,
         required: true
     },
-   address: {
+    address: {
         street: {
-            type: String
+            type: String,
             required: true  
         },
         province: {
-            type: String
-            required: true
-            enum : {'AB', 'BC', 'MB', 'NB', 'NL', 'NS', 'NT', 'NU', 'ON', 'PR', 'QC', 'SK', 'YT'}   
-       },
+            type: String,
+            required: true,
+            enum : [
+                'AB', 
+                'BC', 
+                'MB', 
+                'NB', 
+                'NL', 
+                'NS', 
+                'NT', 
+                'NU', 
+                'ON', 
+                'PR', 
+                'QC', 
+                'SK', 
+                'YT'
+            ]   
+        },
         postal_code: {
-            type: String
+            type: String,
             required: true  
         },
         country: {
-            type: String
-            enum: {'CAN'}
+            type: String,
+            enum: [ 
+                'CAN'
+            ],
             required: true
         }
      }
