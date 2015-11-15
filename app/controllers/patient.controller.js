@@ -20,8 +20,6 @@ module.exports = function(){
     };
 
     c.findById = function(req, res, next, patient_id){
-        console.log('    findById()');
-        
         if (!patient_id) return next();
 
         Patient.findOne({ _id : patient_id }, function(err, patient){
@@ -33,7 +31,6 @@ module.exports = function(){
     };
 
     c.get = function(req, res, next){
-        console.log('    get()');
         if (!req.patient) return reqError(res, 400, "patient", "missing");
 
         res.json(req.patient);
