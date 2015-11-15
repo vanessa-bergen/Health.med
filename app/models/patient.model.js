@@ -17,8 +17,13 @@ var PatientSchema = new Schema({
         required : true
     },
     phone_number : {
-        type : String,
-        required : true
+        primary : {
+            type : String,
+            required : true
+        },
+        secondary : {
+            type : String
+        },
     },
     name_last : {
         type : String,
@@ -46,6 +51,43 @@ var PatientSchema = new Schema({
             required : true, 
             min : 1900
         }
+    },
+    
+    address : {
+        street : {
+            type : String,
+            required : true
+        },
+        province : {
+            type : String,
+            required : true
+        },
+        postal_code : {
+            type : String,
+            enum : [
+                'AB',
+                'BC',
+                'MB',
+                'NB',
+                'NL',
+                'NS',
+                'NT',
+                'NU',
+                'ON',
+                'PE',
+                'QC',
+                'SK',
+                'YT' 
+            ],
+            required : true
+        },
+        country : {
+            type: String, 
+            enum : [
+                'CAN'
+            ],
+            required : true
+        },
     },
     gender : {
         type : String,
