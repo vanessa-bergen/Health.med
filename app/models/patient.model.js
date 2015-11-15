@@ -14,7 +14,8 @@ var PatientSchema = new Schema({
     },
     health_card_number : {
         type : String, 
-        required : true
+        required : true,
+        unique : true
     },
     phone_number : {
         primary : {
@@ -60,10 +61,7 @@ var PatientSchema = new Schema({
         },
         province : {
             type : String,
-            required : true
-        },
-        postal_code : {
-            type : String,
+            required : true,
             enum : [
                 'AB',
                 'BC',
@@ -78,7 +76,10 @@ var PatientSchema = new Schema({
                 'QC',
                 'SK',
                 'YT' 
-            ],
+            ]
+        },
+        postal_code : {
+            type : String,
             required : true
         },
         country : {
@@ -87,7 +88,7 @@ var PatientSchema = new Schema({
                 'CAN'
             ],
             required : true
-        },
+        }
     },
     gender : {
         type : String,

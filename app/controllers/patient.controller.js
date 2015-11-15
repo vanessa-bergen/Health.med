@@ -1,24 +1,27 @@
 module.exports = function(){
     var Patient = require('mongoose').model('Patient');
     var reqError = require('./reqError.js');
+    var isEmpty = require('./isEmpty.js');
 
     var c = {};
 
     c.create = function(req, res, next){
-        if (!req.body) return reqError(res, 400, "body", "missing");
-        
+        if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
+
         var newPatient = new Patient(req.body);
         newPatient.save(function(err){
             if (err) return reqError(res, 500, err);
 
-            console.log(JSON.stringify({ user : newUser }) + "\n");
+            console.log(JSON.stringify({ patient : newPatient }) + "\n");
             res.status(201).json({
-                user : newUser
+                patient : newPatient
             });
         });
     };
 
     c.findById = function(req, res, next, patient_id){
+        console.log('    findById()');
+        
         if (!patient_id) return next();
 
         Patient.findOne({ _id : patient_id }, function(err, patient){
@@ -29,8 +32,8 @@ module.exports = function(){
         });
     };
 
-
     c.get = function(req, res, next){
+        console.log('    get()');
         if (!req.patient) return reqError(res, 400, "patient", "missing");
 
         res.json(req.patient);
@@ -41,7 +44,7 @@ module.exports = function(){
         Patient.find({}, function(err, patients){
             if (err) return reqError(res, err);
 
-            res.json(patient);
+            res.json(patients);
         });
     };
     
