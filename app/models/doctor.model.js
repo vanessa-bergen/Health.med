@@ -68,7 +68,16 @@ var DoctorSchema = new Schema ({
             ],
             required: true
         }
-     }
+    },
+    
+    // relationships
+    has_access_to : {
+        type : [{
+            type : Schema.Types.ObjectId,
+            ref : 'Patient'
+        }],
+        default : []
+    }
 });
 
 mongoose.model('Doctor', DoctorSchema);
