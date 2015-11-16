@@ -16,7 +16,7 @@ module.exports = function(){
     require('../app/routes/helloworld.routes.js')(app);   
     require('../app/routes/patient.routes.js')(app);
     require('../app/routes/allergy.routes.js')(app);
-    
+    require('../app/routes/treatment.routes.js')(app);    
     console.log("    routes intialized.");
 
     return app;
