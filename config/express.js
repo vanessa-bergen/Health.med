@@ -19,7 +19,7 @@ module.exports = function(){
     require('../app/routes/treatment.routes.js')(app);    
     require('../app/routes/appointment.routes.js')(app); 
     require('../app/routes/symptom.routes.js')(app);
-     
+    require('../app/routes/medication.routes.js')(app);     
     console.log("    routes intialized.");
 
     return app;
