@@ -30,7 +30,7 @@ module.exports = function(){
     };
 
     c.get = function(req, res, next){
-        if(!req.treatment) return reqError(res, 400, "patient", "missing");
+        if(!req.treatment) return reqError(res, 400, "treatment", "missing");
         res.json(req.treatment);    
 
     };
