@@ -77,6 +77,12 @@ var DoctorSchema = new Schema ({
             ref : 'Patient'
         }],
         default : []
+    },
+    invites : {
+        type : [{
+            type : Schema.Types.ObjectId,
+            ref : 'Patient'
+        }]
     }
 });
 
