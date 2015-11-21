@@ -1,6 +1,7 @@
 var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 
 module.exports = function(){
     console.log("initializing health.med.js!!!");
@@ -10,6 +11,14 @@ module.exports = function(){
     app.use(morgan('dev'));
     app.use(bodyParser.urlencoded({ extended : true }));
     app.use(bodyParser.json());
+    app.use(session({
+        saveUninitialized : true, 
+        resave : true, 
+        secret : "blahblahblahblah",
+        cookie : {
+            maxAge : 1000 * 3600 * 24
+        }
+    }));
 
     console.log("    initializing routes...");
     
