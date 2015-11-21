@@ -55,40 +55,43 @@ var PatientSchema = new Schema({
     },
     
     address : {
-        street : {
-            type : String,
-            required : true
+        type : {
+            street : {
+                type : String,
+                required : true
+            },
+            province : {
+                type : String,
+                required : true,
+                enum : [
+                    'AB',
+                    'BC',
+                    'MB',
+                    'NB',
+                    'NL',
+                    'NS',
+                    'NT',
+                    'NU',
+                    'ON',
+                    'PE',
+                    'QC',
+                    'SK',
+                    'YT' 
+                ]
+            },
+            postal_code : {
+                type : String,
+                required : true
+            },
+            country : {
+                type: String, 
+                enum : [
+                    'CAN'
+                ],
+                required : true
+            }
         },
-        province : {
-            type : String,
-            required : true,
-            enum : [
-                'AB',
-                'BC',
-                'MB',
-                'NB',
-                'NL',
-                'NS',
-                'NT',
-                'NU',
-                'ON',
-                'PE',
-                'QC',
-                'SK',
-                'YT' 
-            ]
-        },
-        postal_code : {
-            type : String,
-            required : true
-        },
-        country : {
-            type: String, 
-            enum : [
-                'CAN'
-            ],
-            required : true
-        }
+        required : true
     },
     gender : {
         type : String,
