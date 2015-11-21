@@ -119,13 +119,13 @@ var PatientSchema = new Schema({
     },
    
     // relationships
-//    alergies : {
-//        type : [{
-//            type : Schema.Types.ObjectId,
-//            ref : 'Allergy'
-//        }],
-//        default : []
-//    }
+    allergies : {
+        type : [{
+            type : Schema.Types.ObjectId,
+            ref : 'Allergy'
+        }],
+        default : []
+    }
 
 });
 

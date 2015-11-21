@@ -16,6 +16,10 @@ module.exports = function(app){
 
     app.post('/patient', patient_controller.create);
 
+    app.put('/patient/:patient_id/allergy/add', patient_controller.addAllergy);
+    app.get('/patient/:patient_id/allergy', patient_controller.getAllergies);
+    app.delete('/patient/:patient_id/allergy/', patient_controller.deleteAllergy); 
+
     app.get('/patient/:patient_id', patient_controller.get);
 
     // devel endpoint
