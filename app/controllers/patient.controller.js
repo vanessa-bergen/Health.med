@@ -1,6 +1,7 @@
 module.exports = function(){
     var Patient = require('mongoose').model('Patient');
-    var Allergy = require('mongoose').model('Allergy');
+    var Doctor = require('mongoose').model('Doctor');
+
     var reqError = require('./reqError.js');
     var isEmpty = require('./isEmpty.js');
 
@@ -20,6 +21,28 @@ module.exports = function(){
         });
     };
 
+    c.doLogIn = function(req, res, next){
+        if (!req.body) return reqError(res, 400, "body", "missing");
+        if (!req.body.password) return reqError(res, 400, "password", "missing");
+        if (!req.body.health_card_number) 
+            return reqError(res, 400, "health_card_number", "missing");
+        
+        Patient.findOne({ 
+            health_card_number : req.body.health_card_number 
+        }, function(err, patient){
+            if (err) return reqError(res, 500, err);
+
+            if (patient.password === req.body.password){
+                req.session.account_type = 'patient';
+                req.session.patient = patient;
+
+                res.json({ logged_in : true });
+            } else {
+                res.status(403).json({ logged_in : false });
+            }
+        });
+    };
+
     c.findById = function(req, res, next, patient_id){
         if (!patient_id) return next();
 
@@ -31,10 +54,13 @@ module.exports = function(){
         });
     };
 
-    c.get = function(req, res, next){
-        if (!req.patient) return reqError(res, 400, "patient", "missing");
+    c.getMe = function(req, res, next){
+        if (!req.session.patient) return res.json({ logged_in : false });
 
-        res.json(req.patient);
+        res.json({
+            account_type : req.session.account_type,
+            patient : req.session.patient
+        });
     };
 
 
@@ -45,6 +71,8 @@ module.exports = function(){
             res.json(patients);
         });
     };
+
+    // patient-allergy relationship controllers
 
     c.addAllergy = function(req, res, next){
         if (!req.patient) return reqError(res, 400, "patient", "missing");        

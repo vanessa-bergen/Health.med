@@ -14,13 +14,19 @@ module.exports = function(app){
     //  U -> Put,
     //  D -> Delete, 
 
+    app.post('/patient/login', patient_controller.doLogIn);
+
+    // patient CRUDs
     app.post('/patient', patient_controller.create);
 
+    
+
+    // patient.allergy CRUDs
     app.put('/patient/:patient_id/allergy/add', patient_controller.addAllergy);
     app.get('/patient/:patient_id/allergy', patient_controller.getAllergies);
     app.delete('/patient/:patient_id/allergy/', patient_controller.deleteAllergy); 
 
-    app.get('/patient/:patient_id', patient_controller.get);
+    app.get('/patient/me', patient_controller.getMe);
 
     // devel endpoint
     app.get('/patient', patient_controller.index);
