@@ -15,19 +15,27 @@ var DoctorSchema = new Schema ({
         type: String,
         required: true
     },
+    gender : {
+        type : String, 
+        required : true,
+        enum : [ 
+            "male", 
+            "female"
+        ]
+    },
+    password : {
+        type : String, 
+        required : true
+    },
     phone_numnber: {
-        cell: {
+        primary: {
             type: String, 
             required: true
         },
-        home: {
+        secondary: {
             type: String,
             required: false
         },
-        work: {
-            type: String,
-            required: false
-        }     
     },
     email: {
         type: String,
