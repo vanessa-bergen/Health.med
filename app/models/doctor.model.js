@@ -3,6 +3,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var DoctorSchema = new Schema ({
+    minc : {
+        type : String, 
+        required : true, 
+        unique : true
+    },
     name_first: {
         type: String,
         required: true
