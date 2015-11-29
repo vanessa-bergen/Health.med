@@ -14,7 +14,7 @@ module.exports = function(app){
     app.param('doctor_id', doctor_ctrlr.findById);
 
     //doctor.invite add and delete
-    app.put('/doctor/invite/add', doctor_ctrlr.addInvite);
+    app.put('/patient/invite/add', doctor_ctrlr.addInvite);
     app.delete('/doctor/decline_invite', doctor_ctrlr.declineInvite);
     app.delete('/patient/cancel_invite', doctor_ctrlr.cancelInvite);
     
