@@ -2,7 +2,7 @@ var appScript = require('./config/express.js');
 var mongoScript = require('./config/mongoose.js');
 
 var db = mongoScript();
-var app = appScript();
+var app = appScript(__dirname);
 
 app.set('port', 3004);
 
