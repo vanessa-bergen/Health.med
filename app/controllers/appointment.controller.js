@@ -6,8 +6,11 @@ module.exports = function(){
     var c = {};
 
     c.create = function(req, res, next){
+        if (!req.session.doctor) return res.status(403).json({ logged_in : false });
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-        
+        if (!req.body.about_patient) return reqError(res, 400, "body.about_patient", "missing");
+        req.body.with_doctor = req.session.doctor._id;
+
         var newApt = new Appointment(req.body);
         newApt.save(function(err){
             if (err) return reqError(res, 500, err);
@@ -19,7 +22,9 @@ module.exports = function(){
     };
 
     c.index = function(req, res, next){
-        Appointment.find({}, function(err, apts){
+        if (!req.session.doctor) return res.status(403).json({ logged_in : false });
+        
+        Appointment.find({ with_doctor : req.session.doctor._id }, function(err, apts){
             if (err) return reqError(res, 400, "body", "missing");
 
             res.json(apts);

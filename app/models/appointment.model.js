@@ -3,6 +3,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var AppointmentSchema = new Schema({
+    with_doctor : {
+        type : Schema.Types.ObjectId,
+        ref : 'Doctor',
+        required : true
+    },
+    about_patient : {
+        type : Schema.Types.ObjectId,
+        ref : 'Patient',
+        required : true
+    },
     notes: {
         type : String,
         required : true

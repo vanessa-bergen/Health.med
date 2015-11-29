@@ -19,6 +19,13 @@ module.exports = function(){
         });
     };
 
+    c.byId = function(req, res, next, doctor_id){
+        if (!doctor_id) return next();
+
+        req.doctor_id = doctor_id;
+        next();
+    };
+
     c.findById = function(req, res, next, doctor_id){
         if (!doctor_id) return next();
 
@@ -43,6 +50,40 @@ module.exports = function(){
             res.json(doctors);
         });
     };
+
+    // doctor-patient invites relationship controllers
+    //     - called by patients 
+
+    c.inviteDoctor = function(req, res, next){
+        if (!req.session.patient) return res.status(403).({ logged_in : false });
+        if (!req.doctor_id) return reqError(res, 400, "doctor", "missing");
+        
+        Doctor.findOneAndUpdate({ 
+            _id : req.doctor_id
+        }, {
+            $addToSet : {
+               invites : req.session.patient._id 
+            }
+        }, function(err, doctor){
+            if (err) return reqError(res, 500, err);
+            if (!doctor) return reqError(res, 400, "doctor", "invalid");
+
+            doctor.invites.push(req.session.patient._id);
+            doctor.save(function(err){
+                if (err) return reqError(res, 500, err);
+
+                res.status(202).json({
+                    invited : true
+                });
+            });
+        });
+        
+         
+    }
+
+    // doctor-patient has_access_to relationship controllers 
+
+  //  c.addPatient = function()
 
     return c;
 }
