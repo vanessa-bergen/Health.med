@@ -23,7 +23,8 @@ module.exports = function(dirname){
     console.log("    initializing routes...");
 
     app.use(express.static(dirname + "/public"));
-    
+    console.log('        ' + dirname + "/public routes initialized.");
+        
     require('../app/routes/helloworld.routes.js')(app);   
     require('../app/routes/patient.routes.js')(app);
     require('../app/routes/allergy.routes.js')(app);
