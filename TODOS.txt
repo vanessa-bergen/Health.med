@@ -1,13 +1,12 @@
 done? | To Do 
-------+-------------------------------------------
+------+------------------------------------------- 
       |  Make allergy uniqueness validator some how = hack db 
-      |  Make doctor objects unique
 CHECK |  Make mackenzie su
-      |  Make doctor routes file (vanessa)
+CHECK |  Make doctor routes file (vanessa)
       |  Make doctor log in / session management stuff (chris)
       |  add/remove doctor.invites (vanessa)
-      |  add/remove doctor.has_access_to (mackenzie)
+CHECK |  add/remove doctor.has_access_to (mackenzie)
       |  appointment with patients and doctors relationship (chris)
-      |  
+CHECK |  Make access to unique (can't add same patient 2x)
       |  
       |  
