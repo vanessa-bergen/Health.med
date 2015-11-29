@@ -3,6 +3,8 @@ var cheerio = require('cheerio');
 
 var endpoint = 'http://www.diseasesdatabase.com';
 
+var content = 'CumulativeHitCount=19&LastVisit=2015%2D11%2D26+19%3A46%3A11&FirstVisit=2015%2D11%2D21+20%3A25%3A29&RecentDDBItems=7431%2C14326%2C7547&GUID=1F4843FE%2D51E2%2D4085%2DA284%2DE9297965A171';
+
 var options = {
     url: endpoint,
     headers: {
@@ -11,7 +13,7 @@ var options = {
     cookies : [
         {
             name : 'diseasesdatabase',
-            content : 'CumulativeHitCount=13&LastVisit=2015%2D11%2D21+21%3A06%3A52&FirstVisit=2015%2D11%2D21+20%3A25%3A29&RecentDDBItems=7431%2C14326%2C7547&GUID=1F4843FE%2D51E2%2D4085%2DA284%2DE9297965A171',
+            content : content,
             domain : 'www.diseasesdatabase.com',
             path : '/',
         }
