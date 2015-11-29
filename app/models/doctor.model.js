@@ -16,7 +16,7 @@ var DoctorSchema = new Schema ({
         type: String,
         required: true   
     },
-    specilization: {
+    specialization: {
         type: String,
         required: true
     },
@@ -32,7 +32,7 @@ var DoctorSchema = new Schema ({
         type : String, 
         required : true
     },
-    phone_numnber: {
+    phone_number: {
         primary: {
             type: String, 
             required: true
@@ -87,8 +87,10 @@ var DoctorSchema = new Schema ({
     has_access_to : {
         type : [{
             type : Schema.Types.ObjectId,
-            ref : 'Patient'
+            ref : 'Patient',
+
         }],
+
         default : []
     },
     invites : {

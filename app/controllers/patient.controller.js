@@ -78,7 +78,7 @@ module.exports = function(){
         if (!req.patient) return reqError(res, 400, "patient", "missing");        
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
         if (!req.body.allergy) return reqError(res, 400, "body.allergy", "missing");
- 
+     
         req.patient.allergies.push(req.body.allergy);
         req.patient.save(function(err){
             if (err) return reqError(res, 500, err);   
