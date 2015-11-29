@@ -3,7 +3,7 @@ var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
 
-module.exports = function(){
+module.exports = function(dirname){
     console.log("initializing health.med.js!!!");
     
     var app = express();
@@ -21,7 +21,10 @@ module.exports = function(){
     }));
 
     console.log("    initializing routes...");
-    
+
+    app.use(express.static(dirname + "/public"));
+    console.log('        ' + dirname + "/public routes initialized.");
+        
     require('../app/routes/helloworld.routes.js')(app);   
     require('../app/routes/patient.routes.js')(app);
     require('../app/routes/allergy.routes.js')(app);
@@ -32,6 +35,8 @@ module.exports = function(){
     require('../app/routes/test_result.routes.js')(app);
     require('../app/routes/condition.routes.js')(app);
     require('../app/routes/doctor.routes.js')(app);
+    require('../app/routes/web_frameworks.routes.js')(app);
+
     console.log("    routes intialized.");
 
     return app;
