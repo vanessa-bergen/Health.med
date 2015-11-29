@@ -1,6 +1,7 @@
 module.exports = function(){
     var Doctor = require('mongoose').model('Doctor');
 
+    var isEmpty = require('./isEmpty.js');
     var reqError = require('./reqError.js');
     
     var c = {};
@@ -43,6 +44,49 @@ module.exports = function(){
             res.json(doctors);
         });
     };
+    
+    c.removeInvite = function(req, res, next){
+
+        
+        if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
+        if (!req.session.doctor) return res.json({ logged_in : false });
+        if (!req.body.invite) return reqError(res,400, "body.invite", "missing");
+    }
+
+    c.addInvite = function(req, res, next){
+
+        
+        if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
+        if (!req.session.doctor) return res.json ({ logged_in : false });
+        if (!req.body.invite) return reqError(res, 400, "body.invite", "missing");
+
+        req.doctor.invites.push(req.body.invite);
+        req.doctor.save(function(err){
+            if (err) return reqError(res, 500, err);
+            res.status(202).json(req.doctor);
+        });
+    };
+
+    
+    Doctor.update({
+        _id : req.session.doctor._id
+    },
+ 
+    {
+        $push : {
+            'invites' : req.body.invite
+        }
+    }, 
+    function(err, newDoctor){
+        if(err) return reqError(res, 500, err);
+        res.status(202).json(newDoctor);
+    });
+};
+
+
+
+
 
     return c;
 }
+
