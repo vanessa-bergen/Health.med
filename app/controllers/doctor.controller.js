@@ -68,12 +68,11 @@ module.exports = function(){
         });
     };
 
-<<<<<<< HEAD
     // doctor-patient invites relationship controllers
     //     - called by patients 
 
     c.inviteDoctor = function(req, res, next){
-        if (!req.session.patient) return res.status(403).({ logged_in : false });
+        if (!req.session.patient) return res.status(403).json({ logged_in : false });
         if (!req.doctor_id) return reqError(res, 400, "doctor", "missing");
         
         Doctor.findOneAndUpdate({ 
@@ -103,7 +102,6 @@ module.exports = function(){
 
   //  c.addPatient = function()
 
-=======
 // patient - doctor relation. Doctor logged in accepts patient invite
 // use existing doctor.invites.remove so just add the invites
 
@@ -170,7 +168,6 @@ module.exports = function(){
         });
     };
     
->>>>>>> 24fca148329cc3cc40e480b94c6f7751415515c5
     return c;
 
 
