@@ -1,9 +1,10 @@
 done? | To Do 
 ------+------------------------------------------- 
       |  Make allergy uniqueness validator some how = hack db 
+CHECK |  Make doctor objects unique
 CHECK |  Make mackenzie su
 CHECK |  Make doctor routes file (vanessa)
-      |  Make doctor log in / session management stuff (chris)
+CHECK |  Make doctor log in / session management stuff (chris)
       |  add/remove doctor.invites (vanessa)
 CHECK |  add/remove doctor.has_access_to (mackenzie)
       |  appointment with patients and doctors relationship (chris)
