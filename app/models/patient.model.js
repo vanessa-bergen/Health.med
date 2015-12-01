@@ -125,8 +125,17 @@ var PatientSchema = new Schema({
             ref : 'Allergy'
         }],
         default : []
-    }
+    },
 
+    pending : {
+
+        type: [{ 
+            type: Schema.Types.ObjectId,
+            ref : 'Doctor'
+        }],
+        default : []
+
+    }
 });
 
 mongoose.model('Patient', PatientSchema);

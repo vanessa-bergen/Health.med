@@ -1,5 +1,6 @@
 module.exports = function(){
     var Doctor = require('mongoose').model('Doctor');
+    var Patient = require('mongoose').model('Patient');
     var isEmpty = require('./isEmpty.js');
     var reqError = require('./reqError.js');
     
@@ -68,6 +69,11 @@ module.exports = function(){
         });
     };
     
+
+//patient - doctor invite controllers
+// patient sends invitation. Seen as pending in patient DB
+// see as an invite in docotor dB
+
     c.cancelInvite = function(req, res, next){
 
         
@@ -76,7 +82,7 @@ module.exports = function(){
         if (!req.body.doctor_id) return reqError(res, 400, "doctor_id", "missing");
     
         Doctor.update({ 
-            _id: req.body.doctor_id
+            _id : req.body.doctor_id
         }, 
         {
             $pull : {
@@ -87,30 +93,53 @@ module.exports = function(){
             if(err) return reqError(res,500,err);
             res.status(202).json(newDoctor);
         });
+
+        Patient.update({
+            _id : req.session.patient._id
+        },
+        {
+            $pull : {
+                'pending' : req.body.doctor_id
+            }
+        },
+        function(err, newPatient) {
+            if(err) return reqError(res, 500, err);
+        });
             
     };
 
     c.declineInvite = function(req, res, next){
-    if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-    if(!req.session.doctor) return res.json({logged_in : false});
-    if(!req.body.patient_id) return reqError(res, 400, "patient_id", "missing");
+        if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
+        if(!req.session.doctor) return res.json({logged_in : false});
+        if(!req.body.patient_id) return reqError(res, 400, "patient_id", "missing");
 
-    Doctor.update({
-        _id: req.session.doctor._id
-    },
-    {
-        $pull : { 
-            'invites' : req.body.patient_id
-        }
-    },
-    function(err, newDoctor){
-        if(err) return reqError(res, 500, err);
-        res.status(202).json(newDoctor);
+        Doctor.update({
+            _id: req.session.doctor._id
+        },
+        {
+            $pull : { 
+                'invites' : req.body.patient_id
+            }
+        },
+        function(err, newDoctor){
+            if(err) return reqError(res, 500, err);
+            res.status(202).json(newDoctor);
     
     
-   });
+        });
 
-    };
+        Patient.update({
+            _id: req.body.patient_id
+        },
+        {
+            $pull : {
+                'pending' : req.session.doctor._id
+            }
+        },
+            function(err, newPatient) {
+                if(err) return reqError(res, 500, err);
+       });     
+   };
 
     c.addInvite = function(req, res, next){
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
@@ -127,56 +156,73 @@ module.exports = function(){
         }, 
         function(err, newDoctor){
             if(err) return reqError(res, 500, err);
-            res.status(202).json(newDoctor);
+            console.log(newDoctor);
         });
 
+        Patient.update({
+            _id : req.session.patient._id
+        },
+        {
+            $addToSet : {
+                'pending' : req.body.doctor_id
+                }
+        },
+        function(err, newPatient){
+            if(err) return reqError(res, 500, err);
+            res.status(202).json(newPatient);
+      });
     };
 
-    // doctor-patient invites relationship controllers
-    //     - called by patients 
 
-    
+ // doctor-patient has_access_to relationship controllers 
 
-    // doctor-patient has_access_to relationship controllers 
-
-  //  c.addPatient = function()
-
-// patient - doctor relation. Doctor logged in accepts patient invite
-// use existing doctor.invites.remove so just add the invites
 
     c.addAccessTo = function(req, res, next){
-        console.log('yoyo1');
         
         if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-        if(!req.body.patient_id) return reqError(res, 400, "body.patient", "missing");
+        if(!req.body.patient_id) return reqError(res, 400, "body.patient", 
+            "missing");
 
-   // check if it is a docotr logged in
-        if((!req.session) && !(req.session.account_type === 'doctor')) return res.json({logged_in : false });
+       if(!req.session.doctor) return res.json({logged_in : false });
     
-    //check if there is an invitation pending. if can't find it won't remove it
-    //run the delete invites function??
-
-        //need way to send back to this function that the user is present 
-        //and invite was successfully removed.
+  
         Doctor.findOneAndUpdate({
             _id: req.session.doctor._id
         },
         { 
             $addToSet : {
                 'has_access_to' : req.body.patient_id
+                 },            
+            $pull : {
+                'invites' : req.body.patient_id
                 }
         },
-        function(err, newDoctor){
+                
+       function(err, newDoctor){
             if(err) return reqError(res, 500, err);
             console.log(newDoctor);
             res.status(202).json(newDoctor);
+        });
+
+        Patient.Update({
+            _id : req.body.patient_id
+        },
+        {
+            $pull : {
+                'pending' : req.session.doction._id
+                },
+        },
+        function(err, newPatient){
+            if(err) return reqError(res, 500, err);
+            console.log(newPatient);
         });
 
     };
 
     c.deleteAccessTo = function(req, res, next){
         if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-        if(!req.body.patient_id) return reqError(res, 400, "body.patient", "missing");
+        if(!req.body.patient_id) 
+            return reqError(res, 400, "body.patient", "missing");
         if(!req.session.doctor) return res.json({ logged_in : false});
         
         Doctor.findOneAndUpdate({
@@ -195,7 +241,6 @@ module.exports = function(){
 
     c.getAccessTo = function(req, res, next){
         if(!req.session.doctor) return res.json({ logged_in : false});
-        console.log("stuff");
         console.log(req.session.doctor);
         console.log();
         Doctor.find ({_id: req.session.doctor._id})
@@ -209,4 +254,3 @@ module.exports = function(){
     
     return c;
 }
-
