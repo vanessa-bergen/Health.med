@@ -35,7 +35,6 @@ module.exports = function(homeDir){
     require('../app/routes/test_result.routes.js')(app);
     require('../app/routes/condition.routes.js')(app);
     require('../app/routes/doctor.routes.js')(app);
-    require('../app/routes/web_frameworks.routes.js')(app);
     require('../app/routes/web_app.routes.js')(app, homeDir);
 
     console.log("    routes intialized.");
