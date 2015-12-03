@@ -7,9 +7,10 @@ module.exports = function(app){
     app.get('/doctor/access', doctor_ctrlr.getAccessTo);
     app.delete('/doctor/access', doctor_ctrlr.deleteAccessTo);    
     app.put('/doctor/access', doctor_ctrlr.addAccessTo);
-    
-    app.get('/doctor/:doctor_id', doctor_ctrlr.get);
-    app.get('/doctor', doctor_ctrlr.index);
+   
+    app.get('/doctor/id/:doctor_id', doctor_ctrlr.get);
+    app.get('/doctor/me', doctor_ctrlr.getMe); 
+    app.get('/doctor/index', doctor_ctrlr.index);
     
     app.param('doctor_id', doctor_ctrlr.findById);
 
