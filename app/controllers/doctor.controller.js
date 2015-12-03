@@ -1,6 +1,8 @@
 module.exports = function(){
     var Doctor = require('mongoose').model('Doctor');
     var Patient = require('mongoose').model('Patient');
+    var hmSession = require('./session.controller.js');
+    
     var isEmpty = require('./isEmpty.js');
     var reqError = require('./reqError.js');
     
@@ -28,19 +30,20 @@ module.exports = function(){
     };
     
     c.doLogIn = function(req, res, next){
-        if(!req.body) return reqError(res, 400, "body", "missing");
-        if(!req.body.password) return reqError(res, 400, "passsword", "missing");
-        if(!req.body.minc) return reqEror(res, 400, "minc", "missing");
+        if (!req.body) return reqError(res, 400, "body", "missing");
+        if (!req.body.password) return reqError(res, 400, "passsword", "missing");
+        if (!req.body.minc) return reqEror(res, 400, "minc", "missing");
         Doctor.findOne({ minc : req.body.minc }, function (err, doctor){
             if (err) return reqError(res, 500, err);
             
-            if(doctor.password == req.body.password) {
+            if (doctor.password === req.body.password) {
+                req.session.account_type = hmSession.account_type.DOCTOR;
                 req.session.doctor = doctor ;
-                req.session.account_type = 'doctor';
+                
                 res.json({ logged_in : true });
-        } else {
-            res.status(403).json({ logged_in: false });
-        }
+            } else {
+                res.status(403).json({ logged_in: false });
+            }
         });
     };
 

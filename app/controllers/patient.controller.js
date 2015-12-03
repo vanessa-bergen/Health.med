@@ -1,6 +1,7 @@
 module.exports = function(){
     var Patient = require('mongoose').model('Patient');
     var Doctor = require('mongoose').model('Doctor');
+    var hmSession = require('./session.controller.js');
 
     var reqError = require('./reqError.js');
     var isEmpty = require('./isEmpty.js');
@@ -33,7 +34,7 @@ module.exports = function(){
             if (err) return reqError(res, 500, err);
 
             if (patient.password === req.body.password){
-                req.session.account_type = 'patient';
+                req.session.account_type = hmSession.account_type.PATIENT;
                 req.session.patient = patient;
 
                 res.json({ logged_in : true });
