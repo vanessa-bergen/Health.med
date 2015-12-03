@@ -58,6 +58,15 @@ module.exports = function(){
         });
     };
 
+    c.getMe = function(req, res, next){
+        if (!req.session.doctor) return res.json({ logged_in : false });
+
+        res.json({
+            account_type : req.session.account_type,
+            doctor : req.session.doctor    
+        });
+    };
+
     c.get = function(req, res, next){
         if (!req.doctor) return reqError(res, 400, "doctor", "missing");
 
@@ -73,7 +82,7 @@ module.exports = function(){
     };
     
 
-//patient - doctor invite controllers
+// patient - doctor invite controllers
 // patient sends invitation. Seen as pending in patient DB
 // see as an invite in docotor dB
 
