@@ -253,8 +253,6 @@ module.exports = function(){
 
     c.getAccessTo = function(req, res, next){
         if(!req.session.doctor) return res.json({ logged_in : false});
-        console.log(req.session.doctor);
-        console.log();
         Doctor.find ({_id: req.session.doctor._id})
         .populate('has_access_to')
         .exec(function(err,doctor){

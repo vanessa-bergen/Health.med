@@ -120,6 +120,15 @@ module.exports = function(){
             res.json(patient);
         });
     };
-    
+
+    c.getPending = function(req, res, next){
+        if(!req.session.patient) return res.json({ logged_in : false });
+        Patient.find({ _id : req.session.patient._id})
+        .populate('pending')
+        .exec(function(err, patient){
+            if (err) return reqError(res, 500, err);
+            res.json(patient);
+        });
+    };
     return c;
 }
