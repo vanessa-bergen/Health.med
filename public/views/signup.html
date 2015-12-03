@@ -1,0 +1,137 @@
+<style>
+    .margin-top {
+        margin-top: 12px;
+    }
+    .margin-bottom {
+        margin-bottom: 12px;
+    }
+    .ng-invalid {
+        background-color: #ffe0e0;
+    }
+    .ng-valid {
+        background-color: #ffffff;
+    }
+    span.error {
+        color: red;
+    }
+</style>
+
+<div class="panel panel-default">
+
+    <div class="panel-body">
+        <form name="signupForm"
+            ng-controller="ctrlr_signup"
+            novalidate >
+        
+            <div class="well">
+                
+                <h4>New to Health.med? Sign up</h4>
+                <div class="form-group">
+                    <label>Name</label>
+                    <input
+                        placeholder="First"
+                        class="form-control"
+                        name="name_first"
+                        ng-model="signup.name_first"
+                        required />
+
+                    <input
+                        placeholder="Last"
+                        class="form-control margin-top"
+                        name="name_last"
+                        ng-model="signup.name_last"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+
+                    <input
+                        placeholder="Street"
+                        class="form-control"
+                        name="street"
+                        ng-model="signup.address.street"
+                        required />
+
+                    <input
+                        placeholder="City"
+                        class="form-control margin-top"
+                        name="city"
+                        ng-model="signup.address.city" />
+                
+                    <input
+                        placeholder="Province"
+                        class="form-control margin-top"
+                        name="province"
+                        ng-model="signup.address.province"
+                        required />
+                
+                    <input
+                        placeholder="Postal code"
+                        class="form-control margin-top"
+                        name="postal_code"
+                        ng-model="signup.address.postal_code"
+                        required />
+                
+                    <input
+                        placeholder="Country"
+                        class="form-control margin-top"
+                        name="country"
+                        ng-model="signup.address.country"
+                        required />
+                </div>
+
+                <div class="form-group">
+                    <label>Information</label>
+
+                    <input
+                        placeholder="Health card number"
+                        class="form-control"
+                        name="health_card_number"
+                        ng-model="signup.health_card_number"
+                        required />
+
+                    <input
+                        placeholder="Gender"
+                        class="form-control margin-top"
+                        name="gender"
+                        ng-model="signup.gender" />
+                
+                </div>
+
+                <div class="form-group">
+                    <label>Contact Information</label>
+
+                    <input
+                        placeholder="Email"
+                        class="form-control margin-top"
+                        name="province"
+                        ng-model="signup.email"
+                        required />
+
+                    <input
+                        placeholder="Primary phone number"
+                        class="form-control margin-top"
+                        name="phone_number"
+                        ng-model="signup.phone_number.primary"
+                        required />
+
+                    <input 
+                        placeholder="Secondary phone number"
+                        class="form-control margin-top"
+                        ng-model="signup.phone_number.secondary" />
+                </div>
+
+                <div class="text-center margin-top" >
+                    
+                    <a  ng-href="#signup" 
+                        class="btn btn-primary"
+                        ng-click="saveSignup(signup)"
+                        ng-disabled="signupForm.$invalid">
+                            Log In
+                    </a>
+                </div> 
+            </div>
+        </form>
+    </div>
+</div>
