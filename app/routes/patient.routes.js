@@ -27,7 +27,9 @@ module.exports = function(app){
     app.delete('/patient/:patient_id/allergy/', patient_controller.deleteAllergy); 
 
     app.get('/patient/me', patient_controller.getMe);
-
+    
+    //pending CRUDs
+    app.get('/patient/pending', patient_controller.getPending);
     // devel endpoint
     app.get('/patient', patient_controller.index);
 
