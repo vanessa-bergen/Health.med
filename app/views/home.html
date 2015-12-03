@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Health.med</title>
+    <script src="lib/angular.js"></script>
+    <script src="lib/angular-route.js"></script>
+
+    <link href="lib/bootstrap.css" rel="stylesheet" />
+
+    <!-- Angular Scripts -->
+    <script src="angular/controllers/login.ctrl.js" type="text/javascript"></script>
+
+    <script type="text/javascript" >
+        angular.module('login', ['ngRoute'])
+        .config(function($routeProvider){
+            $routeProvider.when('/for_patients', {
+                templateUrl : "/views/for_patients.html"
+            });
+
+            $routeProvider.when('/for_doctors', {
+                templateUrl : "/views/for_doctors.html"
+            });
+
+            $routeProvider.otherwise({
+                templateUrl : "/views/login.html"
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="navbar navbar-inverse">
+        <div class="col-xs-4">
+            <h2><a href="#/">Home</a></h2>
+        </div>
+
+        <div class="col-xs-4">
+            <h3 class="pull-right">
+                <a href="#/for_patients">For Patients</a>
+            </h3>
+        </div>
+
+        <div class="col-xs-4">
+            <h3 class="pull-right">
+                <a href="#/for_doctors">For Doctors</a>
+            </h3>
+        </div>
+    </div>
+
+    <ng-view />
+</body>
+</html>
