@@ -107,7 +107,10 @@
                         <button 
                             class="btn btn-primary"
                             ng-click="postLogin(login)"
-                            ng-disabled="login_form.$invalid">
+                            ng-disabled="(account_type == 'patient' ?
+                                login_form.health_card_number.$invalid :
+                                login_form.minc.$invalid) ||
+                                login_form.password.$invalid">
                             Log In
                         </button>
 
