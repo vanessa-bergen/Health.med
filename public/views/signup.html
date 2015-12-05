@@ -19,116 +19,268 @@
 <div class="panel panel-default">
 
     <div class="panel-body">
-        <form name="signupForm"
+
+        <form name="signup_form"
             ng-controller="ctrlr_signup"
-            novalidate >
-        
+            novalidate>
+    
             <div class="well">
                 
                 <h4>New to Health.med? Sign up</h4>
-                <div class="form-group">
-                    <label>Name</label>
-                    <input
-                        placeholder="First"
-                        class="form-control"
-                        name="name_first"
-                        ng-model="signup.name_first"
-                        required />
 
-                    <input
-                        placeholder="Last"
-                        class="form-control margin-top"
-                        name="name_last"
-                        ng-model="signup.name_last"
-                        required />
+                <label>I am a Doctor</label>
+                <input type="radio"
+                    name="account_type"
+                    value="doctor"
+                    ng-model="account_type"
+                    checked />
+                <br />
+
+                <label>I am a Patient</label>
+                <input type="radio"
+                    value="patient"
+                    ng-model="account_type" />
+                <br />
+
+                <!-- Patient Sign up form -->
+                <div ng-show="account_type == 'patient'">
+                    
+                    <div class="form-group">
+
+                        <label>Personal Information</label>
+                        <input
+                            placeholder="First"
+                            class="form-control"
+                            name="name_first"
+                            ng-model="signup.patient.name_first"
+                            required />
+
+                        <input
+                            placeholder="Last"
+                            class="form-control margin-top"
+                            name="name_last"
+                            ng-model="signup.patient.name_last"
+                            required />
+
+                        <input
+                            placeholder="Health card number"
+                            class="form-control margin-top"
+                            name="health_card_number"
+                            ng-model="signup.patient.health_card_number"
+                            required />
+
+                        <input
+                            placeholder="Gender"
+                            class="form-control margin-top"
+                            name="gender"
+                            ng-model="signup.patient.gender"
+                            required /> 
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Address</label>
+
+                        <input
+                            placeholder="Street"
+                            class="form-control"
+                            name="street"
+                            ng-model="signup.patient.address.street"
+                            required />
+
+                        <input
+                            placeholder="City"
+                            class="form-control margin-top"
+                            name="city"
+                            ng-model="signup.patient.address.city"
+                            required />
+                    
+                        <input
+                            placeholder="Province"
+                            class="form-control margin-top"
+                            name="province"
+                            ng-model="signup.patient.address.province"
+                            required />
+                    
+                        <input
+                            placeholder="Postal code"
+                            class="form-control margin-top"
+                            name="postal_code"
+                            ng-model="signup.patient.address.postal_code"
+                            required />
+                    
+                        <input
+                            placeholder="Country"
+                            class="form-control margin-top"
+                            name="country"
+                            ng-model="signup.patient.address.country"
+                            required />
+                    </div>
+ 
+                    <div class="form-group">
+                        <label>Contact Information</label>
+
+                        <input
+                            placeholder="Email"
+                            class="form-control margin-top"
+                            name="email"
+                            ng-model="signup.patient.email"
+                            required />
+
+                        <input
+                            placeholder="Primary phone number"
+                            class="form-control margin-top"
+                            name="phone_number"
+                            ng-model="signup.patient.phone_number.primary"
+                            required />
+
+                        <input 
+                            placeholder="Secondary phone number"
+                            class="form-control margin-top"
+                            ng-model="signup.patient.phone_number.secondary" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input
+                            placeholder="Password"
+                            class="form-control"
+                            type="password"
+                            name="password"
+                            ng-model="signup.patient.password"
+                            required />
+
+                        <!-- TODO: have second "confirm password" field -->
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label>Address</label>
+                <!-- Doctor signup form stuiff -->
+                <div ng-show="account_type == 'doctor'">
+                    
+                    <div class="form-group">
 
-                    <input
-                        placeholder="Street"
-                        class="form-control"
-                        name="street"
-                        ng-model="signup.address.street"
-                        required />
+                        <label>Personal Information</label>
+                        <input
+                            placeholder="First"
+                            class="form-control"
+                            name="name_first"
+                            ng-model="signup.doctor.name_first"
+                            required />
 
-                    <input
-                        placeholder="City"
-                        class="form-control margin-top"
-                        name="city"
-                        ng-model="signup.address.city" />
-                
-                    <input
-                        placeholder="Province"
-                        class="form-control margin-top"
-                        name="province"
-                        ng-model="signup.address.province"
-                        required />
-                
-                    <input
-                        placeholder="Postal code"
-                        class="form-control margin-top"
-                        name="postal_code"
-                        ng-model="signup.address.postal_code"
-                        required />
-                
-                    <input
-                        placeholder="Country"
-                        class="form-control margin-top"
-                        name="country"
-                        ng-model="signup.address.country"
-                        required />
-                </div>
+                        <input
+                            placeholder="Last"
+                            class="form-control margin-top"
+                            name="name_last"
+                            ng-model="signup.doctor.name_last"
+                            required />
+                        
+                        <input
+                            placeholder="Gender"
+                            class="form-control margin-top"
+                            name="gender"
+                            ng-model="signup.doctor.gender"
+                            required />
 
-                <div class="form-group">
-                    <label>Information</label>
+                        <input
+                            placeholder="Medical specialization"
+                            class="form-control margin-top"
+                            name="specialization"
+                            ng-model="signup.doctor.specialization"
+                            required />
 
-                    <input
-                        placeholder="Health card number"
-                        class="form-control"
-                        name="health_card_number"
-                        ng-model="signup.health_card_number"
-                        required />
+                        <input
+                            placeholder="MINC"
+                            class="form-control margin-top"
+                            name="minc"
+                            ng-model="signup.doctor.minc"
+                            required />
 
-                    <input
-                        placeholder="Gender"
-                        class="form-control margin-top"
-                        name="gender"
-                        ng-model="signup.gender" />
-                
-                </div>
+                    </div>
 
-                <div class="form-group">
-                    <label>Contact Information</label>
+                    <div class="form-group">
+                        <label>Contact Information</label>
 
-                    <input
-                        placeholder="Email"
-                        class="form-control margin-top"
-                        name="province"
-                        ng-model="signup.email"
-                        required />
+                        <input
+                            placeholder="Email"
+                            class="form-control margin-top"
+                            name="email"
+                            ng-model="signup.doctor.email"
+                            required />
 
-                    <input
-                        placeholder="Primary phone number"
-                        class="form-control margin-top"
-                        name="phone_number"
-                        ng-model="signup.phone_number.primary"
-                        required />
+                        <input
+                            placeholder="Primary phone number"
+                            class="form-control margin-top"
+                            name="phone_number"
+                            ng-model="signup.doctor.phone_number.primary"
+                            required />
 
-                    <input 
-                        placeholder="Secondary phone number"
-                        class="form-control margin-top"
-                        ng-model="signup.phone_number.secondary" />
+                        <input 
+                            placeholder="Secondary phone number"
+                            class="form-control margin-top"
+                            ng-model="signup.doctor.phone_number.secondary" />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Address</label>
+
+                        <input
+                            placeholder="Street"
+                            class="form-control"
+                            name="street"
+                            ng-model="signup.doctor.address.street"
+                            required />
+
+                        <input
+                            placeholder="City"
+                            class="form-control margin-top"
+                            name="city"
+                            ng-model="signup.doctor.address.city"
+                            required />
+                    
+                        <input
+                            placeholder="Province"
+                            class="form-control margin-top"
+                            name="province"
+                            ng-model="signup.doctor.address.province"
+                            required />
+                    
+                        <input
+                            placeholder="Postal code"
+                            class="form-control margin-top"
+                            name="postal_code"
+                            ng-model="signup.doctor.address.postal_code"
+                            required />
+                    
+                        <input
+                            placeholder="Country"
+                            class="form-control margin-top"
+                            name="country"
+                            ng-model="signup.doctor.address.country"
+                            required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Password</label>
+                        <input
+                            placeholder="Password"
+                            class="form-control"
+                            type="password"
+                            name="password"
+                            ng-model="signup.doctor.password"
+                            required />
+
+                        <!-- TODO: have second "confirm password" field -->
+                    </div>
+
                 </div>
 
                 <div class="text-center margin-top" >
                     
-                    <a  ng-href="#signup" 
+                    <a ng-href="#signup" 
                         class="btn btn-primary"
-                        ng-click="saveSignup(signup)"
-                        ng-disabled="signupForm.$invalid">
-                            Log In
+                        ng-click="account_type == 'patient' ? 
+                            postSignup(signup.patient) :
+                            postSignup(signup.doctor)">
+                        Sign Up
                     </a>
                 </div> 
             </div>
