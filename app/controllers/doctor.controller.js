@@ -166,24 +166,28 @@ module.exports = function(){
                 'invites' : req.session.patient._id
                            }
         }, 
-        function(err, newDoctor){
+        function(err, num_upd){
             if(err) return reqError(res, 500, err);
-            console.log(newDoctor);
+            console.log(num_upd)
+            if(num_upd.n == 0) return reqError(res, 400, "doctor","does not exist");
+
+            Patient.update({
+                _id : req.session.patient._id
+            },
+            {
+                $addToSet : {
+                    'pending' : req.body.doctor_id
+                    }
+            },
+            function(err, newPatient){
+                if(err) return reqError(res, 500, err);
+                res.status(202).json(newPatient);
+            });
+     
         });
 
-        Patient.update({
-            _id : req.session.patient._id
-        },
-        {
-            $addToSet : {
-                'pending' : req.body.doctor_id
-                }
-        },
-        function(err, newPatient){
-            if(err) return reqError(res, 500, err);
-            res.status(202).json(newPatient);
-      });
-    };
+
+   };
 
 
  // doctor-patient has_access_to relationship controllers 
