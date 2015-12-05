@@ -12,12 +12,15 @@ module.exports = function(){
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
 
         var newPatient = new Patient(req.body);
-        newPatient.save(function(err){
+        newPatient.save(function(err, patient){
             if (err) return reqError(res, 500, err);
 
-            console.log(JSON.stringify({ patient : newPatient }) + "\n");
+            req.session.account_type = hmSession.account_type.PATIENT;
+            req.session.patient = patient;
+
+            console.log(JSON.stringify({ patient : patient }) + "\n");
             res.status(201).json({
-                patient : newPatient
+                patient : patient
             });
         });
     };
