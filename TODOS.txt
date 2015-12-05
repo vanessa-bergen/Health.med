@@ -1,6 +1,6 @@
 done? | To Do 
 ------+------------------------------------------- 
-      |  Make allergy uniqueness validator some how = hack db 
+      |  Make allergy uniqueness validator some how = hack db (Chris)
 CHECK |  Make doctor objects unique
 CHECK |  Make mackenzie su
 CHECK |  Make doctor routes file (vanessa)
@@ -10,4 +10,12 @@ CHECK |  add/remove doctor.has_access_to (mackenzie)
 CHECK |  appointment with patients and doctors relationship (chris)
 CHECK |  Make add access to unique (can't add same patient 2x)  
 CHECK |  Make "pending" patient DB & update with add/remove invites
-      |  Update add/remove invite so can only invite a doctor if they exist in           DB if not should get an error/feedback saying not in DB
+CHECK |  Update add/remove invite so can only invite a doctor if they exist in      
+      |  Sign up form validation buttonn (Chris)
+      |  Allergy form (mackenzie)
+      |  Persciption form (vanessa)
+      |  Doctor notes appointment patient  
+      |  Patient home page (mackenzie)
+      |  Doctor home page (vanessa)
+      |  Condition form 
+      |  Medication (display not input, input via perscription)
