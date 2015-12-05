@@ -2,8 +2,8 @@
 <html ng-app="module_login">
 <head>
     <title>Health.med</title>
-    <script src="lib/angular/src/angular.js"></script>
-    <script src="lib/angular/src/angular-route.js"></script>
+    <script src="lib/angular/min/angular.min.js"></script>
+    <script src="lib/angular/min/angular-route.min.js"></script>
 
     <link href="lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
 
@@ -12,6 +12,10 @@
 
         angular.module('module_login', ['ngRoute'])
         .config(function($routeProvider){
+            $routeProvider.when('/signup', {
+                templateUrl : "/views/signup.html"
+            });
+
             $routeProvider.when('/for_patients', {
                 templateUrl : "/views/for_patients.html"
             });

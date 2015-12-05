@@ -32,7 +32,7 @@ module.exports = function(){
             health_card_number : req.body.health_card_number 
         }, function(err, patient){
             if (err) return reqError(res, 500, err);
-
+            if (!patient) return reqError(res, 401,"invalid health card number");
             if (patient.password === req.body.password){
                 req.session.account_type = hmSession.account_type.PATIENT;
                 req.session.patient = patient;

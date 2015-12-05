@@ -27,7 +27,14 @@
                     making doctor collaboration a breeze.
                 </p>
                 <p>Established 2015.</p>
-                <p>Not a member? Sign up today!</p>
+                <p>
+                    Not a member? 
+                    <a
+                        class="btn btn-primary"
+                        href="#/signup">
+                        Sign Up Today!
+                    </a>
+                </p>
             </div>
         </div>
            
@@ -60,19 +67,18 @@
                     <div ng-show="account_type == 'doctor'">
                         <span class="error"
                             ng-show="login_form.minc.$error.required ||
-                            loginForm.health_card_number.$error.number">
-                            Invalid health card number
+                            loginForm.minc.$error.number">
+                            Invalid MINC
                         </span>
                            
                         <input
                             placeholder="MINC"
-                            type="number"
                             class="form-control"
                             name="minc"
                             ng-model="login.minc"
                             required />
                     </div> 
-                   
+                  
                     <div ng-show="account_type == 'patient'">
                         <span class="error"
                             ng-show="login_form.health_card_number.$error.required ||
@@ -82,7 +88,6 @@
                            
                         <input
                             placeholder="Health card number"
-                            type="number"
                             class="form-control"
                             name="health_card_number"
                             ng-model="login.health_card_number"
