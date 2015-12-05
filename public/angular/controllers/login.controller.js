@@ -45,12 +45,4 @@ angular.module('module_login')
         }
     };
     
-})
-.controller('ctrlr_signup', function($scope, $http, $window, $location, ENDPOINT){
-    $scope.signup = {};
-    $scope.account_type = undefined;
-
-    $scope.signupFailed = false;
-
-
 });
