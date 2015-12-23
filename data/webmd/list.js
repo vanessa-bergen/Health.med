@@ -1,9 +1,10 @@
 var fs = require('fs');
+
 function nextChar(c){
     return String.fromCharCode(c.charCodeAt(0) + 1);
 }
 
-var printSymptoms = function(c){
+function printSymptoms(c){
     fs.readFile("webmd_symptoms.json", 'utf8', function(err, data){
         if (err) {
             console.log(JSON.stringify(err));
@@ -21,7 +22,7 @@ var printSymptoms = function(c){
     });
 };
 
-var main = function(){
+function main(){
     if (process.argv.length >= 3){
         var c = process.argv[2];
         printSymptoms(c);
