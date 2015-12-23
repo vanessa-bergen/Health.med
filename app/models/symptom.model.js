@@ -7,14 +7,14 @@ var SymptomSchema = new Schema ({
         type: String,
         required: true    
     },
-    body_section: {
-        type: String,
-        required: true    
-    },        
-    body_sub_section: {
-        type: String,
-        required: true    
-    }    
+//    body_section: {
+//        type: String,
+//        required: true    
+//    },        
+//    body_sub_section: {
+//        type: String,
+//        required: true    
+//    }    
 });
 
 mongoose.model('Symptom', SymptomSchema);
