@@ -5,6 +5,7 @@ var Schema = mongoose.Schema;
 var SymptomSchema = new Schema ({
     name: {
         type: String,
+        unique : true, 
         required: true    
     },
 //    body_section: {
