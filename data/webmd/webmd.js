@@ -58,7 +58,9 @@ client(ENDPOINT, function(err, res, body){
                 var li = $(this).children('li');
 
                 li.each(function(){
-                    symptoms.push($(this).text());
+                    symptoms.push({
+                        name : $(this).text()
+                    });
                 });
             });
 

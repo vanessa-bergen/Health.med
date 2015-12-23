@@ -14,8 +14,8 @@ function printSymptoms(c){
             console.log(c);
             
             for (var i = 0; i < list.length; i += 1){
-                if (c.toUpperCase() === list[i][0].toUpperCase()){
-                    console.log("    " + list[i]);
+                if (c.toUpperCase() === list[i].name[0].toUpperCase()){
+                    console.log("    " + list[i].name);
                 }
             }
         }
