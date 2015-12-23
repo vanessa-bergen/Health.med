@@ -1,6 +1,8 @@
 var request = require('request-with-cookies');
 var cheerio = require('cheerio');
 var fs = require('fs');
+var db = require('../../config/mongoose.js')();
+var Symptom = require('mongoose').model('Symptom');
 
 var ENDPOINT = "http://symptomchecker.webmd.com/symptoms-a-z";
 
@@ -37,16 +39,29 @@ function nextChar(c){
     return String.fromCharCode(c.charCodeAt(0) + 1);
 };
 
+var completeDbInsertion = false;
+var completeWriteToFile = !(process.argv.length >= 3 &&
+        process.argv[2] &&
+        process.argv[2][1] == 's');
+
+function tryExit(){
+    if (completeDbInsertion && completeWriteToFile){
+         process.exit();
+    }
+}
+
 var client = request.createClient(options);
 
 console.log("Requesting...");
 
 client(ENDPOINT, function(err, res, body){
     if (err) {
-        console.log("Error: " + JSON.stringify(err));
+        console.log("Error: " + JSON.stringify(err) + "\n");
+        process.exit();
     } else {
-        console.log("Success: " + res.statusCode);
+        console.log("Success: " + res.statusCode + "\n");
         
+        console.log("Pulling Symptoms...");
         var $ = cheerio.load(body);
         var currentChar = "A";
         var symptoms = [];
@@ -66,14 +81,36 @@ client(ENDPOINT, function(err, res, body){
 
             currentChar = nextChar(currentChar);
         }
-        
-        writeSymptomsJson("webmd_symptoms", symptoms);
+        console.log("Done." + "\n");
+
+        if (symptoms.length >= 0){
+            console.log("Saving symptoms to Symptom collection...");
+            
+            Symptom.create(symptoms, function(err){
+                if (err) {
+                    console.log("Error creating new Symptoms");
+                    console.log(JSON.stringify(err));
+                } else {
+                    console.log("Successfully added " + 
+                            symptoms.length + 
+                            " to Symptoms collection"
+                    );
+                }
+                completeDbInsertion = true;
+                tryExit();
+            });
+        }
+
+
+        if (!completeWriteToFile){
+            writeSymptomsJson("webmd_symptoms", symptoms);
+        }
     }
 });
 
 var writeSymptomsJson = function(character, symptomsList){
     var filename = character + ".json";
-    console.log('Writing file ' + filename);
+    console.log('Writing file ' + filename + "...");
 
     fs.writeFile(__dirname + "/" + filename, JSON.stringify(symptomsList),
     function(err){
@@ -83,5 +120,7 @@ var writeSymptomsJson = function(character, symptomsList){
         } else {
             console.log(filename + " successfully written");
         }
+        completeWriteToFile = true;
+        tryExit();
     });
 };
