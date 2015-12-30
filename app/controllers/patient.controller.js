@@ -11,6 +11,8 @@ module.exports = function(){
     c.create = function(req, res, next){
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
 
+        // TODO -> one-way hashing of passwords
+
         var newPatient = new Patient(req.body);
         newPatient.save(function(err, patient){
             if (err) return reqError(res, 500, err);
@@ -35,7 +37,10 @@ module.exports = function(){
             health_card_number : req.body.health_card_number 
         }, function(err, patient){
             if (err) return reqError(res, 500, err);
-            if (!patient) return reqError(res, 401,"invalid health card number");
+            if (!patient)
+                return reqError(res, 401,"invalid health card number");
+            
+            // TODO -> one-way hashing of passwords
             if (patient.password === req.body.password){
                 req.session.account_type = hmSession.account_type.PATIENT;
                 req.session.patient = patient;
