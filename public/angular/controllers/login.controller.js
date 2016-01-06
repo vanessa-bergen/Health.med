@@ -23,7 +23,9 @@ angular.module('module_login')
                 }
             })
             .error(function(error){
-                console.log('post log in error: ' + JSON.stringify(error));
+                if (error){
+                    console.log('post log in error: ' + JSON.stringify(error));
+                }
                 $scope.loginFailed = true;
             });
         } else if ($scope.account_type == 'doctor') {
