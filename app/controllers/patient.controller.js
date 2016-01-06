@@ -52,6 +52,12 @@ module.exports = function(){
         });
     };
 
+    c.doLogOut = function(req, res, next){
+        req.session.destroy();
+
+        res.status(201).json({logged_in : false });
+    };
+
     c.findById = function(req, res, next, patient_id){
         if (!patient_id) return next();
 

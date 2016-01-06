@@ -3,6 +3,7 @@ module.exports = function(app){
     patient_controller = patient_controller();
 
     app.post('/patient/login', patient_controller.doLogIn);
+    app.delete('/patient/login', patient_controller.doLogOut);
     app.post('/patient', patient_controller.create);
 
     // patient.allergy CRUDs
