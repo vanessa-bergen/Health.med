@@ -5,10 +5,10 @@
     .margin-bottom {
         margin-bottom: 12px;
     }
-    .ng-invalid {
+    input.ng-invalid {
         background-color: #ffe0e0;
     }
-    .ng-valid {
+    input.ng-valid {
         background-color: #ffffff;
     }
     span.error {
@@ -19,32 +19,32 @@
 <div class="panel panel-default">
 
     <div class="panel-body">
-
-        <form name="signup_form"
-            ng-controller="ctrlr_signup"
-            novalidate>
     
-            <div class="well">
+        <div class="well">
                 
-                <h4>New to Health.med? Sign up</h4>
+            <h4>New to Health.med? Sign up</h4>
 
-                <label>I am a Doctor</label>
-                <input type="radio"
-                    name="account_type"
-                    value="doctor"
-                    ng-model="account_type"
-                    checked />
-                <br />
+            <label>I am a Doctor</label>
+            <input type="radio"
+                name="account_type"
+                value="doctor"
+                ng-model="account_type"
+                checked />
+            <br />
 
-                <label>I am a Patient</label>
-                <input type="radio"
-                    value="patient"
-                    ng-model="account_type" />
-                <br />
+            <label>I am a Patient</label>
+            <input type="radio"
+                value="patient"
+                ng-model="account_type" />
+            <br />
 
-                <!-- Patient Sign up form -->
-                <div ng-show="account_type == 'patient'">
-                    
+            <!-- Patient Sign up form -->
+            <div ng-show="account_type == 'patient'">
+    
+                <form name="patient_signup_form"
+                    ng-controller="ctrlr_signup"
+                    novalidate>                
+                        
                     <div class="form-group">
 
                         <label>Personal Information</label>
@@ -151,10 +151,25 @@
 
                         <!-- TODO: have second "confirm password" field -->
                     </div>
-                </div>
 
-                <!-- Doctor signup form stuiff -->
-                <div ng-show="account_type == 'doctor'">
+                    <div class="text-center margin-top" >                        
+                        <a ng-href="#signup" 
+                            class="btn btn-primary"
+                            ng-click="postSignup(signup.patient)"
+                            ng-disabled="patient_signup_form.$invalid">
+                            Create New Patient Account
+                        </a>
+                    </div>
+
+                </form>
+            </div>
+
+            <!-- Doctor signup form stuiff -->
+            <div ng-show="account_type == 'doctor'">
+                
+                <form name="doctor_signup_form"
+                    ng-controller="ctrlr_signup"
+                    novalidate>   
                     
                     <div class="form-group">
 
@@ -270,20 +285,18 @@
 
                         <!-- TODO: have second "confirm password" field -->
                     </div>
+ 
+                    <div class="text-center margin-top" >
+                        <a ng-href="#signup" 
+                            class="btn btn-primary"
+                            ng-click="postSignup(signup.doctor)"i
+                            ng-disabled="doctor_signup_form.$invalid">
+                            Create New Doctor's Account
+                        </a>
+                    </div>
 
-                </div>
-
-                <div class="text-center margin-top" >
-                    
-                    <a ng-href="#signup" 
-                        class="btn btn-primary"
-                        ng-click="account_type == 'patient' ? 
-                            postSignup(signup.patient) :
-                            postSignup(signup.doctor)">
-                        Sign Up
-                    </a>
                 </div> 
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>

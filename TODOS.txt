@@ -11,7 +11,7 @@ CHECK |  appointment with patients and doctors relationship (chris)
 CHECK |  Make add access to unique (can't add same patient 2x)  
 CHECK |  Make "pending" patient DB & update with add/remove invites
 CHECK |  Update add/remove invite so can only invite a doctor if they exist in      
-      |  Sign up form validation button (Chris)
+CHECK |  Sign up form validation button (Chris)
       |  Allergy form (mackenzie)
       |  Persciption form (vanessa)
       |  Doctor notes appointment patient 
@@ -19,3 +19,4 @@ CHECK |  Update add/remove invite so can only invite a doctor if they exist in
       |  Doctor home page (vanessa)
       |  Condition form 
       |  Medication (display not input, input via perscription)
+      |  One-way hashing of passwords server side (Chris)
