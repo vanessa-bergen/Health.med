@@ -12,7 +12,13 @@ CHECK |  Make add access to unique (can't add same patient 2x)
 CHECK |  Make "pending" patient DB & update with add/remove invites
 CHECK |  Update add/remove invite so can only invite a doctor if they exist in      
 CHECK |  Sign up form validation button (Chris)
-      |  Allergy form (mackenzie)
+CHECK |  Send minified bootstrap (Chris)
+      |  logout button double clicking problem (Chris)
+      |  Profile view (Chris)
+      |  Messages databasing (Chris)
+      |  Messages view (Chris)
+      |  Message form (Chris)
+      |  
       |  Persciption form (vanessa)
       |  Doctor notes appointment patient 
       |  Patient home page (mackenzie)
@@ -20,3 +26,4 @@ CHECK |  Sign up form validation button (Chris)
       |  Condition form 
       |  Medication (display not input, input via perscription)
       |  One-way hashing of passwords server side (Chris)
+      |  Make it possible to upload documents
