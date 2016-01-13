@@ -1,8 +1,9 @@
-console.log('ctrl_login');
+console.log('ctrlr_login');
 
 angular.module('module_login')
-.constant('ENDPOINT', 'http://107.170.196.22:3004')
 .controller('ctrlr_login', function($scope, $http, $location, $window, ENDPOINT){
+    console.log("ENDPOINT = " + ENDPOINT);
+
     $scope.login = {};
     $scope.account_type = 'patient';
 
@@ -46,5 +47,4 @@ angular.module('module_login')
         
         }
     };
-    
 });

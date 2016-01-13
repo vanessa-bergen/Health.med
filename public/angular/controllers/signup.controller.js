@@ -1,7 +1,6 @@
 console.log('ctrlr_signup');
 
 angular.module('module_login')
-.constant('ENDPOINT', 'http://107.170.196.22:3004')
 .controller('ctrlr_signup', function($scope, $http, $location, $window, ENDPOINT){
     $scope.signup = {
         doctor : {},
