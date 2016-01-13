@@ -16,110 +16,107 @@
     }
 </style>
 
-<div class="panel panel-default">
+<div>
 
-    <div class="panel-body">
-        <div class="col-xs-6">
-            <div class="well" >
-                <h2>Welcome to Health.med</h2>
-                <p>
-                    We here at Health.med strive to centralize patient medical
-                    making doctor collaboration a breeze.
-                </p>
-                <p>Established 2015.</p>
-                <p>
-                    Not a member? 
-                    <a
-                        class="btn btn-primary"
-                        href="#/signup">
-                        Sign Up Today!
-                    </a>
-                </p>
-            </div>
+    <div class="col-xs-4"></div>
+       
+    <div class="col-xs-8">
+        <div class="well" >
+            <h2>Welcome to Health.med</h2>
+            <p>
+                We here at Health.med strive to centralize patient medical
+                making doctor collaboration a breeze.
+            </p>
+            <p>Established 2015.</p>
+            <p>
+                Not a member? 
+                <a
+                    class="btn btn-primary"
+                    href="#/signup">
+                    Sign Up Today!
+                </a>
+            </p>
         </div>
-           
-        <div class="col-xs-6">
+
+        <div class="well">
             <form name="login_form"
                 ng-controller="ctrlr_login"
                 novalidate >
-            
-                <div class="well">
-                    
-                    <h4>Returning Members</h4>
-
-                    <label>Doctor</label>
-                    <input
-                        type="radio"
-                        name="account_type"
-                        value="doctor"
-                        ng-model="account_type"
-                        checked />
-                    <br />
-
-                    <label>Patient</label>
-                    <input
-                        type="radio"
-                        name="account_type"
-                        ng-model="account_type"
-                        value="patient" />
-                    <br />
-
-                    <div ng-show="account_type == 'doctor'">
-                        <span class="error"
-                            ng-show="login_form.minc.$error.required ||
-                            loginForm.minc.$error.number">
-                            Invalid MINC
-                        </span>
-                           
-                        <input
-                            placeholder="MINC"
-                            class="form-control"
-                            name="minc"
-                            ng-model="login.minc"
-                            required />
-                    </div> 
-                  
-                    <div ng-show="account_type == 'patient'">
-                        <span class="error"
-                            ng-show="login_form.health_card_number.$error.required ||
-                            loginForm.health_card_number.$error.number">
-                            Invalid health card number
-                        </span>
-                           
-                        <input
-                            placeholder="Health card number"
-                            class="form-control"
-                            name="health_card_number"
-                            ng-model="login.health_card_number"
-                            required />
-                    </div>
-
-                   <input
-                        placeholder="Password"
-                        type="password"
-                        class="form-control margin-top"
-                        name="password"
-                        ng-model="login.password"
-                        required />
                 
-                    <div class="text-center margin-top" >
-                        
-                        <button 
-                            class="btn btn-primary"
-                            ng-click="postLogin(login)"
-                            ng-disabled="(account_type == 'patient' ?
-                                login_form.health_card_number.$invalid :
-                                login_form.minc.$invalid) ||
-                                login_form.password.$invalid">
-                            Log In
-                        </button>
+                <h4>Returning Members</h4>
 
-                        <span class="error"
-                            ng-show="loginFailed">
-                            Error logging in.
-                        </span> 
-                    </div> 
+                <label>Doctor</label>
+                <input
+                    type="radio"
+                    name="account_type"
+                    value="doctor"
+                    ng-model="account_type"
+                    checked />
+                <br />
+
+                <label>Patient</label>
+                <input
+                    type="radio"
+                    name="account_type"
+                    ng-model="account_type"
+                    value="patient" />
+                <br />
+
+                <div ng-show="account_type == 'doctor'">
+                    <span class="error"
+                        ng-show="login_form.minc.$error.required ||
+                        loginForm.minc.$error.number">
+                        Invalid MINC
+                    </span>
+                       
+                    <input
+                        placeholder="MINC"
+                        class="form-control"
+                        name="minc"
+                        ng-model="login.minc"
+                        required />
+                </div> 
+              
+                <div ng-show="account_type == 'patient'">
+                    <span class="error"
+                        ng-show="login_form.health_card_number.$error.required ||
+                        loginForm.health_card_number.$error.number">
+                        Invalid health card number
+                    </span>
+                       
+                    <input
+                        placeholder="Health card number"
+                        class="form-control"
+                        name="health_card_number"
+                        ng-model="login.health_card_number"
+                        required />
                 </div>
+
+               <input
+                    placeholder="Password"
+                    type="password"
+                    class="form-control margin-top"
+                    name="password"
+                    ng-model="login.password"
+                    required />
+            
+                <div class="text-center margin-top" >
+                    
+                    <button 
+                        class="btn btn-primary"
+                        ng-click="postLogin(login)"
+                        ng-disabled="(account_type == 'patient' ?
+                            login_form.health_card_number.$invalid :
+                            login_form.minc.$invalid) ||
+                            login_form.password.$invalid">
+                        Log In
+                    </button>
+
+                    <span class="error"
+                        ng-show="loginFailed">
+                        Error logging in.
+                    </span> 
+                </div> 
             </form>
         </div>
     </div>
