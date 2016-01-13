@@ -7,12 +7,6 @@ var AllergySchema = new Schema({
         type : String,
         required : true
     },
-
-    type : {
-        type : String,
-        required : true
-    },
-
     severity : {
         type : String,
         enum : [
@@ -22,12 +16,20 @@ var AllergySchema = new Schema({
         ],
         required : true
     },
-
     exposure_type : {
         type : String,
         required : true
+    },
+    symptoms : {
+        type: [{     
+            type : Schema.Types.ObjectId,
+            ref : 'Symptom'
+    }]
+        , default : []
     }
+   
 });
+
 
 mongoose.model('Allergy', AllergySchema);
 
