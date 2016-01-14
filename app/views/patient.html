@@ -17,11 +17,18 @@
             height: 100%;
             margin: 0;
         }
+        div.no_space {
+            margin: 0;
+            padding: 0;
+        }
+        div.labeled_input {
+            white-space: nowrap;"
+        }   
     </style>
 </head>
 
 <body ng-controller="ctrlr_patient">
-    <div class="navbar navbar-default">
+    <div class="navbar navbar-default no_space">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Home</a>
@@ -52,7 +59,7 @@
         </div>
     </div>
     
-    <div class="col-sm-3 sidebar">
+    <div class="col-sm-3 sidebar" style="background-color: #f8f8f8;">
         <ul class="nav nav-sidebar">
             <li><a href="#/profile">Profile</a></li>
             <li><a href="#/allergies">Allergies</a></li>
@@ -64,9 +71,7 @@
     </div>
 
     <div class="col-xs-9">
-        <div class="well">
-            <ng-view /> 
-        </div>
+        <ng-view /> 
     </div>
 </body>
 </html>

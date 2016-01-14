@@ -1,23 +1,4 @@
-<style>
-    .margin-top {
-        margin-top: 12px;
-    }
-    .margin-bottom {
-        margin-bottom: 12px;
-    }
-    .ng-invalid {
-        background-color: #ffe0e0;
-    }
-    .ng-valid {
-        background-color: #ffffff;
-    }
-    span.error {
-        color: red;
-    }
-</style>
-
 <div>
-
     <div class="col-xs-4"></div>
        
     <div class="col-xs-8">
@@ -38,11 +19,11 @@
             </p>
         </div>
 
-        <div class="well">
-            <form name="login_form"
+        <form name="login_form"
                 ng-controller="ctrlr_login"
                 novalidate >
                 
+            <div class="well">
                 <h4>Returning Members</h4>
 
                 <label>Doctor</label>
@@ -117,7 +98,7 @@
                         Error logging in.
                     </span> 
                 </div> 
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 </div>
