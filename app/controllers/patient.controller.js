@@ -1,6 +1,7 @@
 module.exports = function(){
     var Patient = require('mongoose').model('Patient');
     var Doctor = require('mongoose').model('Doctor');
+    var Allergy = require('mongoose').model('Allergy');
     var hmSession = require('./session.controller.js');
 
     var reqError = require('./reqError.js');
@@ -55,7 +56,7 @@ module.exports = function(){
     c.doLogOut = function(req, res, next){
         req.session.destroy();
 
-        res.status(201).json({logged_in : false });
+        res.status(202).json({logged_in : false });
     };
 
     c.findById = function(req, res, next, patient_id){
@@ -72,9 +73,18 @@ module.exports = function(){
     c.getMe = function(req, res, next){
         if (!req.session.patient) return res.json({ logged_in : false });
 
-        res.json({
-            account_type : req.session.account_type,
-            patient : req.session.patient
+        Patient.findOne({
+            _id : req.session.patient._id
+        })
+        .populate('allergies')
+        .exec(function(err, patient){
+            if (err) return reqError(res, 500, err);
+
+            req.session.patient = patient;
+            res.json({
+                account_type : req.session.account_type,
+                patient : patient
+            });
         });
     };
 
@@ -90,20 +100,31 @@ module.exports = function(){
     // patient-allergy relationship controllers
 
     c.addAllergy = function(req, res, next){
-        if (!req.patient) return reqError(res, 400, "patient", "missing");        
+        if (!req.session.patient) return reqError(res, 401, "error", "not logged in");
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
         if (!req.body.allergy) return reqError(res, 400, "body.allergy", "missing");
-     
-        req.patient.allergies.push(req.body.allergy);
-        req.patient.save(function(err){
-            if (err) return reqError(res, 500, err);   
-           
-            res.status(202).json(req.patient);
+
+        var newAllergy = new Allergy(req.body.allergy)
+        .save(function(err, newDoc){
+            if (err) return reqError(res, 500, err);
+
+            Patient.update({
+                _id : req.session.patient._id
+            },
+            { 
+                $push : {
+                    'allergies' : newDoc._id
+                }
+            }, function(err, doc){
+                if (err) return reqError(res, 500, err);
+
+                res.status(202).json(doc);
+            });
         });
     };
 
     c.deleteAllergy = function(req, res, next){
-        if (!req.patient) return reqError(res, 400, "patient", "missing");
+        if (!req.session.patient) return reqError(res, 401, "error", "not logged in");
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
         if (!req.body.allergy) return reqError(res, 400, "body.allergy", "missing");
    
