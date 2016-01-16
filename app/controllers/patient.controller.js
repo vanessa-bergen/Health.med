@@ -108,17 +108,28 @@ module.exports = function(){
         .save(function(err, newDoc){
             if (err) return reqError(res, 500, err);
 
-            Patient.update({
+            Patient.findOneAndUpdate({
                 _id : req.session.patient._id
             },
             { 
                 $push : {
                     'allergies' : newDoc._id
                 }
-            }, function(err, doc){
+            }, 
+            {
+                new : true
+            },
+            function(err, patient){
                 if (err) return reqError(res, 500, err);
-
-                res.status(202).json(doc);
+            
+                Patient.populate(patient, {
+                    path : "allergies"
+                }, function(err, doc){
+                    if (err) reqError(res, 500, err);
+    
+                    console.log(JSON.stringify(doc));
+                    res.status(202).json(doc);
+                });
             });
         });
     };
