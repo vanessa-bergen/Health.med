@@ -19,6 +19,7 @@ CHECK |  Send minified bootstrap (Chris)
       |  Messages view (Chris)
       |  Message form (Chris)
       |  
+      |  Update allergy route
       |  Persciption form (vanessa)
       |  Doctor notes appointment patient 
       |  Patient home page (mackenzie)
