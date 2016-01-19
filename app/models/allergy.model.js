@@ -7,25 +7,19 @@ var AllergySchema = new Schema({
         type : String,
         required : true
     },
-    severity : {
-        type : String,
-        enum : [
-            'mild',
-            'moderate',
-            'severe'
-        ],
+    life_threatening : { 
+        type : Boolean,
         required : true
     },
-    exposure_type : {
-        type : String,
-        required : true
+    exposure_method : {
+        type : String
     },
     symptoms : {
         type: [{     
             type : Schema.Types.ObjectId,
             ref : 'Symptom'
-    }]
-        , default : []
+        }],
+        default : []
     }
    
 });
