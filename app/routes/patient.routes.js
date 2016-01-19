@@ -7,9 +7,9 @@ module.exports = function(app){
     app.post('/patient', patient_controller.create);
 
     // patient.allergy CRUDs
-    app.put('/patient/:patient_id/allergy/add', patient_controller.addAllergy);
-    app.get('/patient/:patient_id/allergy', patient_controller.getAllergies);
-    app.delete('/patient/:patient_id/allergy/', patient_controller.deleteAllergy); 
+    app.put('/patient/allergy/add', patient_controller.addAllergy);
+    app.get('/patient/allergy', patient_controller.getAllergies);
+    app.delete('/patient/allergy/', patient_controller.deleteAllergy); 
 
     app.get('/patient/me', patient_controller.getMe);
     
