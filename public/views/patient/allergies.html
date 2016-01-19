@@ -1,4 +1,93 @@
-     <div class="navbar navbar-default">
+<div ng-controller="ctrlr_allergy">
+    <div class="panel">
+        <h4 style="margin: 0;">My Allergies</h3>
+
+        <button 
+            class="btn btn-primary"
+            ng-click="view.controller.toggleNewAllergy()">
+            Add Allergy
+        </button>
+    </div>
+
+    <form 
+        name="newAllergy" 
+        ng-show="view.model.showNewAllergy"
+        novalidate>     
+
+        <div class="well">
+            <h5><strong>New Allergy</strong></h5>
+        
+            <div class="col-sm-6">
+                <label for="newAllergy_name">Name</label>
+                <input 
+                    id="newAllergy_name"
+                    class="form-control" 
+                    type="text" 
+                    ng-model="model.newAllergy.allergy.name"
+                    required />
+            </div>
+
+            <div class="col-sm-6">
+                <label>Is this allergy life threatening?</label>
+                <br />
+                <label>Yes</label>
+                <input 
+                    type="radio"
+                    name="life_threatening"
+                    value="yes"
+                    ng-model="model.newAllergy.allergy.life_threatening"
+                    required />
+                <label>No</label>
+                <input
+                    type="radio"
+                    name="life_threatening"
+                    value="no"
+                    ng-model="model.newAllergy.allergy.life_threatening"
+                    required />
+            </div>
+    
+            <div>
+                <button 
+                    class="btn btn-default" 
+                    ng-click="view.toggleNewAllergy()">
+                    Cancel
+                </button>
+                <button 
+                    class="btn btn-primary" 
+                    ng-click="http.patient.allergies.add(model.newAllergy)">
+                    Add
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Current Allergies -->
+
+    <div class="well" ng-show="patient.allergies.length == 0">
+        You have no known allergies. 
+    </div>
+
+    <div ng-hide="model.patient.allergies.length == 0">
+
+        <!-- Individual Patient Allergies from the DB -->     
+        <div class="well" ng-repeat="allergy in model.patient.allergies">
+            <h5><strong>{{ allergy.name }}</strong><h5>
+            <span class="pull-right">
+                <button class="btn btn-default">
+                    Edit
+                </button>
+            </span>
+            <div>Life threatening: {{ allergy.life_threatening ? "Yes" : "No" }}</div>
+            <div>Symptoms</div>
+            <ul>
+                <li ng-repeat="symptom in allergy.symptoms">{{ symptom.name }}</li>
+            </ul>
+        </div>
+   
+    </div>
+
+     
+    <div class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">Allergies</a>
@@ -12,209 +101,14 @@
                         All
                     </button>
                  </li>
-                <li>
+                <li ng-repeat="alpha in model.alpha">
                     <button
                         type="button"
                         class="btn btn-default navbar-btn"
-                        ng-click="showAllergieS('A')">
-                        A
+                        ng-click="showAllergieS(alpha)">
+                        {{ alpha }}
                     </button>
                  </li>
-                 <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('B')">
-                        B
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('C')">
-                        C
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('D')">
-                        D
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('E')">
-                        E
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('F')">
-                       F
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('G')">
-                        G
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('H')">
-                        H
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('I')">
-                        I
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('J')">
-                        J
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('K')">
-                        K
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('L')">
-                        L
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('M')">
-                        M
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('N')">
-                        N
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('O')">
-                        O
-                    </button>
-                 </li>
-
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('P')">
-                        P
-                    </button>
-               </li>
-               <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('Q')">
-                        Q
-                    </button>
-                 </li>
-                   <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('R')">
-                        R
-                    </button>
-                 </li>
-                  <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('S')">
-                        S
-                    </button>
-                 </li>
-                 <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('T')">
-                        T
-                    </button>
-                 </li>
-                 <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('U')">
-                        U
-                    </button>
-                 </li>
-                 <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('U')">
-                        R
-                    </button>
-                 </li>
-                         
-                        
-                 <li>
-                    <button
-                        type="button"
-                        class="btn btn-default navbar-btn"
-                        ng-click="showAllergies('U')">
-                        U
-                    </button>
-                 </li>
-                         
-                
-
             </ul>
             
             <form class="navbar-form navbar-left" role="search">
@@ -223,6 +117,6 @@
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-
        </div>
     </div>
+</div>
