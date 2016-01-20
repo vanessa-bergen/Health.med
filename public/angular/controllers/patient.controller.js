@@ -4,7 +4,7 @@ angular.module('module_patient')
 .controller('ctrlr_patient', function($scope, $http, $location, $window, ENDPOINT){
     $scope.view = {
         model : {
-            logoutFailed : false;
+            logoutFailed : false
         }
     };
 
