@@ -135,9 +135,17 @@ module.exports = function(){
                     path : "allergies"
                 }, function(err, doc){
                     if (err) reqError(res, 500, err);
-    
-                    console.log(JSON.stringify(doc));
-                    res.status(202).json(doc);
+                    
+                    var options = {
+                        path : "allergies.symptoms",
+                        model : "Symptom"
+                    };
+
+                    Patient.populate(doc, options, function(err, patient){
+                        if (err) return reqError(res, 500, err); 
+                        
+                        res.status(202).json(patient);
+                    });
                 });
             });
         });
