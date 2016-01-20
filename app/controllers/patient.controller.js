@@ -77,13 +77,22 @@ module.exports = function(){
             _id : req.session.patient._id
         })
         .populate('allergies')
-        .exec(function(err, patient){
+        .exec(function(err, unpopulated){
             if (err) return reqError(res, 500, err);
 
-            req.session.patient = patient;
-            res.json({
-                account_type : req.session.account_type,
-                patient : patient
+            var options = {
+                path : "allergies.symptoms",
+                model : 'Symptom'
+            };
+
+            Patient.populate(unpopulated, options, function(err, patient){
+                if (err) return reqError(res, 500, err);
+
+                req.session.patient = patient;
+                res.json({
+                    account_type : req.session.account_type,
+                    patient : patient
+                });
             });
         });
     };
