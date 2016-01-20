@@ -37,11 +37,14 @@ module.exports = function(){
     };
 
     c.index = function(req, res, next){
-        Symptom.find({}, function(err, symptoms){
+        console.log('symptom.index');
+
+        var q = Symptom.find({}, "-__v");
+        q.sort("name");
+        q.exec(function(err, symptoms){
             if (err) reqError(res, 500, err);
 
             res.json(symptoms);
-
         });
     };
 
