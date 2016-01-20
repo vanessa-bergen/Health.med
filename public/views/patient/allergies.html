@@ -4,7 +4,8 @@
 
         <button 
             class="btn btn-primary"
-            ng-click="view.controller.toggleNewAllergy()">
+            ng-click="view.controller.toggleNewAllergy()"
+            ng-hide="view.model.showNewAllergy">
             Add Allergy
         </button>
     </div>
@@ -15,37 +16,69 @@
         novalidate>     
 
         <div class="well">
-            <h5><strong>New Allergy</strong></h5>
-        
-            <div class="col-sm-6">
-                <label for="newAllergy_name">Name</label>
-                <input 
-                    id="newAllergy_name"
-                    class="form-control" 
-                    type="text" 
-                    ng-model="model.newAllergy.allergy.name"
-                    required />
-            </div>
+            <h4>New Allergy
+                <small>
+                    <span class="btn-group">
+                        <button 
+                            class="btn btn-default" 
+                            ng-click="view.controller.toggleNewAllergy()">
+                            Cancel
+                        </button>
+                    </span>
+                </small>
+            </h4>
+ 
+            <label for="newAllergy_name">Allergy</label>
+            <input 
+                id="newAllergy_name"
+                class="form-control" 
+                type="text" 
+                ng-model="model.newAllergy.allergy.name"
+                required />
+            <br />
 
-            <div class="col-sm-6">
-                <label>Is this allergy life threatening?</label>
-                <br />
-                <label>Yes</label>
-                <input 
-                    type="radio"
-                    name="life_threatening"
-                    value="yes"
-                    ng-model="model.newAllergy.allergy.life_threatening"
-                    required />
-                <label>No</label>
-                <input
-                    type="radio"
-                    name="life_threatening"
-                    value="no"
-                    ng-model="model.newAllergy.allergy.life_threatening"
-                    required />
-            </div>
-    
+            <label>Is this allergy life threatening?</label>
+            <br />
+            Yes
+            <input 
+                type="radio"
+                name="life_threatening"
+                value="yes"
+                ng-model="model.newAllergy.allergy.life_threatening"
+                required />
+            No
+            <input
+                type="radio"
+                name="life_threatening"
+                value="no"
+                ng-model="model.newAllergy.allergy.life_threatening"
+                required />
+            <br />
+
+            <label>Symptoms:</label>
+            <ul>
+                <li ng-show="model.newAllergy.allergy.symptoms | isObjectEmpty">None</li>
+
+                <li ng-repeat="symptom in model.newAllergy.allergy.symptoms">
+                    {{ symptom.name }}
+                </li>
+            </ul>
+                
+            <label>Add Symptom</label>
+            <select 
+                ng-model="model.symptom.new" 
+                ng-options="symptom.name for symptom in model.symptoms | filter:model.symptom.search">
+            </select>
+            
+            Search <input type="text" ng-model="model.symptom.search" />
+            <br/>
+
+            <button 
+                class="btn btn-default"
+                ng-click="model.newAllergy.addSymptom(model.symptom.new)">
+                Add
+            </button>
+             
             <div>
                 <button 
                     class="btn btn-default" 
@@ -54,7 +87,7 @@
                 </button>
                 <button 
                     class="btn btn-primary" 
-                    ng-click="http.patient.allergies.add(model.newAllergy)">
+                    ng-click="http.allergies.add(model.newAllergy)">
                     Add
                 </button>
             </div>
