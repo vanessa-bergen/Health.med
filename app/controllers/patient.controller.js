@@ -77,6 +77,8 @@ module.exports = function(){
             _id : req.session.patient._id
         })
         .populate('allergies')
+        .populate('pending')
+
         .exec(function(err, unpopulated){
             if (err) return reqError(res, 500, err);
 
