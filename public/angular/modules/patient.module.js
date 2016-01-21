@@ -1,4 +1,6 @@
-angular.module('module_patient', ['ngRoute', 'module_config', 'module_basic_filters'])
+angular.module('module_patient', [
+    'ngRoute', 'ui.bootstrap', 'module_config', 'module_basic_filters'
+])
 .config(function($routeProvider){
     $routeProvider.when('/messages', {
         templateUrl : "/views/patient/messages.html"
