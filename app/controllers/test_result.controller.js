@@ -16,6 +16,27 @@ module.exports = function(){
         });
     };
 
+    c.setPatientId = function(req, res, next, patient_id){
+        if (patient_id) req.patient_id = patient_id;
+
+        next();
+    }
+
+    c.findByPatientId = function(req, res, next){
+        if (!req.patient_id) 
+            return reqError(res, 400, "param.patient_id", "missing");
+ 
+        // TODO --> check if person can view these records
+        
+        TestResult.find({
+            patient_id : req.patient_id
+        }, function(err, docs){
+            if (err) return reqError(res, 500, err);
+
+            res.json(docs);
+        });
+    };
+
     c.findById = function (req, res, next, testresult_id){
         if (!testresult_id) return next ();
         
@@ -26,19 +47,20 @@ module.exports = function(){
             next();
             });
 
-   };
+    };
 
-   c.index = function(req, res, next){
+    c.index = function(req, res, next){
        TestResult.find({}, function(err, testresults){
            if(err) return reqError(res, 500, err);
            res.json(testresults);
            });          
-   };
+    };
 
-   c.get = function(req, res, next){
+    c.get = function(req, res, next){
         if(!req.testresult) return reqError(res, 400, 'test result', 'missing');
         res.json(req.testresult);              
-   };
+    };
+
     return c;
 }
 
