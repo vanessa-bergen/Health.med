@@ -38,7 +38,12 @@ angular.module('module_patient', [
         templateUrl : "/views/patient/test_results.html"
     });
 
-    $routeProvider.otherwise({
-        templateUrl : "/views/patient/home.html"
+    $routeProvider.when('/prescriptions', { 
+        templateUrl : "/views/patient/prescriptions.html"
     });
+
+    $routeProvider.otherwise({
+        templateUrl : "/views/patient/profile.html"
+    });
+
 });

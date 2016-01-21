@@ -1,1 +1,22 @@
-<p>Invites</p>
+<div ng-controller="ctrlr_invite">
+    
+    <div class="well" ng-show="model.patient.pending.length==0">
+        You have no pending invitations.
+    </div>
+
+    <div ng-hide="model.patient.pending.length == 0">
+        <!-- Individual pending invitations in the DB -->
+        <!-- Pending is doctor model -->
+        Pending Invitations:
+        <div class="well" ng-repeat="pending in model.patient.pending">
+            <h5><strong>{{ pending.name_first + ", " + pending.name_last }} </strong><h5>
+            <span class="pull-right">
+                <button 
+                    class="btn btn-default"
+                    ng-click="http.patient.cancel_invite(pending._id)">                                                   Cancel
+                </button>
+           </span>
+
+        </div>
+    </div>
+</div>
