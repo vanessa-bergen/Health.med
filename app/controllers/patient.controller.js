@@ -91,10 +91,7 @@ module.exports = function(){
                 if (err) return reqError(res, 500, err);
 
                 req.session.patient = patient;
-                res.json({
-                    account_type : req.session.account_type,
-                    patient : patient
-                });
+                res.json(patient);
             });
         });
     };
