@@ -201,7 +201,7 @@ module.exports = function(){
             
             console.log(newDoctor);
             
-            Patient.Update({
+            Patient.update({
                 _id : patient_id
             },
             {
