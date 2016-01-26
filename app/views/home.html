@@ -3,7 +3,7 @@
 <head>
     <title>Health.med</title>
     <script src="lib/angular/min/angular.min.js"></script>
-    <script src="lib/angular/min/angular-route.min.js"></script>
+    <script src="lib/angular/min/angular-ui-router.min.js"></script>
 
     <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="css/home.css" rel="stylesheet" />
@@ -20,23 +20,23 @@
     <div class="content back-img">
         <div class="navbar navbar-inverse">
             <div class="col-xs-4">
-                <h2><a href="#/">Home</a></h2>
+                <h2><a ui-sref="">Home</a></h2>
             </div>
 
             <div class="col-xs-4">
                 <h3 class="pull-right">
-                    <a href="#/for_patients">For Patients</a>
+                    <a ui-sref="for_patients">For Patients</a>
                 </h3>
             </div>
 
             <div class="col-xs-4">
                 <h3 class="pull-right">
-                    <a href="#/for_doctors">For Doctors</a>
+                    <a ui-sref="for_doctors">For Doctors</a>
                 </h3>
             </div>
         </div>
 
-        <ng-view />
+        <div ui-view></div>
     </div>
 </body>
 </html>
