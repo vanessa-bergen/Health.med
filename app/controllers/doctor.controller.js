@@ -64,12 +64,12 @@ module.exports = function(){
     };
 
     c.index = function(req, res, next){
-        Doctor.find({}, function(err, doctors){
+        Doctor.find({}, "_id name_first name_last specialization", function(err, doctors){
             if (err) return reqError(res, 500, err);
 
             res.json(doctors);
         });
-    };
+    }; 
 
 // patient - doctor invite controllers
 // patient sends invitation. Seen as pending in patient DB
