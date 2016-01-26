@@ -1,0 +1,1 @@
+angular.module("http_doctor", ["module_config"]);
