@@ -7,6 +7,9 @@ angular.module('http_patient')
 		},
 		getMe : function(){
 			return $http.get(base + "/me");
+		},
+		deleteLogin : function(){
+			return $http.delete(base + "/login");
 		}
 	}
 });
