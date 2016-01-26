@@ -25,13 +25,6 @@ module.exports = function(){
         });
     };
 
-    c.byId = function(req, res, next, doctor_id){
-        if (!doctor_id) return next();
-
-        req.doctor_id = doctor_id;
-        next();
-    };
-    
     c.doLogIn = function(req, res, next){
         if (!req.body) return reqError(res, 400, "body", "missing");
         if (!req.body.password) return reqError(res, 400, "passsword", "missing");
@@ -50,14 +43,14 @@ module.exports = function(){
         });
     };
 
-    c.findById = function(req, res, next, doctor_id){
-        if (!doctor_id) return next();
+    c.getById = function(req, res, next){
+        if (!req.params.doctor_id) return reqError(res, 400, "doctor_id param", "missing");
+        var doctor_id = req.params.doctor_id;
 
         Doctor.findOne({ _id : doctor_id }, function(err, doctor){
             if (err) return reqError(res, 500, err);
 
-            req.doctor = doctor;
-            next();
+            res.json(doctor);
         });
     };
 
@@ -70,12 +63,6 @@ module.exports = function(){
         });
     };
 
-    c.get = function(req, res, next){
-        if (!req.doctor) return reqError(res, 400, "doctor", "missing");
-
-        res.json(req.doctor);
-    };
-
     c.index = function(req, res, next){
         Doctor.find({}, function(err, doctors){
             if (err) return reqError(res, 500, err);
@@ -83,21 +70,19 @@ module.exports = function(){
             res.json(doctors);
         });
     };
-    
 
 // patient - doctor invite controllers
 // patient sends invitation. Seen as pending in patient DB
 // see as an invite in docotor dB
 
-    c.cancelInvite = function(req, res, next){
+    c.cancelInvite = function(req, res, next){ 
+        if (!req.session.doctor) return res.json({ logged_in : false });
+        if (!req.params.patient_id) return reqError(res, 400, "patient_id param", "missing");
 
-        
-        if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-        if (!req.session.patient) return res.json({ logged_in : false });
-        if (!req.body.doctor_id) return reqError(res, 400, "doctor_id", "missing");
-    
+        var patient_id = req.params.patient_id;
+     
         Doctor.update({ 
-            _id : req.body.doctor_id
+            _id : req.session.doctor._id
         }, 
         {
             $pull : {
@@ -106,30 +91,21 @@ module.exports = function(){
         }, 
         function(err, newDoctor) {
             if(err) return reqError(res,500,err);
-            res.status(202).json(newDoctor);
-        });
-
-        Patient.update({
-            _id : req.session.patient._id
-        },
-        {
-            $pull : {
-                'pending' : req.body.doctor_id
-            }
-        })
-        .populate('pending')
-        .exec(function(err, unpopulated){
-            if(err) return reqError(res, 500, err);
-
-            Patient.populate(unpopulated, function(err, patient){
+            
+            Patient.update({
+                _id : req.session.patient._id
+            },
+            {
+                $pull : {
+                    'pending' : doctor_id
+                }
+            },
+            function(err, newPatient) {
                 if(err) return reqError(res, 500, err);
-                req.session.patient = patient;
-                res.json({
-                    account_type : req.session.account_type,
-                    patient : patient
-               });
+            
+                res.status(202).json(newPatient);
             });
-        });
+        }); 
     };
         //       function(err, newPatient) {
         //         if(err) return reqError(res, 500, err);
@@ -201,78 +177,79 @@ module.exports = function(){
             });
      
         });
-
-
    };
 
-
  // doctor-patient has_access_to relationship controllers 
-
+ // patients grant access to doctors without doctors needing to accept
 
     c.addAccessTo = function(req, res, next){
-        
-        if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-        if(!req.body.patient_id) return reqError(res, 400, "body.patient", 
-            "missing");
+        if (!req.session.patient) return reqError(res, 403, "not logged in as a patient");
+        if (!req.params.doctor_id) return reqError(res, 400, "doctor_id param", "missing");
 
-       if(!req.session.doctor) return res.json({logged_in : false });
-    
+        var doctor_id = req.params.doctor_id;
+        var patient_id = req.session.patient._id; 
   
         Doctor.findOneAndUpdate({
-            _id: req.session.doctor._id
-        },
-        { 
-            $addToSet : {
-                'has_access_to' : req.body.patient_id
-                 },            
-            $pull : {
-                'invites' : req.body.patient_id
-                }
-        },
-                
-       function(err, newDoctor){
-            if(err) return reqError(res, 500, err);
-            console.log(newDoctor);
-            res.status(202).json(newDoctor);
-        });
-
-        Patient.Update({
-            _id : req.body.patient_id
+            _id: doctor_id
         },
         {
+            $addToSet : {
+                'has_access_to' : patient_id
+            },
             $pull : {
-                'pending' : req.session.doction._id
-                },
+                'invites' : patient_id
+            }
         },
-        function(err, newPatient){
-            if(err) return reqError(res, 500, err);
-            console.log(newPatient);
-        });
+        function(err, newDoctor){
+            if (err) return reqError(res, 500, err);
+            
+            console.log(newDoctor);
+            
+            Patient.update({
+                _id : patient_id
+            },
+            {
+                $pull : {
+                    'pending' : doctor_id
+                },
+            },
+            function(err, newPatient){
+                if(err) return reqError(res, 500, err); 
 
+                res.status(202).send({
+                    msg : "successfully allowed doctor to access"
+                });
+            });
+        });
     };
 
     c.deleteAccessTo = function(req, res, next){
-        if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-        if(!req.body.patient_id) 
-            return reqError(res, 400, "body.patient", "missing");
-        if(!req.session.doctor) return res.json({ logged_in : false});
-        
+        if (!req.session.patient) return reqError(res, 403, "not logged in as a patient");
+        if (!req.params.doctor_id) return reqError(res, 400, "doctor_id param", "missing");
+
+        var doctor_id = req.params.doctor_id;
+        var patient_id = req.session.patient._id; 
+
         Doctor.findOneAndUpdate({
-            _id : req.session.doctor._id
+            _id : doctor_id
         },
         {
-            $pull : { 'has_access_to' : req.body.patient_id
+            $pull : { 
+                'has_access_to' : patient_id
             }
         },
         function (err, newDoctor){
             if(err) return reqError(res, 500, err);
-            console.log("yoyo 3 ");
-            res.status(202).json(newDoctor);
+
+            res.status(202).json({
+                msg : "successfully revoked access"
+            });
         });
     };
 
     c.getAccessTo = function(req, res, next){
         if(!req.session.doctor) return res.json({ logged_in : false});
+        
         Doctor.find ({_id: req.session.doctor._id})
         .populate('has_access_to')
         .exec(function(err,doctor){
