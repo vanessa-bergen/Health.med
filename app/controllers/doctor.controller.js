@@ -64,7 +64,7 @@ module.exports = function(){
     };
 
     c.index = function(req, res, next){
-        Doctor.find({}, "_id name_first name_last specialization", function(err, doctors){
+        Doctor.find({}, "_id minc name_first name_last specialization", function(err, doctors){
             if (err) return reqError(res, 500, err);
 
             res.json(doctors);
