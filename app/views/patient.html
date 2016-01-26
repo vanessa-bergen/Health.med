@@ -3,8 +3,7 @@
 <head>
     <title>Health.Patient</title>
     <script src="../lib/angular/min/angular.min.js"></script>
-    <script src="../lib/angular/min/angular-route.min.js"></script>
-    <script src="../lib/angular/min/ui-bootstrap-tpls-1.1.0.min.js"></script>
+    <script src="../lib/angular/min/angular-ui-router.min.js"></script>
     
     <link href="../lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
 
@@ -40,19 +39,32 @@
     <div class="navbar navbar-default no_space">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Home</a>
+                <a class="navbar-brand" ui-sref="profile">Profile</a>
             </div>
+
             <ul class="nav navbar-nav navbar-left">
-                <li><a href="#/invites">Invites</a></li>
+                <li><a ui-sref="invites">Invites</a></li>
+            </ul> 
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a ui-sref="allergies">Allergies</a></li>
             </ul>
-            
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a ui-sref="medications">Medications</a></li>
+            </ul> 
+
+            <ul class="nav navbar-nav navbar-left">
+                <li><a ui-sref="test_results">Test Results</a></li>
+            </ul>
+<!--
             <form class="navbar-form navbar-left" role="search">
                 <div class="form-group">
                     <input type="text" class="form-control" placeholder="Search">
                 </div>
                 <button type="submit" class="btn btn-default">Submit</button>
             </form>
-
+-->
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <button
@@ -66,20 +78,22 @@
         </div>
     </div>
     
+<!--
     <div class="col-sm-3 sidebar" style="background-color: #f8f8f8;">
         <ul class="nav nav-sidebar">
-            <li><a href="#/profile">Profile</a></li>
-            <li><a href="#/allergies">Allergies</a></li>
-            <li><a href="#/medications">Medications</a></li>
-            <li><a href="#/appointment_notes">Appointment Notes</a></li>
-            <li><a href="#/test_results">Test Results</a></li>
-            <li><a href="#/prescriptions">Prescriptions</a></li>
+            <li><a ui-sref="profile">Profile</a></li>
+            <li><a ui-sref="allergies">Allergies</a></li>
+            <li><a ui-sref="medications">Medications</a></li>
+            <li><a ui-sref="appointment_notes">Appointment Notes</a></li>
+            <li><a ui-sref="test_results">Test Results</a></li>
         
         </ul>
     </div>
+-->
 
-    <div class="col-xs-9">
-        <ng-view /> 
+    <div class="container">
+        <div ui-view></div>
     </div>
+
 </body>
 </html>
