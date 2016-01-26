@@ -1,3 +1,147 @@
 <div class="container" ng-controller="ctrlr_profile">
-    <h3>My {{ hello }}</h3>
+    <h2>My {{ hello }}</h2>
 </div>
+
+<form name="patient_profile_form"
+    ng-controller="ctrlr_profile"
+    novalidate>
+
+    
+    <div class="form-group">
+    
+    <h4><label>Personal Information</label></h4>
+        <div class="well">
+            
+                <label>Name</label>
+                    <div class="form-inline">
+                        <input
+                            placeholder="Enter First Name"
+                            class="form-control"
+                            name="name_first"
+                            ng-model="profile.patient.name_first"
+                            required />
+                        <input
+                            placeholder="Enter Last Name"
+                            class="form-control"
+                            name="name_last"
+                            ng-model="profile.patient.name_last"
+                            required />
+                    </div>
+            
+                <label>Health Card Number</label>
+                    <input
+                        placeholder="Enter Health Card Number"
+                        class="form-control"
+                        name="health_card_number"
+                        ng-model="profile.patient.health_card_number"
+                        required />
+             
+             <label>Gender</label>
+                <div class="radio">
+                    <label class="radio-inline">
+                    <input type="radio"
+                     ng-model="profile.patient.gender"
+                     name="optradio">
+                     Female</label>
+                    <label class="radio-inline">
+                    <input type="radio"
+                     ng-model="profile.patient.gender"
+                     name="optradio">
+                     Male</label>
+                </div>
+      </div>
+      <div class="form-group">
+         <h4><label>Address</label></h4>
+         <div class="well">
+                <label>Street</label>
+                <input
+                    Placeholder="Street"
+                    class="form-control margin-top"
+                    name="street"
+                    ng-model="profile.patient.street"
+                    required />
+       
+         <label>City</label>
+                <input
+                    Placeholder="City"
+                    class="form-control margin-top"
+                    name="city"
+                    ng-model="profile.patient.city"
+                    required />
+
+        <label>Province</label>    
+         <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown">
+                    Select One
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">AB</a></li>
+                        <li><a href="#">ON</a></li>
+                   </ul>
+        </div> 
+         <label>Country</label>    
+         <div class="dropdown">
+            <button class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown">
+                    Select One
+                    <span class="caret"></span></button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Can</a></li>
+                    </ul>
+         </div>
+                           
+         <label>Postal Code</label>
+                <input
+                    Placeholder="Postal Code"
+                    class="form-control margin-top"
+                    name="postal_code"
+                    ng-model="profile.patient.postal_code"
+                    required />
+    </div>
+    </div> 
+    <div class="form-group">
+    
+    <h4><label>Contact Information</label></h4>
+        <div class="well">
+        <label>Phone Number</label>
+        <div class="form-inline">
+                <input
+                    placeholder="Primary Phone Number"
+                    class="form-control"
+                    name="primary_phone_number"
+                    ng-model="profile.patient.primary_phone_number"
+                    required />
+                <input
+                    placeholder="Secondary Phone Number"
+                    class="form-control"
+                    name="secondary_phone_number"
+                    ng-model="profile.patient.secondary_phone_number"
+                />
+        </div>
+            
+            <label>Email Address</label>
+                <input
+                    placeholder="Enter Email Address"
+                    class="form-control"
+                    name="email_address"
+                    ng-model="profile.patient.email_address"
+                    required />
+     </div>
+
+     <a 
+        ng-href="#/edit" 
+        class="btn btn-primary"
+        ng-click="http.patient.profile.edit(profile.patient)">
+        Edit
+     </a>
+    
+     <a 
+        ng-href="#/save" 
+        class="btn btn-primary"
+        ng-click="http.patient.profile.save(profile.patient)">
+        Save
+     </a>
+
