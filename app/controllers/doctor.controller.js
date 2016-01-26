@@ -116,12 +116,25 @@ module.exports = function(){
             $pull : {
                 'pending' : req.body.doctor_id
             }
-        },
-        function(err, newPatient) {
+        })
+        .populate('pending')
+        .exec(function(err, unpopulated){
             if(err) return reqError(res, 500, err);
+
+            Patient.populate(unpopulated, function(err, patient){
+                if(err) return reqError(res, 500, err);
+                req.session.patient = patient;
+                res.json({
+                    account_type : req.session.account_type,
+                    patient : patient
+               });
+            });
         });
-            
     };
+        //       function(err, newPatient) {
+        //         if(err) return reqError(res, 500, err);
+        //   });
+            
 
     c.declineInvite = function(req, res, next){
         if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
