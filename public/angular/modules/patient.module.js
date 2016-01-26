@@ -1,5 +1,10 @@
 angular.module('module_patient', [
-    'ngRoute', 'ui.bootstrap', 'module_config', 'module_basic_filters'
+    'ngRoute'
+    , 'ui.bootstrap'
+    , 'module_config'
+    , 'http_doctor'
+    , 'http_patient'
+    , 'module_basic_filters'
 ])
 .config(function($routeProvider){
     $routeProvider.when('/messages', {
