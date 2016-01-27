@@ -10,6 +10,9 @@ angular.module("http_doctor")
 		},
 		cancel_invite : function(patient_id){
 			return $http.delete(base + "/cancel_invite/" + patient_id);
+		},
+		getHasAccessToMe : function(){
+			return $http.get(base + "/access/me");
 		}
 	}
 });
