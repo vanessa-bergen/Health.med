@@ -75,6 +75,25 @@ module.exports = function(){
 // patient sends invitation. Seen as pending in patient DB
 // see as an invite in docotor dB
 
+    c.getHasAccessToMe = function(req, res, next){
+        if (!req.session.patient) { 
+            return reqError(res, 403, {
+                logged_in : false,
+                msg : "not logged in as a patient"
+            });
+        }
+
+        Doctor.find({ 
+            "has_access_to" : req.session.patient._id
+        },
+        "name_first name_last minc _id specialization",
+        function(err, doctors){
+            if (err) return reqError(res, 500, err);
+
+            res.json(doctors);
+        });
+    };
+
     c.cancelInvite = function(req, res, next){ 
         if (!req.session.doctor) return res.json({ logged_in : false });
         if (!req.params.patient_id) return reqError(res, 400, "patient_id param", "missing");

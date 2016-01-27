@@ -4,6 +4,7 @@ module.exports = function(app){
     app.post('/doctor/login', doctor_ctrlr.doLogIn);
     app.post('/doctor', doctor_ctrlr.create);
     
+    app.get('/doctor/access/me', doctor_ctrlr.getHasAccessToMe);
     app.get('/doctor/access', doctor_ctrlr.getAccessTo);
     // used by patients, requires valid patient session
     app.delete('/doctor/access/:doctor_id', doctor_ctrlr.deleteAccessTo);    
