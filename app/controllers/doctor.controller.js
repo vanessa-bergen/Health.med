@@ -144,6 +144,10 @@ module.exports = function(){
             });
         }); 
     };
+        //       function(err, newPatient) {
+        //         if(err) return reqError(res, 500, err);
+        //   });
+            
 
     c.declineInvite = function(req, res, next){
         if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");

@@ -14,6 +14,7 @@ module.exports = function(){
     require('../app/models/symptom.model.js');
     require('../app/models/test_result.model.js');
     require('../app/models/treatment.model.js');
+    require('../app/models/prescription.model.js')
 
     return db;  
 };
