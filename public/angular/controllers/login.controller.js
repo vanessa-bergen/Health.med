@@ -17,7 +17,7 @@ angular.module('module_login')
             .success(function(data){
                 if (data.logged_in){
                     console.log('logging in successful');
-                    $window.location.href = ENDPOINT + "/patient";
+                    $window.location.href = ENDPOINT + "/app/patient";
                 } else {
                     $scope.loginFailed = true;
                     console.log('patient logging in failed');
@@ -34,7 +34,7 @@ angular.module('module_login')
             .success(function(data){
                 if (data.logged_in){
                     console.log('doctor logging in successful');
-                    $window.location.href = ENDPOINT + "/doctor";
+                    $window.location.href = ENDPOINT + "/app/doctor";
                 } else {
                     $scope.loginFailed = true;
                     console.log('logging in failed');

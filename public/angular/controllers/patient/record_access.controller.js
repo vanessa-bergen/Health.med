@@ -1,16 +1,13 @@
 console.log('ctrlr_invite');
 
-
 angular.module('module_patient')
 .controller('ctrlr_invite', function($scope, $http, $location, $window, 
 ENDPOINT, httpDoctor, httpPatient){
-
-    $scope.http = {};
-
     $scope.model = {};
     $scope.model.doctor = {};
     $scope.model.patient = {};
 
+/*
     $scope.http.patient.cancel_invite = {
        delete : function(){
             console.log('http.patient.cancel_invite()');
@@ -24,6 +21,7 @@ ENDPOINT, httpDoctor, httpPatient){
             });
        }
     };
+*/
     
     httpPatient.getMe().success(function(me){
         console.log('httpPatient.getMe -> success');
