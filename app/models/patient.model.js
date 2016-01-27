@@ -134,15 +134,8 @@ var PatientSchema = new Schema({
             ref : 'Doctor'
         }],
         default : []
-    },
+    }
 
-    prescription : {
-        type: [{ 
-            type: Schema.Types.ObjectId,
-            ref : 'Prescription'
-        }],
-        default : []
-    },
 
 });
  

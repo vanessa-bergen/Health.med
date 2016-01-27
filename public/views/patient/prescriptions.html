@@ -1,1 +1,20 @@
-<p> Prescriptions </p>
+<div ng-controller="ctrlr_prescription">
+    
+    <div class="well" ng-show="model.patient.prescriptions.length==0">
+        You have no prescriptions.
+    </div>
+
+    <div ng-hide="model.patient.prescriptions.length == 0">
+    	<h4 style="margin: 0;">My Prescriptions </h4>
+    	<div class="well" ng-repeat="prescription in model.patient.prescriptions">
+    		<label> Name : {{ prescription.drug_name}}</label>
+    		<p> Dosage : {{prescription.dosage}} </p>
+    		<p> Frequency : {{prescription.frequency}} </p>
+    		<p> Date Prescribed : {{prescription.date}} </p>
+            <p>Perscribed by : {{prescription.doctor[0].name_first +" "+ prescription.doctor[0].name_last}}</p>
+            <p>Doctor Specialization : {{prescription.doctor[0].specialization}} </p> 
+            <button type="button" class="btn btn-primary btn-md">Generate Link for Pharmacy</button>
+        </div>
+    </div>
+</div>
+

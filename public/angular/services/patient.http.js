@@ -10,6 +10,9 @@ angular.module('http_patient')
 		},
 		deleteLogin : function(){
 			return $http.delete(base + "/login");
-		}
+		},
+		getPrescriptions : function(){
+			return $http.get(base + "/getPrescription")
+		}	
 	}
 });
