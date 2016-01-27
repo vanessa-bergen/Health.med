@@ -7,6 +7,19 @@ ENDPOINT, httpDoctor, httpPatient){
     $scope.model.doctor = {};
     $scope.model.patient = {};
 
+    $scope.view = {};
+    $scope.view.model = {};
+    $scope.view.model.current_view = 0;
+
+    $scope.view.controller = {
+        getTabClass : function(i){
+            return i == $scope.view.model.current_view ? "active" : "";
+        },
+        setCurrentView : function(i){
+            $scope.view.model.current_view = i;
+        }
+    };
+
 /*
     $scope.http.patient.cancel_invite = {
        delete : function(){
@@ -33,9 +46,17 @@ ENDPOINT, httpDoctor, httpPatient){
         console.log(JSON.stringify(err));
     });
 
+    httpDoctor.getHasAccessToMe().success(function(doctors){
+        $scope.model.doctor.hasAccessToMe = doctors;
+        console.log('httpDoctor.getHasAccessToMe -> success');
+    }).error(function(err){
+        console.log("httpDoctor.getHasAccessToMe -> error");
+        console.log(JSON.stringify(err));
+    });
+
     httpDoctor.getIndex().success(function(doctors){
         console.log("httpDoctor.getIndex -> success");
-        $scope.model.doctor.list = doctors;
+        $scope.model.doctor.index = doctors;
     }).error(function(err){
         console.log("httpDoctor.getIndex -> error");
         console.log(JSON.stringify(err));
