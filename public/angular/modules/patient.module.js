@@ -17,6 +17,10 @@ angular.module('module_patient', [
             url : "/list",
             templateUrl : "../views/patient/record_access/list.html"
         })
+        .state("record_access.new_requests", {
+            url : "/new_requests",
+            templateUrl : "../views/patient/record_access/new_requests.html"
+        })
         .state("record_access.add", {
             url : "/add",
             templateUrl : "../views/patient/record_access/add.html"
