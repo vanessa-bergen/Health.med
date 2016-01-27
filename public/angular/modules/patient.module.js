@@ -9,15 +9,15 @@ angular.module('module_patient', [
     $urlRouterProvider.otherwise('/profile');
 
     $stateProvider
-        .state('invites', { // TODO -> change 'invites' to 'record_access'
-            url : "/invites",
-            templateUrl : "../views/patient/invites.html"
+        .state('record_access', { 
+            url : "/record_access",
+            templateUrl : "../views/patient/record_access/main.html"
         })
-        .state("invites.list", {
+        .state("record_access.list", {
             url : "/list",
             templateUrl : "../views/patient/record_access/list.html"
         })
-        .state("invites.add", {
+        .state("record_access.add", {
             url : "/add",
             templateUrl : "../views/patient/record_access/add.html"
         })
