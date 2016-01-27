@@ -12,9 +12,9 @@ module.exports = function(app){
    
     app.get('/doctor/id/:doctor_id', doctor_ctrlr.getById);
     app.get('/doctor/id', doctor_ctrlr.getById);
-    
     app.get('/doctor/me', doctor_ctrlr.getMe); 
     app.get('/doctor/index', doctor_ctrlr.index);
+    app.get('/doctor', doctor_ctrlr.query);
 
     //doctor.invite add and delete
     app.put('/doctor/invite/add', doctor_ctrlr.addInvite);

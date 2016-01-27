@@ -43,11 +43,29 @@ module.exports = function(){
         });
     };
 
+    var publicAttributes = "_id minc name_first name_last specialization";
+
+    c.query = function(req, res, next){
+        var query = {};
+        if (req.query.name_first){
+            query.name_first = req.query.name_first;
+        }
+        if (req.query.name_last){
+            query.name_last = req.query.name_last;
+        }
+
+        Doctor.find(query, publicAttributes, function(err, doctors){
+            if (err) return reqError(res, 500, err);
+
+            res.json(doctors);
+        });
+    }
+
     c.getById = function(req, res, next){
         if (!req.params.doctor_id) return reqError(res, 400, "doctor_id param", "missing");
         var doctor_id = req.params.doctor_id;
 
-        Doctor.findOne({ _id : doctor_id }, function(err, doctor){
+        Doctor.findOne({ _id : doctor_id }, publicAttributes, function(err, doctor){
             if (err) return reqError(res, 500, err);
 
             res.json(doctor);
@@ -64,7 +82,7 @@ module.exports = function(){
     };
 
     c.index = function(req, res, next){
-        Doctor.find({}, "_id minc name_first name_last specialization", function(err, doctors){
+        Doctor.find({}, publicAttributes, function(err, doctors){
             if (err) return reqError(res, 500, err);
 
             res.json(doctors);
