@@ -5,6 +5,9 @@ angular.module('module_patient')
 ENDPOINT, httpDoctor, httpPatient){
     $scope.model = {};
     $scope.model.doctor = {};
+    $scope.model.doctor.queryParams = {};
+    $scope.model.doctor.query = {};
+    $scope.model.doctor.queryResults = {};
     $scope.model.patient = {};
 
     $scope.view = {};
@@ -17,7 +20,44 @@ ENDPOINT, httpDoctor, httpPatient){
         },
         setCurrentView : function(i){
             $scope.view.model.current_view = i;
+        },
+        isQueryEnabled : function(){ 
+            if (!$scope.model.doctor.queryParams.name_first && 
+                !$scope.model.doctor.queryParams.name_last){
+                return false;
+            
+            } else if ($scope.model.doctor.queryParams.name_first &&
+                       $scope.model.doctor.queryParams.name_last){
+                if (!angular.isUndefined($scope.model.doctor.query.name_first) && !angular.isUndefined($scope.model.doctor.query.name_last)){
+                    return $scope.model.doctor.query.name_first.length >= 1 &&
+                            $scope.model.doctor.query.name_last.length >= 1;
+                } else {
+                    return false;
+                }
+            } else if ($scope.model.doctor.queryParams.name_first){
+                if (!angular.isUndefined($scope.model.doctor.query.name_first)){
+                    return $scope.model.doctor.query.name_first.length >= 1;
+                } else {
+                    return false;
+                }  
+            } else if (!angular.isUndefined($scope.model.doctor.query.name_last)){
+                return $scope.model.doctor.query.name_last.length >= 1;
+            } else {
+                return false;
+            }
         }
+    };
+
+    $scope.queryDoctor = function(queryParams){
+        httpDoctor.queryDoctor(queryParams).success(function(results){
+            console.log('httpDoctor.queryDoctor -> success');
+            $scope.model.doctor.queryResults = results;
+
+            console.log(JSON.stringify(results));
+        }).error(function(err){
+            console.log('httpDoctor.queryDoctor -> error');
+            console.log(JSON.stringify(err));
+        });
     };
 
 /*
@@ -39,7 +79,6 @@ ENDPOINT, httpDoctor, httpPatient){
     httpPatient.getMe().success(function(me){
         console.log('httpPatient.getMe -> success');
         $scope.model.patient = me;
-
         console.log("length = " + $scope.model.patient.has_access_to.length);
     }).error(function(err){
         console.log('httpPatient.getMe -> error');
