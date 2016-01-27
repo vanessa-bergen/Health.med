@@ -37,9 +37,9 @@ angular.module('module_patient', [
             url : "/test_results",
             templateUrl : "../views/patient/test_results.html"
         })
-        .state("medications", {
-            url : "/medications",
-            templateUrl : "../views/patient/medications.html"
+        .state("prescriptions", {
+            url : "/prescriptions",
+            templateUrl : "../views/patient/prescriptions.html"
         });
 });
 
