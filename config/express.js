@@ -2,14 +2,12 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var cors = require('cors');
 
 module.exports = function(homeDir){
     console.log("initializing health.med.js!!!");
     
     var app = express();
     
-    app.use(cors());
     app.use(morgan('dev'));
     app.use(bodyParser.urlencoded({ extended : true }));
     app.use(bodyParser.json());
