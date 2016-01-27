@@ -1,1 +1,67 @@
-<h4>Add (in progress)</h4>
+<h4>Search for a Doctor to be added to medical records</h4>
+
+<div>
+	<div class="col-sm-4">
+		<form name="searchDoctorForm"
+			novalidate
+			ng-submit="queryDoctor(model.doctor.query)">
+			<div class="well">
+				<label>Search by</label>
+
+				<div class="checkbox">
+					<label>
+						<input 
+							type="checkbox"
+							ng-model="model.doctor.queryParams.name_first">
+							First Name
+					</label>
+				</div>
+				<div class="checkbox">
+					<label>
+						<input 
+							type="checkbox"
+							ng-model="model.doctor.queryParams.name_last">
+							Last Name
+					</label>
+				</div>
+
+				<!-- First Name -->
+				<div 
+					class="form-group"
+					ng-show="model.doctor.queryParams.name_first">
+					<label>First Name</label>
+					<input 
+						name="name_first"
+						type="text"
+						class="form-control"
+						ng-model="model.doctor.query.name_first"
+					/>
+				</div>
+
+				<!-- Last Name -->
+				<div 
+					class="form-group"
+					ng-show="model.doctor.queryParams.name_last">
+					<label>Last Name</label>
+					<input 
+						name="name_last"
+						type="text"
+						class="form-control"
+						ng-model="model.doctor.query.name_last"
+					/>
+				</div>
+
+				<button 
+					type="submit"
+					class="btn btn-primary btn-block"
+					ng-disabled="!view.controller.isQueryEnabled()">
+					Search
+				</button>
+			</div>
+		</form>
+	</div>
+
+	<div class="col-sm-8">
+		<label>Re-fucking-zults</label>
+	</div>
+</div>
