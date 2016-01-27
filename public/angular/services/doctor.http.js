@@ -13,6 +13,12 @@ angular.module("http_doctor")
 		},
 		getHasAccessToMe : function(){
 			return $http.get(base + "/access/me");
+		},
+		queryDoctor : function(queryParams){
+			return $http.get(base , {
+				params : queryParams,
+			});
 		}
+
 	}
 });
