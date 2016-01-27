@@ -1,7 +1,7 @@
-console.log('ctrlr_invite');
+console.log('ctrlr_recordAccess');
 
 angular.module('module_patient')
-.controller('ctrlr_invite', function($scope, $http, $location, $window, 
+.controller('ctrlr_recordAccess', function($scope, $http, $location, $window, 
 ENDPOINT, httpDoctor, httpPatient){
     $scope.model = {};
     $scope.model.doctor = {};
@@ -25,7 +25,9 @@ ENDPOINT, httpDoctor, httpPatient){
     
     httpPatient.getMe().success(function(me){
         console.log('httpPatient.getMe -> success');
-        $scope.model.patient.me = me;
+        $scope.model.patient = me;
+
+        console.log("length = " + $scope.model.patient.has_access_to.length);
     }).error(function(err){
         console.log('httpPatient.getMe -> error');
         console.log(JSON.stringify(err));
