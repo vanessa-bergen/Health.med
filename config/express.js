@@ -2,12 +2,14 @@ var express = require('express');
 var morgan = require('morgan');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+var cors = require('cors');
 
 module.exports = function(homeDir){
     console.log("initializing health.med.js!!!");
     
     var app = express();
     
+    app.use(cors());
     app.use(morgan('dev'));
     app.use(bodyParser.urlencoded({ extended : true }));
     app.use(bodyParser.json());
@@ -20,11 +22,23 @@ module.exports = function(homeDir){
         }
     }));
 
+    var addHeaders = function(req, res, next){
+        console.log("    adding headers...");
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", 
+        "Origin, X-Requested-With, Content-Type, Accept");
+        res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+
+        next();
+    };
+
     console.log("    initializing routes...");
 
+    //app.use(addHeaders);
+ 
     app.use(express.static(homeDir + "/public"));
     console.log('        ' + homeDir + "/public routes initialized.");
-        
+      
     require('../app/routes/helloworld.routes.js')(app);   
     require('../app/routes/patient.routes.js')(app);
     require('../app/routes/allergy.routes.js')(app);
@@ -35,6 +49,7 @@ module.exports = function(homeDir){
     require('../app/routes/test_result.routes.js')(app);
     require('../app/routes/condition.routes.js')(app);
     require('../app/routes/doctor.routes.js')(app);
+    require('../app/routes/prescription.routes.js')(app);
     require('../app/routes/web_app.routes.js')(app, homeDir);
 
     console.log("    routes intialized.");
