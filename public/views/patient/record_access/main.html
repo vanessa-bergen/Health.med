@@ -1,0 +1,24 @@
+<div ng-controller="ctrlr_recordAccess">
+    
+    <h3>My Medical Record Access</h3>
+
+    <ul class="nav nav-tabs">
+        <li 
+            ng-class="view.controller.getTabClass(0)"
+            ng-click="view.controller.setCurrentView(0)">
+            <a ui-sref="record_access.list">My Doctors</a>
+        </li>
+
+        <li  ng-class="view.controller.getTabClass(1)"
+            ng-click="view.controller.setCurrentView(1)">
+            <a ui-sref="record_access.new_requests">New Requests</a>
+        </li>
+
+        <li  ng-class="view.controller.getTabClass(2)"
+            ng-click="view.controller.setCurrentView(2)">
+            <a ui-sref="record_access.add">Add A Doctor</a>
+        </li>
+    </ul> 
+
+    <div ui-view></div> 
+</div>

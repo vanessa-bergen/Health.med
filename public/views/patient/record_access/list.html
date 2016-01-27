@@ -1,0 +1,21 @@
+<div ng-controller="ctrlr_recordAccess">
+
+    <div class="well" ng-show="model.doctor.hasAccessToMe.length == 0">
+        No doctors have access to your medical records.
+    </div>
+
+    <div ng-hide="model.doctor.hasAccessToMe.length == 0">
+
+        <div class="well" ng-repeat="doctor in model.doctor.hasAccessToMe">
+            <h5><strong>{{ doctor.name_first + ", " + doctor.name_last }} </strong><h5>
+            <span class="pull-right">
+                <button 
+                    class="btn btn-default"
+                    ng-click="http.patient.cancel_invite(pending._id)">
+                    Remove Access
+                </button>
+           </span>
+
+        </div>
+    </div>
+</div> 
