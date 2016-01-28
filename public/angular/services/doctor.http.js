@@ -19,8 +19,13 @@ angular.module("http_doctor")
 				params : queryParams,
 			});
 		},
-		addAccessTo : function(doctor_id){
-			return $http.put(base + "/access/" + doctor_id);
+		access : {
+			put : function(doctor_id){
+				return $http.put(base + "/access/" + doctor_id);
+			},
+			delete : function(doctor_id){
+				return $http.delete(base + "/access/" + doctor_id);
+			}
 		}
 	}
 });

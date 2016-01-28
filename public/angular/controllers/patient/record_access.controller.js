@@ -61,7 +61,7 @@ ENDPOINT, httpDoctor, httpPatient){
     };
 
     $scope.addAccessTo = function(doctor_id){
-        httpDoctor.addAccessTo(doctor_id).success(function(results){
+        httpDoctor.access.put(doctor_id).success(function(results){
             console.log('httpDoctor.addAccessTo -> success');
             console.log(JSON.stringify(results));
         }).error(function(err){
