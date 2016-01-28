@@ -64,8 +64,17 @@
 	<div class="col-sm-8">
 		<label>Re-fucking-zults</label>
 
+		<div 
+	        class="well"
+	        style="margin-top: 20px"
+	        ng-show="model.doctor.queryResults.length == 0">
+	        No doctors match your query.
+	    </div>
+
 		<div class="well"
-			ng-repeat="doctor in model.doctor.queryResults">
+			ng-repeat="doctor in model.doctor.queryResults"
+            ng-style="{'margin-top' : ($first ? '20px' : '0px')}">
+
 			<div 
 				class="row">
 
@@ -76,8 +85,8 @@
 				</div>
 				<div 
 					class="col-sm-4"
-					style="text-align: center;"
-					>
+					style="text-align: center;">
+					
 					<button 
 						class="btn btn-primary"
 						ng-click="addAccessTo(doctor._id)">
