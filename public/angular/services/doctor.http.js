@@ -18,7 +18,9 @@ angular.module("http_doctor")
 			return $http.get(base , {
 				params : queryParams,
 			});
+		},
+		addAccessTo : function(doctor_id){
+			return $http.put(base + "/access/" + doctor_id);
 		}
-
 	}
 });

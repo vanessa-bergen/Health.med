@@ -60,6 +60,16 @@ ENDPOINT, httpDoctor, httpPatient){
         });
     };
 
+    $scope.addAccessTo = function(doctor_id){
+        httpDoctor.addAccessTo(doctor_id).success(function(results){
+            console.log('httpDoctor.addAccessTo -> success');
+            console.log(JSON.stringify(results));
+        }).error(function(err){
+            console.log('httpDoctor.addAccessTo -> error');
+            console.log(JSON.stringify(err));
+        });
+    }
+
 /*
     $scope.http.patient.cancel_invite = {
        delete : function(){
