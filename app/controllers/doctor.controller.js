@@ -279,7 +279,8 @@ module.exports = function(){
             if(err) return reqError(res, 500, err);
 
             res.status(202).json({
-                msg : "successfully revoked access"
+                msg : "successfully revoked access",
+                doctor_id : doctor_id
             });
         });
     };
