@@ -12,7 +12,7 @@ ENDPOINT, httpDoctor, httpPatient){
 
     $scope.view = {};
     $scope.view.model = {};
-    $scope.view.model.current_view = 0;
+    $scope.view.model.current_view = -1;
 
     $scope.view.controller = {
         getTabClass : function(i){
@@ -60,6 +60,26 @@ ENDPOINT, httpDoctor, httpPatient){
         });
     };
 
+    $scope.addAccessTo = function(doctor_id){
+        httpDoctor.access.put(doctor_id).success(function(results){
+            console.log('httpDoctor.access.add -> success');
+            console.log(JSON.stringify(results));
+        }).error(function(err){
+            console.log('httpDoctor.access.add -> error');
+            console.log(JSON.stringify(err));
+        });
+    }
+
+    $scope.revokeAccessTo = function(doctor_id){
+        httpDoctor.access.delete(doctor_id).success(function(results){
+            console.log('httpDoctor.access.delete -> success');
+            console.log(JSON.stringify(results));
+        }).error(function(err){
+            console.log('httpDoctor.access.delete -> error');
+            console.log(JSON.stringify(err));
+        });
+    }
+
 /*
     $scope.http.patient.cancel_invite = {
        delete : function(){
@@ -79,7 +99,6 @@ ENDPOINT, httpDoctor, httpPatient){
     httpPatient.getMe().success(function(me){
         console.log('httpPatient.getMe -> success');
         $scope.model.patient = me;
-        console.log("length = " + $scope.model.patient.has_access_to.length);
     }).error(function(err){
         console.log('httpPatient.getMe -> error');
         console.log(JSON.stringify(err));
