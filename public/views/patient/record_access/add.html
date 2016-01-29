@@ -1,5 +1,17 @@
 <h4>Search for a Doctor to be added to medical records</h4>
 
+<script type="text/ng-template" id="access_added_alert">
+    <div class="modal-header">
+        <h3 class="modal-title">My Medical Record Access</h3>
+    </div>
+    <div class="modal-body">
+        <p>Medical Record access given to new doctor</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</script>
+
 <div>
 	<div class="col-sm-4">
 		<form name="searchDoctorForm"
@@ -89,12 +101,14 @@
 					
 					<button 
 						class="btn btn-primary"
+						ng-hide="doctor.hasAccessToMe"
 						ng-click="addAccessTo(doctor._id)">
 						Add Access
 					</button>
 
 					<button
 						class="btn btn-danger"
+						ng-show="doctor.hasAccessToMe"
 						ng-click="revokeAccessTo(doctor._id)">
 						Revoke Access
 					</button>
