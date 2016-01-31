@@ -1,5 +1,17 @@
 <h4>Search for a Doctor to be added to medical records</h4>
 
+<script type="text/ng-template" id="access_added_alert">
+    <div class="modal-header">
+        <h3 class="modal-title">My Medical Record Access</h3>
+    </div>
+    <div class="modal-body">
+        <p>Medical Record access given to new doctor</p>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+    </div>
+</script>
+
 <div>
 	<div class="col-sm-4">
 		<form name="searchDoctorForm"
@@ -63,5 +75,45 @@
 
 	<div class="col-sm-8">
 		<label>Re-fucking-zults</label>
+
+		<div 
+	        class="well"
+	        style="margin-top: 20px"
+	        ng-show="model.doctor.queryResults.length == 0">
+	        No doctors match your query.
+	    </div>
+
+		<div class="well"
+			ng-repeat="doctor in model.doctor.queryResults"
+            ng-style="{'margin-top' : ($first ? '20px' : '0px')}">
+
+			<div 
+				class="row">
+
+				<div class="col-sm-8">
+					<label>Dr. {{ doctor.name_first }} {{ doctor.name_last }}</label>
+					<p>MINC: {{ doctor.minc }}</p>
+					<p>Specialization: {{ doctor.specialization }}</p> 
+				</div>
+				<div 
+					class="col-sm-4"
+					style="text-align: center;">
+					
+					<button 
+						class="btn btn-primary"
+						ng-hide="doctor.hasAccessToMe"
+						ng-click="addAccessTo(doctor._id)">
+						Add Access
+					</button>
+
+					<button
+						class="btn btn-danger"
+						ng-show="doctor.hasAccessToMe"
+						ng-click="revokeAccessTo(doctor._id)">
+						Revoke Access
+					</button>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
