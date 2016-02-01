@@ -2,7 +2,20 @@ console.log('ctrlr_recordAccess');
 
 angular.module('module_patient')
 .controller('ctrlr_recordAccess', function($scope, $http, $location, $window, 
-ENDPOINT, httpDoctor, httpPatient){
+$uibModal, ENDPOINT, httpDoctor, httpPatient){
+    var access_added_alert = '' +
+    '<div class="modal-header">' +
+        '<h3 ng-show="accessAdded" class="modal-title">Medical Records Access Granted</h3>' +
+        '<h3 ng-hide="accessAdded" class="modal-title">Medical Records Access Revoked</h3>' +
+    '</div>' +
+    '<div class="modal-body">' +
+        '<p ng-show="accessAdded">Access to your medical records has been granted to Dr. {{ doctor.name_first + " " + doctor.name_last }}.</p>' +
+        '<p ng-hide="accessAdded">Dr. {{ doctor.name_first + " " + doctor.name_last }}\'s access to your medical records has been revoked. Access can be granted back at any time.</p>' +
+    '</div>' +
+    '<div class="modal-footer">' +
+        '<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>' +
+    '</div>';
+
     $scope.model = {};
     $scope.model.doctor = {};
     $scope.model.doctor.queryParams = {};
@@ -12,7 +25,7 @@ ENDPOINT, httpDoctor, httpPatient){
 
     $scope.view = {};
     $scope.view.model = {};
-    $scope.view.model.current_view = -1;
+    $scope.view.model.current_view = -1; 
 
     $scope.view.controller = {
         getTabClass : function(i){
@@ -45,12 +58,41 @@ ENDPOINT, httpDoctor, httpPatient){
             } else {
                 return false;
             }
+        },
+        openAccessChangedAlert : function(doctor, accessAdded){
+            $uibModal.open({
+                animation : true, 
+                template : access_added_alert,
+                controller : 'ctrlr_alert',
+                resolve : {
+                    doctor : function(){
+                        return doctor;
+                    }, 
+                    accessAdded : function(){
+                        return accessAdded
+                    }
+                }
+
+            });
         }
     };
 
     $scope.queryDoctor = function(queryParams){
         httpDoctor.queryDoctor(queryParams).success(function(results){
             console.log('httpDoctor.queryDoctor -> success');
+            
+            // see which doctors have access or not
+            var hash = {};
+            for (var i = 0; i < $scope.model.doctor.hasAccessToMe.length; i += 1){
+                hash[$scope.model.doctor.hasAccessToMe[i]._id] = true;
+            }
+
+            for (var i = 0; i < results.length; i += 1){
+                console.log(results[i].name_first + " " + hash[results[i]._id]);
+                results[i].hasAccessToMe = hash[results[i]._id] ? true : false; 
+            }
+            // end 
+
             $scope.model.doctor.queryResults = results;
 
             console.log(JSON.stringify(results));
@@ -61,9 +103,17 @@ ENDPOINT, httpDoctor, httpPatient){
     };
 
     $scope.addAccessTo = function(doctor_id){
-        httpDoctor.access.put(doctor_id).success(function(results){
+        httpDoctor.access.put(doctor_id).success(function(resDoctor){
             console.log('httpDoctor.access.add -> success');
-            console.log(JSON.stringify(results));
+
+            // update query results doctors
+            for (var i = 0; i < $scope.model.doctor.queryResults.length; i += 1){
+                if ($scope.model.doctor.queryResults[i]._id == resDoctor._id){
+                    $scope.model.doctor.queryResults[i].hasAccessToMe = true;
+                }
+            }
+
+            $scope.view.controller.openAccessChangedAlert(resDoctor, true);
         }).error(function(err){
             console.log('httpDoctor.access.add -> error');
             console.log(JSON.stringify(err));
@@ -71,9 +121,25 @@ ENDPOINT, httpDoctor, httpPatient){
     }
 
     $scope.revokeAccessTo = function(doctor_id){
-        httpDoctor.access.delete(doctor_id).success(function(results){
+        httpDoctor.access.delete(doctor_id).success(function(resDoctor){
             console.log('httpDoctor.access.delete -> success');
-            console.log(JSON.stringify(results));
+            
+            // update doctors that hasAccessTo
+            for (var i = 0; i < $scope.model.doctor.hasAccessToMe.length; i += 1){
+                if ($scope.model.doctor.hasAccessToMe[i]._id == resDoctor._id){
+                    $scope.model.doctor.hasAccessToMe.splice(i, 1);
+                    break;
+                }
+            }
+
+            // update query results doctors
+            for (var i = 0; i < $scope.model.doctor.queryResults.length; i += 1){
+                if ($scope.model.doctor.queryResults[i]._id == resDoctor._id){
+                    $scope.model.doctor.queryResults[i].hasAccessToMe = false;
+                }
+            }
+
+            $scope.view.controller.openAccessChangedAlert(resDoctor, false);
         }).error(function(err){
             console.log('httpDoctor.access.delete -> error');
             console.log(JSON.stringify(err));

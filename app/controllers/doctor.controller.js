@@ -48,11 +48,11 @@ module.exports = function(){
     c.query = function(req, res, next){
         var query = {};
         if (req.query.name_first){
-            query.name_first = req.query.name_first;
+            query.name_first = req.query.name_first; 
         }
         if (req.query.name_last){
             query.name_last = req.query.name_last;
-        }
+        } 
 
         Doctor.find(query, publicAttributes, function(err, doctors){
             if (err) return reqError(res, 500, err);
@@ -253,9 +253,10 @@ module.exports = function(){
             function(err, newPatient){
                 if(err) return reqError(res, 500, err); 
 
-                res.status(202).send({
-                    msg : "successfully allowed doctor to access"
-                });
+                res.status(202).send(
+                // TODO -> return only good points
+                    newDoctor
+                );
             });
         });
     };
@@ -278,10 +279,10 @@ module.exports = function(){
         function (err, newDoctor){
             if(err) return reqError(res, 500, err);
 
-            res.status(202).json({
-                msg : "successfully revoked access",
-                doctor_id : doctor_id
-            });
+            res.status(202).json(
+                // TODO -> return only good points
+                newDoctor
+            );
         });
     };
 

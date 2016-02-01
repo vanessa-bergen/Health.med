@@ -16,17 +16,17 @@ angular.module('module_login')
             $http.post(ENDPOINT + "/patient", body)
             .success(function(data){
                 console.log('account creation is a GO!!!');
-                $window.location.href = ENDPOINT + "/patient";
+                $window.location.href = ENDPOINT + "/app/patient";
             })
             .error(function(error){
                 console.log('post patient error: ' + JSON.stringify(error));
                 $scope.signupFailed = true;
             });
         } else if ($scope.account_type == 'doctor') {
-            $http.post(ENDPOINT + '/doctor', body)
+            $http.post(ENDPOINT + "/doctor", body)
             .success(function(data){
                 console.log('doctor creation is also a GOogle');
-                $window.location.href = ENDPOINT + "/doctor";
+                $window.location.href = ENDPOINT + "/app/doctor";
             })
             .error(function(error){
                 console.log('post doctor error: ' + JSON.stringify(error));
