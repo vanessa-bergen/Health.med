@@ -3,7 +3,9 @@ console.log('module_doctor');
 angular.module('module_doctor', [
     'ui.router',
     'module_config',
-    'module_basic_filters'
+    'module_basic_filters', 
+    'http_doctor',
+    'http_patient'
 ])
 .config(function($stateProvider, $urlRouterProvider){
     $stateProvider

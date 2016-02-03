@@ -26,6 +26,11 @@ angular.module("http_doctor")
 			delete : function(doctor_id){
 				return $http.delete(base + "/access/" + doctor_id);
 			}
+		},
+		login : {
+			delete : function(){
+				return $http.delete(base + "/login");
+			}
 		}
 	}
 });
