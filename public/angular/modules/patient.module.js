@@ -1,6 +1,6 @@
 angular.module('module_patient', [
-    'ui.router',
-    'ui.bootstrap',
+    'ui.router'
+    , 'ui.bootstrap'
     , 'module_config'
     , 'http_doctor'
     , 'http_patient'
