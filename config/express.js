@@ -48,7 +48,7 @@ module.exports = function(homeDir){
     require('../app/routes/condition.routes.js')(app);
     require('../app/routes/doctor.routes.js')(app);
     require('../app/routes/prescription.routes.js')(app);
-    require('../app/routes/pharmacy_link.routes.js')(app);
+    require('../app/routes/pharmacy_link.routes.js')(app, homeDir);
     require('../app/routes/web_app.routes.js')(app, homeDir);
 
     console.log("    routes intialized.");

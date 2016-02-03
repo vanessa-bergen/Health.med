@@ -1,14 +1,14 @@
-module.exports = function(app){
-    var pharmacy_link_ctrlr = require('../controllers/pharmacy_link.controller.js')();
+module.exports = function(app, dirname){
+    var pharmacy_link_ctrlr = require('../controllers/pharmacy_link.controller.js')(dirname);
 
     app.post('/patient/pharmacy_link', pharmacy_link_ctrlr.create);
-    app.get('/pharmacy_link/id/:pharmacyLink_id',pharmacy_link_ctrlr.getById);
- 	app.get('/pharmacy_link/prescriptionId/:prescription_id', 
+    
+    app.get('/pharmacy_link/id/:pharmacyLink_id', pharmacy_link_ctrlr.getPharmacyLinkPage);
+ 	
+    app.get('/pharmacy_link/prescriptionId/:prescription_id', 
     	pharmacy_link_ctrlr.getByPrescriptionId);
 
-    app.param('pharmacyLink_id', function(req, res, next){
-        next();
-    });
+    app.param('pharmacyLink_id', pharmacy_link_ctrlr.findById);
 
     app.param('prescription_id', function(req,res,next){
     	next();
