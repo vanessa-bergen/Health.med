@@ -2,6 +2,7 @@ module.exports = function(app){
     var doctor_ctrlr = require('../controllers/doctor.controller.js')();
 
     app.post('/doctor/login', doctor_ctrlr.doLogIn);
+    app.delete('/doctor/login', doctor_ctrlr.doLogOut);
     app.post('/doctor', doctor_ctrlr.create);
     
     app.get('/doctor/access/me', doctor_ctrlr.getHasAccessToMe);

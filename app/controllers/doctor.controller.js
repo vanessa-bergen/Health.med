@@ -43,6 +43,12 @@ module.exports = function(){
         });
     };
 
+    c.doLogOut = function(req, res, next){
+        req.session.destroy();
+
+        res.status(202).json({ logged_in : false });
+    };
+
     var publicAttributes = "_id minc name_first name_last specialization";
 
     c.query = function(req, res, next){
