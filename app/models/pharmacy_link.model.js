@@ -3,12 +3,9 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var pharmacyLinkSchema = new Schema({
-    prescription : {
-    	type: [{ 
+    prescription_id :{ 
             type: Schema.Types.ObjectId,
             ref : 'Prescription'
-        }],
-        default : []
     },
 
     date_generated : {

@@ -1,7 +1,6 @@
 module.exports = function(){
     var PharmacyLink = require('mongoose').model('pharmacyLink');
-    var Perscription = require('mongoose').model('Prescription');
-    var Doctor = require('mongoose').model('Doctor');
+    var Prescription = require('mongoose').model('Prescription');
     var hmSession = require('./session.controller.js');
 
     var reqError = require('./reqError.js');
@@ -21,10 +20,24 @@ module.exports = function(){
         var newPharmacyLink = new PharmacyLink(req.body);
         newPharmacyLink.save(function(err){
             if (err) return reqError(res, 500, err);
-
-            res.status(201).json({
-                pharmacy_link_url : "http://52.32.102.227/"+newPharmacyLink._id
+            console.log(req.body.prescription_id)
+            Prescription.update({
+                _id : req.body.prescription_id
+            },
+            {
+                $addToSet : {
+                    'pharmacy_links'
+                     : newPharmacyLink._id
+                    }
+            },
+            function(err, updatedPrescription){
+                if(err) return reqError(res, 500, err);
+                res.status(202).json({
+                    pharmacy_link_url : "/pharmacy_link/id/"+newPharmacyLink._id,
+                    updatedPrescription : updatedPrescription
+                });
             });
+
         });
     };
 
@@ -56,6 +69,16 @@ module.exports = function(){
             if(hoursDiff>24) return reqError(res, 400, "pharmacy link", "expired")
             
             res.json(pharmacyLink);
+        });
+    };
+
+    c.getByPrescriptionId = function (req,res,next){
+        if (!req.params.prescription_id) return reqError(res, 400, "prescription_id param", "missing");
+        var prescription_id = req.params.prescription_id;
+        PharmacyLink.find({ prescription_id :  prescription_id}, 
+            function(err, pharmacyLinks){
+                res.json({
+                    pharmacyLinksForPrescriptionId : pharmacyLinks});
         });
     };
 

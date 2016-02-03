@@ -13,6 +13,13 @@ angular.module('http_patient')
 		},
 		getPrescriptions : function(){
 			return $http.get(base + "/getPrescription")
-		}	
+		},
+		pharmacy_link : {
+			post : function(prescription_id){
+				return $http.post(base + "/pharmacy_link", {
+					"prescription_id" : prescription_id
+				});
+			}		
+		}
 	}
 });
