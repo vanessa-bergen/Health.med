@@ -29,6 +29,7 @@ module.exports = function(){
         if (!req.body) return reqError(res, 400, "body", "missing");
         if (!req.body.password) return reqError(res, 400, "passsword", "missing");
         if (!req.body.minc) return reqEror(res, 400, "minc", "missing");
+        
         Doctor.findOne({ minc : req.body.minc }, function (err, doctor){
             if (err) return reqError(res, 500, err);
             
@@ -81,9 +82,16 @@ module.exports = function(){
     c.getMe = function(req, res, next){
         if (!req.session.doctor) return res.json({ logged_in : false });
 
-        res.json({
-            account_type : req.session.account_type,
-            doctor : req.session.doctor    
+        Doctor.findOne({ 
+            _id : req.session.doctor._id
+        })
+        .populate('has_access_to')
+        .populate('invites')
+        .exec(function(err, me){
+            if (err) return reqError(res, 500, err);
+
+            req.session.doctor = me;
+            res.json(me);
         });
     };
 
