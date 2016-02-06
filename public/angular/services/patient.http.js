@@ -23,6 +23,9 @@ angular.module('http_patient')
 				});
 			}		
 		},
+		getTestResults : function(patient_id){
+			return $http.get(ENDPOINT + "/testresult/patient_id/" + patient_id);
+        },
 		access : {
 			put : function(patient_id){
 				return $http.put(base + "/access/" + patient_id);

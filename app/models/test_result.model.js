@@ -12,11 +12,6 @@ TestResultSchema = new Schema ({
         type : Date,
         required : true
     },
-    files : {
-        type: String,
-        required: true   
-    },
-
     red_blood_cell_count : {
         type : Number, // units = trillion cells/L
         required : true
