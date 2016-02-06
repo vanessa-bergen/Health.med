@@ -59,6 +59,66 @@ module.exports = function(){
         res.status(202).json({logged_in : false });
     };
 
+    c.requestAccess = function(req, res, next){
+        if (!req.params.patient_id) return reqError(res, 400, "patient_id", "missing");
+        if (!req.session.doctor) return reqError(res, 401, "not logged in");
+
+        var doctor_id = req.session.doctor._id;
+        var patient_id = req.params.patient_id;
+
+        Patient.findOneAndUpdate({ 
+            _id : patient_id 
+        }, {
+            $addToSet : {
+                'requests' : doctor_id
+            }
+        }, function(err, patient){
+            if (err) return reqError(res, 500, err);
+
+            Doctor.findOneAndUpdate({
+                _id : doctor_id
+            }, {
+                $addToSet : {
+                    'pending' : patient_id
+                }
+            }, function(err, doctor){
+                if (err) return reqError(res, 500, err);
+
+                res.status(202).send(patient._id);
+            });
+        });
+    };
+
+    c.cancelRequestAccess = function(req, res, next){
+        if (!req.params.patient_id) return reqError(res, 400, "patient_id", "missing");
+        if (!req.session.doctor) return reqError(res, 401, "not logged in");
+
+        var doctor_id = req.session.doctor._id;
+        var patient_id = req.params.patient_id;
+
+        Patient.findOneAndUpdate({ 
+            _id : patient_id 
+        }, {
+            $pull : {
+                'requests' : doctor_id
+            }
+        }, function(err, patient){
+            if (err) return reqError(res, 500, err);
+
+            Doctor.findOneAndUpdate({
+                _id : doctor_id
+            }, {
+                $pull : {
+                    'pending' : patient_id
+                }
+            }, function(err, doctor){
+                if (err) return reqError(res, 500, err);
+
+                res.status(202).send(patient._id);
+            });
+        });
+    }
+
     var publicAttributes = "_id health_card_number gender name_first name_last phone_number address";
 
     c.query = function(req, res, next){
@@ -97,7 +157,7 @@ module.exports = function(){
             _id : req.session.patient._id
         })
         .populate('allergies')
-        .populate('pending')
+        .populate('requests')
 
         .exec(function(err, unpopulated){
             if (err) return reqError(res, 500, err);
@@ -194,14 +254,5 @@ module.exports = function(){
         });
     };
 
-    c.getPending = function(req, res, next){
-        if(!req.session.patient) return res.json({ logged_in : false });
-        Patient.find({ _id : req.session.patient._id})
-        .populate('pending')
-        .exec(function(err, patient){
-            if (err) return reqError(res, 500, err);
-            res.json(patient);
-        });
-    };
     return c;
 }
