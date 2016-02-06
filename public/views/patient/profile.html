@@ -76,34 +76,51 @@
                     ng-model="model.profile.patient.address.city"
 					ng-disabled="disabled"
                     required />
+		<label>Province</label> 
+				<div>
+                    <select class ="c-select" ng-model="model.profile.patient.address.province" ng-disabled="disabled">
+					<option value="" selected="selected">Select One</option>
+					<option value="AB">AB</option>
+					<option value="BC">BC</option>
+					<option value="MB">MB</option>
+					<option value="NB">NB</option>
+					<option value="NL">NL</option>
+					<option value="NS">NS</option>
+					<option value="NT">NT</option>
+					<option value="NU">NU</option>
+					<option value="ON">ON</option>
+					<option value="PE">PE</option>
+					<option value="QC">QC</option>
+					<option value="SK">SK</option>
+					<option value="YT">YT</option>
+					</select>
+				</div>
+			<style type="text/css">
+							.c-select {
+							width: 260px;
+							font-size: 16px;
+							line-height: 1;
+							height: 34px;
+									}
+						</style>
 
-        <label>Province</label> 
-			<input
-                    Placeholder="Province"
-                    class="form-control margin-top"
-                    name="province"
-                    ng-model="model.profile.patient.address.province"
-					ng-disabled="disabled"
-                    required />
-					
-         <label>Country</label>    
-         <input
-                    Placeholder="Country"
-                    class="form-control margin-top"
-                    name="country"
-                    ng-model="model.profile.patient.address.country"
-					ng-disabled="disabled"
-                    required />
-                           
-         <label>Postal Code</label>
-                <input
-                    Placeholder="Postal Code"
-                    class="form-control margin-top"
-                    name="postal_code"
-                    ng-model="model.profile.patient.address.postal_code"
-					ng-disabled="disabled"
-                    required />
-    </div>
+        <label>Postal Code</label>
+            <input
+                Placeholder="Postal Code"
+                class="form-control margin-top"
+                name="postal_code"
+                ng-model="model.profile.patient.address.postal_code"
+				ng-disabled="disabled"
+                required />
+		<label>Country</label> 
+			<div>
+                <select class ="c-select" ng-model="model.profile.patient.address.country" ng-disabled="disabled">
+				<option value="" selected="selected">Select One</option>
+				<option value="CAN">CAN</option>
+				</select>
+			</div>
+					                           
+        </div>
     </div> 
     <div class="form-group">
     
