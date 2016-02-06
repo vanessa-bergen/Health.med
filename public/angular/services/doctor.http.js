@@ -5,9 +5,6 @@ angular.module("http_doctor")
 		getMe : function(){
 			return $http.get(base + "/me");
 		},
-		getIndex : function(){ 
-			return $http.get(base);
-		},
 		invite_add : function(){
 			return $http.put(base + "/invite/add");
 		},
