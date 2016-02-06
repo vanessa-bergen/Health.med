@@ -5,6 +5,9 @@ module.exports = function(app){
     app.post('/patient/login', patient_controller.doLogIn);
     app.delete('/patient/login', patient_controller.doLogOut);
     app.post('/patient', patient_controller.create);
+	
+	// Profile
+	app.put('/patient/edit', patient_controller.update);
 
     // patient.allergy CRUDs
     app.put('/patient/allergy/add', patient_controller.addAllergy);
