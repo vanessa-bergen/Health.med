@@ -1,14 +1,8 @@
 .margin-top {
-    margin-top: 12px;
+    margin-top: 20px;
 }
 .margin-bottom {
-    margin-bottom: 12px;
-}
-.ng-invalid {
-    background-color: #ffe0e0;
-}
-.ng-valid {
-    background-color: #ffffff;
+    margin-bottom: 20px;
 }
 span.error {
     color: red;
