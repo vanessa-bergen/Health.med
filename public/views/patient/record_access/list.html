@@ -1,14 +1,12 @@
 <div ng-controller="ctrlr_recordAccess">
 
     <div 
-        class="well"
-        style="margin-top: 20px"
+        class="well margin-top"
         ng-show="model.doctor.hasAccessToMe.length == 0">
         No doctors have access to your medical records.
     </div>
 
     <div ng-hide="model.doctor.hasAccessToMe.length == 0">
-
 
         <div class="well"
             ng-repeat="doctor in model.doctor.hasAccessToMe"
