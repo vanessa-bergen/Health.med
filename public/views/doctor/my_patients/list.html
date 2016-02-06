@@ -24,7 +24,7 @@
 
                 <p>Health card number: {{ patient.health_card_number }}</p>
                 <p>{{
-                		angular.isUndefined(patient.phone_number.secondary)
+                		view.controller.hasSecondaryPhone(patient)
                 		? "Phone Number:"
                 		: "Primary Number:"
                 	}} {{ 
@@ -32,7 +32,7 @@
                 	}}
                 </p>
 
-                <p ng-hide="angular.isUndefined(patient.phone_number.secondary)">
+                <p ng-hide="view.controller.hasSecondaryPhone(patient)">
                 	Secondary Number: {{ patient.phone_number.secondary }}
                 </p>
             </button>
