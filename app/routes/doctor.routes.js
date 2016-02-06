@@ -2,6 +2,7 @@ module.exports = function(app){
     var doctor_ctrlr = require('../controllers/doctor.controller.js')();
 
     app.post('/doctor/login', doctor_ctrlr.doLogIn);
+    app.delete('/doctor/login', doctor_ctrlr.doLogOut);
     app.post('/doctor', doctor_ctrlr.create);
     
     app.get('/doctor/access/me', doctor_ctrlr.getHasAccessToMe);
@@ -12,8 +13,7 @@ module.exports = function(app){
    
     app.get('/doctor/id/:doctor_id', doctor_ctrlr.getById);
     app.get('/doctor/id', doctor_ctrlr.getById);
-    app.get('/doctor/me', doctor_ctrlr.getMe); 
-    app.get('/doctor/index', doctor_ctrlr.index);
+    app.get('/doctor/me', doctor_ctrlr.getMe);
     app.get('/doctor', doctor_ctrlr.query);
 
     //doctor.invite add and delete

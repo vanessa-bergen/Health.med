@@ -2,8 +2,10 @@ angular.module('http_patient')
 .factory('httpPatient', function($http, ENDPOINT){
 	var base = ENDPOINT + "/patient";
 	return {
-		getIndex : function(){
-			return $http.get(base + "/index");
+		queryPatient : function(queryParams){
+			return $http.get(base, {
+				params : queryParams
+			});
 		},
 		getMe : function(){
 			return $http.get(base + "/me");
@@ -13,6 +15,13 @@ angular.module('http_patient')
 		},
 		getPrescriptions : function(){
 			return $http.get(base + "/getPrescription")
-		}	
+		},
+		pharmacy_link : {
+			post : function(prescription_id){
+				return $http.post(base + "/pharmacy_link", {
+					"prescription_id" : prescription_id
+				});
+			}		
+		}
 	}
 });

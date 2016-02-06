@@ -1,5 +1,8 @@
 <div ng-controller="ctrlr_prescription">
     
+
+
+
     <div class="well" ng-show="model.patient.prescriptions.length==0">
         You have no prescriptions.
     </div>
@@ -11,10 +14,16 @@
     		<p> Dosage : {{prescription.dosage}} </p>
     		<p> Frequency : {{prescription.frequency}} </p>
     		<p> Date Prescribed : {{prescription.date}} </p>
-            <p>Perscribed by : {{prescription.doctor[0].name_first +" "+ prescription.doctor[0].name_last}}</p>
-            <p>Doctor Specialization : {{prescription.doctor[0].specialization}} </p> 
-            <button type="button" class="btn btn-primary btn-md">Generate Link for Pharmacy</button>
-        </div>
+            <p>Perscribed by : {{prescription.doctor.name_first +" "+ prescription.doctor.name_last}}</p>
+            <p>Doctor Specialization : {{prescription.doctor.specialization}} </p> 
+            <button
+                type="button" 
+                class="btn btn-primary btn-md"
+                ng-click = "controller.createPharmaryLink(prescription._id)">
+                Generate Link for Pharmacy
+            </button>
+            <div ng-hide=model.patient.prescription
+            </div>
     </div>
 </div>
 

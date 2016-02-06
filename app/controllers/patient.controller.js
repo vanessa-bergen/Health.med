@@ -80,10 +80,30 @@ module.exports = function(){
         res.status(202).json({logged_in : false });
     };
 
+    var publicAttributes = "_id health_card_number gender name_first name_last phone_number address";
+
+    c.query = function(req, res, next){
+        var query = {};
+        if (req.query.name_first){
+            query.name_first = req.query.name_first; 
+        }
+        if (req.query.name_last){
+            query.name_last = req.query.name_last;
+        } 
+
+        Patient.find(query, publicAttributes, function(err, patients){
+            if (err) return reqError(res, 500, err);
+
+            res.json(patients);
+        });
+    };
+
     c.findById = function(req, res, next, patient_id){
         if (!patient_id) return next();
 
-        Patient.findOne({ _id : patient_id }, function(err, patient){
+        Patient.findOne({ 
+            _id : patient_id }
+        , publicAttributes, function(err, patient){
             if (err) return reqError(res, 500, err);
 
             req.patient = patient;
@@ -114,15 +134,6 @@ module.exports = function(){
                 req.session.patient = patient;
                 res.json(patient);
             });
-        });
-    };
-
-
-    c.index = function(req, res, next){
-        Patient.find({}, function(err, patients){
-            if (err) return reqError(res, err);
-
-            res.json(patients);
         });
     };
 
