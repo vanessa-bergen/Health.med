@@ -22,6 +22,9 @@ angular.module('http_patient')
 					"prescription_id" : prescription_id
 				});
 			}		
+		},
+		getTestResults : function(patient_id){
+			return $http.get(ENDPOINT + "/testresult/patient_id/" + patient_id);
 		}
 	}
 });
