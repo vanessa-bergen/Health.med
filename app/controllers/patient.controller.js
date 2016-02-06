@@ -59,7 +59,7 @@ module.exports = function(){
         res.status(202).json({logged_in : false });
     };
 
-    var publicAttributes = "_id health_card_number name_first name_last phone_number address";
+    var publicAttributes = "_id health_card_number gender name_first name_last phone_number address";
 
     c.query = function(req, res, next){
         var query = {};
