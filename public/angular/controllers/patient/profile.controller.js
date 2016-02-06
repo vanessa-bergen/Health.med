@@ -4,6 +4,8 @@ angular.module('module_patient')
 .controller('ctrlr_profile', function($scope, $http, $location, $window, ENDPOINT, httpPatient){
     $scope.hello = "Profile"; 
 	
+	$scope.disabled= true;
+	
 	$scope.model = {};
 	$scope.model.profile = {};
 	
@@ -11,10 +13,36 @@ angular.module('module_patient')
 	httpPatient.getMe().success(function(me){
 		console.log('httpPatient.getMe -> success');
 		$scope.model.profile.patient = me;
+		console.log(JSON.stringify(me));
 	})
 		.error(function(err){
 		console.log('httpPatient.getMe -> error');
         console.log(JSON.stringify(err));	
 	});
+	
+	$scope.edit = (function(body){
+		$scope.disabled = false;
+		console.log('Field Ready for Edit');
+		//$scope.model.profile.patient = body;
+		//console.log(JSON.stringify(body));
+	});
+	$scope.http = {};
+	$scope.http.profile = {
+        save : function(body){
+            console.log('http.profile.save()'); 
+					
+		$http.put(ENDPOINT + "/patient/edit", (JSON.stringify(body)))
+		 .success(function(body){
+        console.log('http.profile.save -> sucess');
+		$scope.model.profile.patient = body;
+        //$window.location.href = ENDPOINT + "/app/patient";
+		})
+		.error(function(error){
+            console.log('put patient error: ' + JSON.stringify(error));
+            $scope.saveFailed = true;
+            }); 
+		$scope.disabled = true;
+		}
+	}; 
 });
 
