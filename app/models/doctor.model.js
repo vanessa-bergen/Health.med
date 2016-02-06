@@ -97,7 +97,7 @@ var DoctorSchema = new Schema ({
 
         default : []
     },
-    invites : {
+    pending : {
         type : [{
             type : Schema.Types.ObjectId,
             ref : 'Patient'

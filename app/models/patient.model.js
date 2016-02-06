@@ -128,7 +128,7 @@ var PatientSchema = new Schema({
         default : []
     },
 
-    pending : {
+    requests : {
         type: [{ 
             type: Schema.Types.ObjectId,
             ref : 'Doctor'
