@@ -86,7 +86,7 @@ module.exports = function(){
             _id : req.session.doctor._id
         })
         .populate('has_access_to')
-        .populate('invites')
+        .populate('pending')
         .exec(function(err, me){
             if (err) return reqError(res, 500, err);
 
