@@ -1,2 +1,43 @@
-<h5>My Patients</h5>
+<div ng-controller="ctrlr_my_patients">
+
+	<div 
+        class="well"
+        style="margin-top: 20px"
+        ng-show="model.doctor.me.has_access_to.length == 0">
+        You do not have any patients at the moment.
+    </div>
+
+    <div ng-hide="model.doctor.me.has_access_to.length == 0">
+
+    	<div class="row"
+            ng-repeat="patient in model.doctor.me.has_access_to"
+            ng-style="{'margin-top' : ($first ? '20px' : '0px')}">
+
+            <button class="btn btn-block btn-default"
+            	style="text-align: left;"
+            	ng-click="goToPatient(patient._id)">
+
+                <label>{{
+                    patient.gender == "male" ? "Mr." : "Ms." 
+                }} {{ patient.name_first }} {{ patient.name_last }}
+                </label>
+
+                <p>Health card number: {{ patient.health_card_number }}</p>
+                <p>{{
+                		view.controller.hasSecondaryPhone(patient)
+                		? "Phone Number:"
+                		: "Primary Number:"
+                	}} {{ 
+                		patient.phone_number.primary 
+                	}}
+                </p>
+
+                <p ng-hide="view.controller.hasSecondaryPhone(patient)">
+                	Secondary Number: {{ patient.phone_number.secondary }}
+                </p>
+            </button>
+        </div>
+    </div>
+
+</div>
 

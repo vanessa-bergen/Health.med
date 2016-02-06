@@ -2,8 +2,8 @@ angular.module("http_doctor")
 .factory("httpDoctor", function($http, ENDPOINT){
 	var base = ENDPOINT + "/doctor";
 	return {
-		getIndex : function(){ 
-			return $http.get(base);
+		getMe : function(){
+			return $http.get(base + "/me");
 		},
 		invite_add : function(){
 			return $http.put(base + "/invite/add");

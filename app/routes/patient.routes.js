@@ -11,12 +11,10 @@ module.exports = function(app){
     app.get('/patient/allergy', patient_controller.getAllergies);
     app.delete('/patient/allergy/', patient_controller.deleteAllergy); 
 
-    app.get('/patient/me', patient_controller.getMe);
-    
-    //pending CRUDs
+
+    app.get('/patient/me', patient_controller.getMe);    
     app.get('/patient/pending', patient_controller.getPending);
-    // devel endpoint
-    app.get('/patient/index', patient_controller.index);
+    app.get('/patient', patient_controller.query);
 
     app.param('patient_id', patient_controller.findById);
 
