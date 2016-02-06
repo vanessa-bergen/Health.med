@@ -1,2 +1,53 @@
-<h5>Pending Patients</h5>
+<div ng-controller="ctrlr_my_patients">
+	<div class="well"
+	    style="margin-top: 20px"
+	    ng-show="model.doctor.me.pending.length == 0">
+	    You do not have any patients at the moment.
+	</div>
 
+	<div ng-hide="model.doctor.me.pending.length == 0">
+
+		<div class="well"
+			ng-repeat="patient in model.doctor.me.pending"
+	        ng-style="{'margin-top' : ($first ? '20px' : '0px')}">
+
+			<div class="row">
+
+				<div class="col-sm-8">
+					<label>{{
+	                    patient.gender == "male" ? "Mr." : "Ms." 
+	                }} {{ patient.name_first }} {{ patient.name_last }}
+	                </label>
+
+	                <p>Health card number: {{ patient.health_card_number }}</p>
+	                <p>{{
+	                		view.controller.hasSecondaryPhone(patient)
+	                		? "Phone Number:"
+	                		: "Primary Number:"
+	                	}} {{ 
+	                		patient.phone_number.primary 
+	                	}}
+	                </p>
+	                
+	            	<p ng-hide="view.controller.hasSecondaryPhone(patient)">Secondary Number: {{ patient.phone_number.secondary }}</p>
+				</div>
+
+				<div class="col-sm-4"
+					style="text-align: center;">
+
+					<button 
+						class="btn btn-default btn-block"
+						disabled="true">
+						Record Access Pending
+					</button>
+
+					<button 
+						class="btn btn-danger btn-block margin-top"
+						ng-click="cancelAccessRequest(patient._id)">
+						Cancel Request
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
