@@ -6,7 +6,7 @@ module.exports = function(app){
     app.post('/doctor', doctor_ctrlr.create);
     
     app.get('/doctor/access/me', doctor_ctrlr.getHasAccessToMe);
-    app.get('/doctor/access', doctor_ctrlr.getAccessTo);
+    //app.get('/doctor/access', doctor_ctrlr.getAccessTo);
     // used by patients, requires valid patient session
     app.delete('/doctor/access/:doctor_id', doctor_ctrlr.deleteAccessTo);    
     app.put('/doctor/access/:doctor_id', doctor_ctrlr.addAccessTo);
@@ -16,10 +16,7 @@ module.exports = function(app){
     app.get('/doctor/me', doctor_ctrlr.getMe);
     app.get('/doctor', doctor_ctrlr.query);
 
-    //doctor.invite add and delete
-    app.put('/doctor/invite/add', doctor_ctrlr.addInvite);
-    app.delete('/doctor/decline_invite', doctor_ctrlr.declineInvite);
-    app.delete('/doctor/cancel_invite/:patient_id', doctor_ctrlr.cancelInvite); 
+    app.delete('/doctor/request/:doctor_id', doctor_ctrlr.declineInvite);
 
     app.param('patient_id', function(req, res, next){
         next();
