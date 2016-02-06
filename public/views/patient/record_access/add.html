@@ -88,14 +88,14 @@
 					style="text-align: center;">
 					
 					<button 
-						class="btn btn-primary"
+						class="btn btn-primary btn-block"
 						ng-hide="doctor.hasAccessToMe"
 						ng-click="addAccessTo(doctor._id)">
 						Add Access
 					</button>
 
 					<button
-						class="btn btn-danger"
+						class="btn btn-danger btn-block"
 						ng-show="doctor.hasAccessToMe"
 						ng-click="revokeAccessTo(doctor._id)">
 						Revoke Access
