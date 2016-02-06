@@ -2,6 +2,19 @@ angular.module('module_doctor')
 .controller('ctrlr_my_patients', function($scope, $http, $location, $window
 , $uibModal, ENDPOINT, httpDoctor, httpPatient){
 
+    var accessRequestedAlert = '' +
+    '<div class="modal-header">' +
+        '<h3 ng-show="accessRequested" class="modal-title">Medical Records Access Requested</h3>' +
+        '<h3 ng-hide="accessRequested" class="modal-title">Medical Records Access Request Cancelled</h3>' +
+    '</div>' +
+    '<div class="modal-body">' +
+        '<p ng-show="accessRequested">Access to {{ patient.name_first + " " + patient.name_last + apostropheS(patient.name_last) }} medical records has been requested.</p>' +
+        '<p ng-hide="accessRequested">Your request to access {{ patient.name_first + " " + patient.name_last + apostropheS(patient.name_last) }} medical records has been cancelled.</p>' +
+    '</div>' +
+    '<div class="modal-footer">' +
+        '<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>' +
+    '</div>';
+
 	$scope.model = {};
 	
 	$scope.model.patient = {};
@@ -50,6 +63,21 @@ angular.module('module_doctor')
         hasSecondaryPhone : function(patient){
         	var isUndefined = angular.isUndefined(patient.phone_number.secondary);
         	return isUndefined;
+        },
+        openAccessRequestedAlert : function(patient, accessRequested){
+            $uibModal.open({
+                animation : true,
+                template : accessRequestedAlert,
+                controller : 'ctrlr_request_access_alert',
+                resolve : {
+                    patient : function() {
+                        return patient;
+                    },
+                    accessRequested : function() {
+                        return accessRequested;
+                    }
+                }
+            });
         }
 	}
 
@@ -80,16 +108,17 @@ angular.module('module_doctor')
 	};
 
     $scope.requestAccess = function(patient_id){
-        httpPatient.access.put(patient_id).success(function(patient_id){
+        httpPatient.access.put(patient_id).success(function(patient){
             console.log('httpPatient.access.put -> success');
 
             // update query results patients to see pending sent
             for (var i = 0; i < $scope.model.patient.queryResults.length; i += 1){
-                if ($scope.model.patient.queryResults[i]._id == patient_id){
+                if ($scope.model.patient.queryResults[i]._id == patient._id){
                     $scope.model.patient.queryResults[i].accessPending = true;
                 }
             }
 
+            $scope.view.controller.openAccessRequestedAlert(patient, true);
             getMe();
         }).error(function(err){
             console.log('httpPatient.access.put -> error');
@@ -98,16 +127,17 @@ angular.module('module_doctor')
     };
 
     $scope.cancelAccessRequest = function(patient_id){
-        httpPatient.access.delete(patient_id).success(function(patient_id){
+        httpPatient.access.delete(patient_id).success(function(patient){
             console.log('httpPatient.access.delete -> success');
 
             // update query results patients to see pending sent
             for (var i = 0; i < $scope.model.patient.queryResults.length; i += 1){
-                if ($scope.model.patient.queryResults[i]._id == patient_id){
+                if ($scope.model.patient.queryResults[i]._id == patient._id){
                     $scope.model.patient.queryResults[i].accessPending = false;
                 }
             }
 
+            $scope.view.controller.openAccessRequestedAlert(patient, false);
             getMe();
         }).error(function(err){
             console.log('httpPatient.access.delete -> error');
