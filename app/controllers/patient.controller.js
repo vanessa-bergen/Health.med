@@ -84,7 +84,7 @@ module.exports = function(){
             }, function(err, doctor){
                 if (err) return reqError(res, 500, err);
 
-                res.status(202).send(patient._id);
+                res.status(202).send(patient);
             });
         });
     };
@@ -114,7 +114,7 @@ module.exports = function(){
             }, function(err, doctor){
                 if (err) return reqError(res, 500, err);
 
-                res.status(202).send(patient._id);
+                res.status(202).send(patient);
             });
         });
     }
