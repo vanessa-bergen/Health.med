@@ -5,17 +5,17 @@
 <form name="patient_profile_form"
 	ng-show="model.profile.patient"
 	novalidate> 
-	   
-    <div class="form-group">
-    
+      
     <h4><label>Personal Information</label></h4>
         <div class="well">
             
                 <label>Name</label>
                     <input
+						
                         placeholder="First Name"
                         class="form-control"
                         name="name_first"
+						ng-disabled="disabled"
                         ng-model="model.profile.patient.name_first"
                         required />
 					</br>
@@ -23,6 +23,7 @@
                         placeholder="Last Name"
                         class="form-control"
 						name="name_last"
+						ng-disabled="disabled"
                         ng-model="model.profile.patient.name_last"
                         required />
 					</br>	
@@ -32,6 +33,7 @@
                         placeholder="Health Card Number"
                         class="form-control"
                         name="health_card_number"
+						ng-disabled="disabled"
                         ng-model="model.profile.patient.health_card_number"
                         required />
 					</br>
@@ -42,11 +44,13 @@
                     <input type="radio"
                      ng-model="model.profile.patient.gender"
                      name="gender"
+					 ng-disabled="disabled"
 					 value="female">
                      Female</label>
                     <label class="radio-inline">
                     <input type="radio"
                      ng-model="model.profile.patient.gender"
+					 ng-disabled="disabled"
                      name="gender"
 					 value="male">
                      Male</label>
@@ -61,6 +65,7 @@
                     class="form-control margin-top"
                     name="street"
                     ng-model="model.profile.patient.address.street"
+					ng-disabled="disabled"
                     required />
        
          <label>City</label>
@@ -69,6 +74,7 @@
                     class="form-control margin-top"
                     name="city"
                     ng-model="model.profile.patient.address.city"
+					ng-disabled="disabled"
                     required />
 
         <label>Province</label> 
@@ -77,6 +83,7 @@
                     class="form-control margin-top"
                     name="province"
                     ng-model="model.profile.patient.address.province"
+					ng-disabled="disabled"
                     required />
 					
          <label>Country</label>    
@@ -85,6 +92,7 @@
                     class="form-control margin-top"
                     name="country"
                     ng-model="model.profile.patient.address.country"
+					ng-disabled="disabled"
                     required />
                            
          <label>Postal Code</label>
@@ -93,6 +101,7 @@
                     class="form-control margin-top"
                     name="postal_code"
                     ng-model="model.profile.patient.address.postal_code"
+					ng-disabled="disabled"
                     required />
     </div>
     </div> 
@@ -107,6 +116,7 @@
                 class="form-control"
                 name="primary_phone_number"
                 ng-model="model.profile.patient.phone_number.primary"
+				ng-disabled="disabled"
                 required />
 				</br>
             <input
@@ -114,6 +124,7 @@
                 class="form-control"
                 name="secondary_phone_number"
                 ng-model="model.profile.patient.phone_number.secondary"
+				ng-disabled="disabled"
                 />     
 				</br>
             
@@ -123,6 +134,7 @@
                     class="form-control"
                     name="email_address"
                     ng-model="model.profile.patient.email"
+					ng-disabled="disabled"
                     required />
      </div>  
 		<h4><label>Emergency Contact Information</label></h4>
@@ -132,7 +144,8 @@
                     placeholder="Name"
                     class="form-control"
                     name="name"
-                    ng-model="model.profile.patient.emergency_contact.name"
+                    ng-model="model.profile.patient.emergency_contact.type.name"
+					ng-disabled="disabled"
                     required />
 					<br>
 		<label>Phone Number</label>
@@ -140,7 +153,8 @@
                     placeholder="Phone Number"
                     class="form-control"
                     name="phone_number"
-                    ng-model="model.profile.patient.emergency_contact.phone_number"
+                    ng-model="model.profile.patient.emergency_contact.type.phone_number"
+					ng-disabled="disabled"
                 />
 				<br>
 				<label>Relationship</label>
@@ -148,7 +162,24 @@
                     placeholder="Relationship"
                     class="form-control"
                     name="relationship"
-                    ng-model="model.profile.patient.emergency_contact.relationship"
+                    ng-model="model.profile.patient.emergency_contact.type.relationship"
+					ng-disabled="disabled"
                 />
         </div>
 </div>
+
+</form>
+<button 
+	type="button" 
+	class="btn btn-primary btn-md"
+	ng-click="edit(model.profile.patient)"
+	ng-model="edit">
+	Edit
+	</button>
+<button 
+	type="button" 
+	class="btn btn-primary btn-md"
+	ng-click="http.profile.save(model.profile.patient)"
+	ng-model="save">
+	Save
+</button>
