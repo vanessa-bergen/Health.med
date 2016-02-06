@@ -8,6 +8,8 @@ module.exports = function(app, dirname){
     app.get('/pharmacy_link/prescriptionId/:prescription_id', 
     	pharmacy_link_ctrlr.getByPrescriptionId);
 
+    app.get('/pharmacy_link/current', pharmacy_link_ctrlr.getCurrentPharmacyLink);
+
     app.param('pharmacyLink_id', pharmacy_link_ctrlr.findById);
 
     app.param('prescription_id', function(req,res,next){

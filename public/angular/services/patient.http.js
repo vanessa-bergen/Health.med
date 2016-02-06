@@ -12,7 +12,7 @@ angular.module('http_patient')
 			return $http.delete(base + "/login");
 		},
 		getPrescriptions : function(){
-			return $http.get(base + "/getPrescription")
+			return $http.get(base + "/getPrescription");
 		},
 		pharmacy_link : {
 			post : function(prescription_id){

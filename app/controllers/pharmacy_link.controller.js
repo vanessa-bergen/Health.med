@@ -9,11 +9,15 @@ module.exports = function(dirname){
     var c = {};
  
     c.getPharmacyLinkPage = function(req, res, next){
+        console.log("    getPharmacyLinkPage");
         if (req.expired){
+            console.log("        expired");
             res.send("expired link"); // TODO -> have nice page for this
         } else if (req.pharmacy_link){
+            console.log("        pharmacy_link");
+            
             req.session.pharmacy_link = req.pharmacy_link;
-            res.sendFile(dirname + "/app/views/pharmacy_link.html");
+            res.sendFile(dirname + "/app/views/pharmacy_links/pharmacy_link.html");
         } else {
             res.send("ok");
         }
@@ -65,15 +69,16 @@ module.exports = function(dirname){
         });
     };
 
-    var doctorPublicAttributes = "_id minc name_first name_last specialization";
-    var PatientPublicAttributes = "health_card_number name_last name_first birthday address gender allergies"
+    var doctorPublicAttributes = "_id minc name_first name_last specialization phone_number";
+    var PatientPublicAttributes = "health_card_number name_last name_first birthday address phone_number gender allergies"
     
-    c.findById = function(req, res, next, prescription_id){
+    c.findById = function(req, res, next){
         if (!req.params.pharmacyLink_id) return reqError(res, 400, "pharmacyLink_id param", "missing");
         var pharmacyLink_id = req.params.pharmacyLink_id;
         
         PharmacyLink.findOne({ _id : pharmacyLink_id })
-        .populate({ path : 'prescription',
+        .populate({ 
+            path : 'prescription_id',
             populate : [{
                 path : 'patient',
                 model : 'Patient',
@@ -83,22 +88,23 @@ module.exports = function(dirname){
                 path : 'doctor',
                 model : 'Doctor',
                 select : doctorPublicAttributes
-            }]
+            }],
+            model : "Prescription"
+
         })        
         .exec(function(err, pharmacyLink){
             if (err) return reqError(res, 500, err);
-        
-            var moment = require('moment');
-            var startDate = moment(pharmacyLink.date_generated, 'YYYY-M-DD HH:mm:ss');
-            //Date endDateOld = Date.now;
-            var endDate = moment(Date.now, 'YYYY-M-DD HH:mm:ss')
-            var hoursDiff = endDate.diff(startDate, 'hours')
+
+            var now = (new Date()).getTime();
+            var oldDate = pharmacyLink.date_generated.getTime();
+            var day = 24 * 60 *60 * 1000;
          
-            if (hoursDiff>24) {
+            if (now - oldDate > day) {
                 req.expired = true;
                 // reqError(res, 400, "pharmacy link", "expired")
             } else {
                 req.pharmacy_link = pharmacyLink;
+                console.log(JSON.stringify(pharmacyLink));
             }
             next();
         });
