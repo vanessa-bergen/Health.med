@@ -5,17 +5,11 @@ angular.module("http_doctor")
 		getMe : function(){
 			return $http.get(base + "/me");
 		},
-		invite_add : function(){
-			return $http.put(base + "/invite/add");
-		},
-		cancel_invite : function(patient_id){
-			return $http.delete(base + "/cancel_invite/" + patient_id);
-		},
 		getHasAccessToMe : function(){
 			return $http.get(base + "/access/me");
 		},
 		queryDoctor : function(queryParams){
-			return $http.get(base , {
+			return $http.get(base, {
 				params : queryParams,
 			});
 		},

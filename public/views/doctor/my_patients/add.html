@@ -104,9 +104,23 @@
 					
 					<button 
 						class="btn btn-primary"
-						ng-hide="patient.hasAccess"
+						ng-show="!patient.hasAccess && !patient.accessPending"
 						ng-click="requestAccess(patient._id)">
 						Request Access
+					</button>
+
+					<button 
+						class="btn btn-default"
+						disabled="true"
+						ng-show="patient.accessPending">
+						Record Access Pending
+					</button>
+
+					<button 
+						class="btn btn-danger margin-top"
+						ng-show="patient.accessPending"
+						ng-click="cancelAccessRequest(patient._id)">
+						Cancel Request
 					</button>
 				</div>
 			</div>
