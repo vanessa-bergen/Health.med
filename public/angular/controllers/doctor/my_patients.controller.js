@@ -90,7 +90,14 @@ angular.module('module_doctor')
             console.log('httpPatient.queryPatient -> success');
 
             // filter patients that doctor already has access to
-
+            var accessToHash = {};
+            for (var i = 0; i < $scope.model.doctor.me.has_access_to.length; i += 1){
+                accessToHash[$scope.model.doctor.me.has_access_to[i]._id] = true;
+            }
+            for (var i = 0; i < patients.length; i += 1){
+                var haveAccessTo = accessToHash[patients[i]._id] ? true : false;
+                patients[i].haveAccessTo = haveAccessTo;
+            }
             
             // filter patients that doctor already requested access to
             var hash = {};
