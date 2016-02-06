@@ -1,1 +1,80 @@
-<h1>Pharmacy Link</h1>
+<!DOCTYPE html>
+<html ng-app="module_pharm_link">
+<head>
+    <title>Health.PharmacyLink</title>
+    <script src="../../lib/angular/min/angular.min.js"></script>
+    <script src="../../lib/angular/min/angular-ui-router.min.js"></script>
+    <script src="../../lib/angular/min/ui-bootstrap-tpls-1.1.1.min.js"></script>
+    
+    <link href="../../lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+
+    <script src="../../angular/modules/config.module.js"></script>
+    <script src="../../angular/modules/http.pharm_link.module.js"></script>
+    <script src="../../angular/modules/pharm_link.module.js"></script>
+
+    <script src="../../angular/services/pharm_link.http.js"></script>
+    <script src="../../angular/controllers/pharmacy_link.controller.js"></script>
+
+    <style>
+    	p.tab {
+    		margin-left : 20px;
+    		margin-bottom : 0px;
+    	}
+    	p.tab-header {
+    		margin-bottom : 0px;
+    	}
+    </style>
+</head>
+
+<body>
+	<div ng-controller="ctrlr_pharmacy_link">
+    	<h4><label>Prescription Information</label></h4>
+    	<div class="well">
+    		<label> Name : {{ model.pharmacy_link.prescription_id.drug_name}}</label>
+    		<p> Dosage : {{model.pharmacy_link.prescription_id.dosage}} </p>
+    		<p> Frequency : {{model.pharmacy_link.prescription_id.frequency}} </p>
+    		<p> Date Prescribed : {{model.pharmacy_link.prescription_id.date}} </p>
+            <p>Perscribed by : {{model.pharmacy_link.prescription_id.doctor.name_first +", "+ model.pharmacy_link.prescription_id.doctor.name_last}}</p>
+            <p>Doctor Specialization : {{model.pharmacy_link.prescription_id.doctor.specialization}} </p> 
+    	</div>
+
+    	<h4><label>Patient Information</label></h4>
+    	<div class="well">
+    		<label> Name : {{model.pharmacy_link.prescription_id.patient.name_first +", "+ model.pharmacy_link.prescription_id.patient.name_last}}</label>
+    		<p> Gender : {{model.pharmacy_link.prescription_id.patient.gender}} </p>
+    		<p> Health Card Number : {{model.pharmacy_link.prescription_id.patient.health_card_number}} </p> 
+    		<p class="tab-header"> Address :
+    		<p class="tab">Street : {{model.pharmacy_link.prescription_id.patient.address.street}}</p>
+    		<p class="tab">Postal Code : {{model.pharmacy_link.prescription_id.patient.address.postal_code}}</p>
+    		<p class="tab">City : {{model.pharmacy_link.prescription_id.patient.address.city}}</p>
+    		<p class="tab">Postal Code : {{model.pharmacy_link.prescription_id.patient.address.postal_code}}</p>
+    		<p class="tab">Country : {{model.pharmacy_link.prescription_id.patient.address.country}}</p>
+        </p>
+            <p class="tab-header"> Birthday :
+            <p class="tab">Day : {{model.pharmacy_link.prescription_id.patient.birthday.date}}</p>
+            <p class="tab">Month : {{model.pharmacy_link.prescription_id.patient.birthday.month}}</p>
+            <p class="tab">Year : {{model.pharmacy_link.prescription_id.patient.birthday.year}}</p>
+        </p>
+            <p class="tab-header"> Phone Number :
+            <p class="tab">Primary : {{model.pharmacy_link.prescription_id.patient.phone_number.primary}}</p>
+            <p class="tab">Secondary : {{model.pharmacy_link.prescription_id.patient.phone_number.secondary}}</p>
+        </p>
+    	</div>
+
+
+        <h4><label>Doctor Information</label></h4>
+        <div class="well">
+            <label> Name : {{model.pharmacy_link.prescription_id.doctor.name_first +", "+ model.pharmacy_link.prescription_id.doctor.name_last}}</label>
+            <p> MINC : {{model.pharmacy_link.prescription_id.doctor.minc}} </p>
+            <p> Specialization : {{model.pharmacy_link.prescription_id.doctor.specialization}} </p> 
+            <p class="tab-header"> Phone Number :
+            <p class="tab">Primary : {{model.pharmacy_link.prescription_id.doctor.phone_number.primary}}</p>
+            <p class="tab">Secondary : {{model.pharmacy_link.prescription_id.doctor.phone_number.secondary}}</p>
+        </p>
+        </p>
+
+	</div>
+
+</body>
+
+</html>

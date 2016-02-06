@@ -4,7 +4,9 @@ angular.module('module_patient', [
     , 'module_config'
     , 'http_doctor'
     , 'http_patient'
+    , 'http_pharm_link'
     , 'module_basic_filters'
+
 ])
 .config(function($stateProvider, $urlRouterProvider){
     $urlRouterProvider.otherwise('/profile');
