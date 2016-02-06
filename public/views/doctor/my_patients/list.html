@@ -17,16 +17,21 @@
             	style="text-align: left;"
             	ng-click="goToPatient(patient._id)">
 
-                <label>{{ patient.gender == "male" ? "Mr." : "Ms." }} {{ patient.name_first }} {{ patient.name_last }}</label>
+                <label>{{
+                    patient.gender == "male" ? "Mr." : "Ms." 
+                }} {{ patient.name_first }} {{ patient.name_last }}
+                </label>
+
                 <p>Health card number: {{ patient.health_card_number }}</p>
                 <p>{{
                 		angular.isUndefined(patient.phone_number.secondary)
                 		? "Phone Number:"
                 		: "Primary Number:"
                 	}} {{ 
-                		patient.primary 
+                		patient.phone_number.primary 
                 	}}
                 </p>
+                
                 <p ng-hide="angular.undefined(patient.phone_number.secondary)">
                 	Secondary Number: {{ patient.phone_number.secondary }}
                 </p>
