@@ -2,9 +2,9 @@ angular.module("http_doctor")
 .factory("httpDoctor", function($http, ENDPOINT){
 	var base = ENDPOINT + "/doctor";
 	return {
-		getMe = function(){
+		getMe : function(){
 			return $http.get(base + "/me");
-		}
+		},
 		getIndex : function(){ 
 			return $http.get(base);
 		},
