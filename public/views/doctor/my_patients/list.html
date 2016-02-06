@@ -31,8 +31,8 @@
                 		patient.phone_number.primary 
                 	}}
                 </p>
-                
-                <p ng-hide="angular.undefined(patient.phone_number.secondary)">
+
+                <p ng-hide="angular.isUndefined(patient.phone_number.secondary)">
                 	Secondary Number: {{ patient.phone_number.secondary }}
                 </p>
             </button>
