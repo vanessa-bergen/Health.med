@@ -62,6 +62,15 @@ angular.module('module_doctor')
             console.log('httpPatient.queryPatient -> success');
 
             // filter patients that doctor already has access to
+            
+            // filter patients that doctor already requested access to
+            var hash = {};
+            for (var i = 0; i < $scope.model.doctor.me.pending.length; i += 1){
+                hash[$scope.model.doctor.me.pending[i]] = true;
+            }
+            for (var i = 0; i < patients.length; i += 1){
+                patients[i].accessPending = hash[patients[i]._id] ? true : false;
+            }
 
             $scope.model.patient.queryResults = patients;
 		}).error(function(err){
@@ -70,11 +79,51 @@ angular.module('module_doctor')
 		});
 	};
 
-    httpDoctor.getMe().success(function(doctor){
-        console.log('httpDoctor.getMe -> success');
-        $scope.model.doctor.me = doctor;
-    }).error(function(err){
-        console.log('httpDoctor.getMe -> error');
-        console.log(JSON.stringify(err));
-    });
+    $scope.requestAccess = function(patient_id){
+        httpPatient.access.put(patient_id).success(function(patient_id){
+            console.log('httpPatient.access.put -> success');
+
+            // update query results patients to see pending sent
+            for (var i = 0; i < $scope.model.patient.queryResults.length; i += 1){
+                if ($scope.model.patient.queryResults[i]._id == patient_id){
+                    $scope.model.patient.queryResults[i].accessPending = true;
+                }
+            }
+
+            getMe();
+        }).error(function(err){
+            console.log('httpPatient.access.put -> error');
+            console.log(JSON.stringify(err));
+        });
+    };
+
+    $scope.cancelAccessRequest = function(patient_id){
+        httpPatient.access.delete(patient_id).success(function(patient_id){
+            console.log('httpPatient.access.delete -> success');
+
+            // update query results patients to see pending sent
+            for (var i = 0; i < $scope.model.patient.queryResults.length; i += 1){
+                if ($scope.model.patient.queryResults[i]._id == patient_id){
+                    $scope.model.patient.queryResults[i].accessPending = false;
+                }
+            }
+
+            getMe();
+        }).error(function(err){
+            console.log('httpPatient.access.delete -> error');
+            console.log(JSON.stringify(err));
+        });
+    }
+
+    var getMe = function(){
+        httpDoctor.getMe().success(function(doctor){
+            console.log('httpDoctor.getMe -> success');
+            $scope.model.doctor.me = doctor;
+        }).error(function(err){
+            console.log('httpDoctor.getMe -> error');
+            console.log(JSON.stringify(err));
+        });
+    };
+
+    getMe();
 });

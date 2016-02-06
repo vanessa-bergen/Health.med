@@ -22,6 +22,14 @@ angular.module('http_patient')
 					"prescription_id" : prescription_id
 				});
 			}		
+		},
+		access : {
+			put : function(patient_id){
+				return $http.put(base + "/access/" + patient_id);
+			},
+			delete : function(patient_id){
+				return $http.delete(base + "/access/" + patient_id);
+			}
 		}
 	}
 });
