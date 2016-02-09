@@ -28,9 +28,8 @@ module.exports = function(){
  
         // TODO --> check if person can view these records
         
-        TestResult.find({
-            patient_id : req.patient_id
-        }, function(err, docs){
+        TestResult.find({ patient_id : req.patient_id })
+        .sort('date').exec(function(err, docs){
             if (err) return reqError(res, 500, err);
 
             res.json(docs);
@@ -45,7 +44,7 @@ module.exports = function(){
             req.testresult = testresult;
 
             next();
-            });
+        });
 
     };
 

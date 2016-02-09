@@ -1,1 +1,28 @@
-<p>Test Results</p>
+<div class="row" ng-controller="ctrlr_test_result">
+    <div class="col-lg-6 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Chart Data</div>
+        <div class="panel-body">
+          <table class="table table-responsive table-condensed table-striped">
+            <tr>
+              <th ng-repeat="label in labels">
+              </th>
+            </tr
+            <tr ng-repeat="dataSet in model.data">
+              <td ng-repeat="set in dataSet track by $index"><span style="text-align: right;">{{model.data[$parent.$index][$index]}}</span></td>
+            </tr>
+          </table>
+          <button type="button" class="btn btn-primary pull-right" ng-click="randomize()">Randomize</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">Reactive Chart</div>
+        <div class="panel-body">
+          <canvas id="tables" class="chart chart-line" chart-data="model.data"
+                  chart-labels="labels" chart-colours="colours" chart-legend="true" chart-series="series"></canvas>
+        </div>
+      </div>
+    </div>
+</div>
