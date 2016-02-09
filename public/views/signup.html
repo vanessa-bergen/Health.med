@@ -104,22 +104,22 @@
 									
 						<label>Province</label> 
 						<div>
-                        <select class ="c-select">
-							<option selected>Select One</option>
-							<option value="1">AB</option>
-							<option value="2">BC</option>
-							<option value="3">MB</option>
-							<option value="4">NB</option>
-							<option value="5">NL</option>
-							<option value="6">NS</option>
-							<option value="7">NT</option>
-							<option value="8">NU</option>
-							<option value="9">ON</option>
-							<option value="10">PE</option>
-							<option value="11">QC</option>
-							<option value="12">SK</option>
-							<option value="13">YT</option>
-                        </select>
+                        <select class ="c-select" ng-model="signup.patient.address.province" required>
+							<option value="" selected="selected">Select One</option>
+							<option value="AB">AB</option>
+							<option value="BC">BC</option>
+							<option value="MB">MB</option>
+							<option value="NB">NB</option>
+							<option value="NL">NL</option>
+							<option value="NS">NS</option>
+							<option value="NT">NT</option>
+							<option value="NU">NU</option>
+							<option value="ON">ON</option>
+							<option value="PE">PE</option>
+							<option value="QC">QC</option>
+							<option value="SK">SK</option>
+							<option value="YT">YT</option>
+						</select>
 						</div>
 						<style type="text/css">
 							.c-select {
@@ -127,7 +127,7 @@
 							font-size: 16px;
 							line-height: 1;
 							height: 34px;
-																		}
+								}
 						</style>
 						<label>Postal Code</label>
                         <input
@@ -137,11 +137,12 @@
                             ng-model="signup.patient.address.postal_code"
                             required />
 						
+						
 						<label>Country</label> 
 						<div>
-                        <select class ="c-select">
-							<option selected>Select One</option>
-							<option value="1">CAN</option>
+                        <select class ="c-select" ng-model="signup.patient.address.country" required>
+							<option value="" selected="selected">Select One</option>
+							<option value="CAN">CAN</option>
 						</select>
 						</div>
 					</div>
@@ -174,6 +175,32 @@
 						</div>
 						</div>
 					</div>
+		<h4><label>Emergency Contact Information</label></h4>
+        <div class="well">
+        <label>Name</label>
+			<input
+                    placeholder="Name"
+                    class="form-control"
+                    name="name"
+                    ng-model="signup.patient.emergency_contact.type.name"
+					required />
+					<br>
+		<label>Phone Number</label>
+                <input
+                    placeholder="Phone Number"
+                    class="form-control"
+                    name="phone_number"
+                    ng-model="signup.patient.emergency_contact.type.phone_number"
+					required />
+				<br>
+				<label>Relationship</label>
+                <input
+                    placeholder="Relationship"
+                    class="form-control"
+                    name="relationship"
+                    ng-model="signup.patient.emergency_contact.type.relationship"
+					required />
+        </div>
 
                     <div class="form-group">
                         <h4><label>Password</label></h4>
@@ -321,21 +348,21 @@
                             required />
 					<label>Province</label> 
 						<div>
-                        <select class ="c-select">
-							<option selected>Select One</option>
-							<option value="1">AB</option>
-							<option value="2">BC</option>
-							<option value="3">MB</option>
-							<option value="4">NB</option>
-							<option value="5">NL</option>
-							<option value="6">NS</option>
-							<option value="7">NT</option>
-							<option value="8">NU</option>
-							<option value="9">ON</option>
-							<option value="10">PE</option>
-							<option value="11">QC</option>
-							<option value="12">SK</option>
-							<option value="13">YT</option>
+                        <select class ="c-select" ng-model="signup.doctor.address.province" required>
+							<option value="" selected="selected">Select One</option>
+							<option value="AB">AB</option>
+							<option value="BC">BC</option>
+							<option value="MB">MB</option>
+							<option value="NB">NB</option>
+							<option value="NL">NL</option>
+							<option value="NS">NS</option>
+							<option value="NT">NT</option>
+							<option value="NU">NU</option>
+							<option value="ON">ON</option>
+							<option value="PE">PE</option>
+							<option value="QC">QC</option>
+							<option value="SK">SK</option>
+							<option value="YT">YT</option>
                         </select>
 						</div>
                                           
@@ -348,9 +375,9 @@
                             required />
 						<label>Country</label> 
 						<div>
-                        <select class ="c-select">
-							<option selected>Select One</option>
-							<option value="1">CAN</option>
+                        <select class ="c-select" ng-model="signup.doctor.address.country" required>
+							<option value="" selected="selected">Select One</option>
+							<option value="CAN">CAN</option>
 						</select>
 						</div>
 						</div>

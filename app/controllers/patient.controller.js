@@ -27,6 +27,27 @@ module.exports = function(){
             });
         });
     };
+	
+	c.update = function(req, res, next){
+		if (!req.session.patient) return reqError(res, 401, "error", "not logged in");
+        if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
+        
+		delete req.body["_id"];
+		
+		Patient.findOneAndUpdate({
+			_id : req.session.patient._id
+		}, req.body, function(err, oldPatient){
+			if (err) return reqError(res, 500, err);
+			
+			Patient.findOne({ _id : req.session.patient._id }, function(err, newPatient){
+				if (err) return reqError(res, 500, err);
+				
+				req.session.patient = newPatient;
+				res.status(202).json(newPatient);
+			});
+		})
+		
+	}
 
     c.doLogIn = function(req, res, next){
         if (!req.body) return reqError(res, 400, "body", "missing");

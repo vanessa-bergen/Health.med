@@ -116,7 +116,8 @@ var PatientSchema = new Schema({
                 type : String, 
                 required : true
             }
-        }
+        }, 
+		required : true
     },
    
     // relationships
