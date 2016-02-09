@@ -9,7 +9,7 @@ angular.module('http_patient')
 		},
 		getById : function(patient_id){
 			return $http.get(base + "/id/" + patient_id);
-		}
+		},
 		getMe : function(){
 			return $http.get(base + "/me");
 		},
