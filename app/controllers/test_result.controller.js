@@ -5,14 +5,18 @@ module.exports = function(){
 
     var c = {};
     c.create = function (req, res, next){
-        if(isEmpty(req.body)) return reqError(res, 400, "body","missing");
+        if (isEmpty(req.body)) return reqError(res, 400, "body","missing");
+        if (!req.params.patient_id) return reqError(res, 400, "patient_id", "missing");
 
+        req.body.patient_id = req.params.patient_id;
+        
         var newTestResult = new TestResult(req.body);
         newTestResult.save(function(err){
-            if(err) return reqError(res, 500, err);
+            if (err) return reqError(res, 500, err);
+            
             res.status(201).json({
                 testresult : newTestResult
-             });
+            });
         });
     };
 

@@ -1,5 +1,6 @@
 module.exports = function(app){
     var testresult_controller = require('../controllers/test_result.controller.js')();
+    app.post('/testresult/:patient_id', testresult_controller.create);
     app.post('/testresult', testresult_controller.create);
 
     app.get('/testresult/patient_id/:patient_id', testresult_controller.findByPatientId);
