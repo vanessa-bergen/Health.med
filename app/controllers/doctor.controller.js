@@ -86,7 +86,7 @@ module.exports = function(){
             _id : req.session.doctor._id
         })
         .populate('has_access_to')
-        .populate('invites')
+        .populate('pending')
         .exec(function(err, me){
             if (err) return reqError(res, 500, err);
 
@@ -116,45 +116,9 @@ module.exports = function(){
 
             res.json(doctors);
         });
-    };
-
-    c.cancelInvite = function(req, res, next){ 
-        if (!req.session.doctor) return res.json({ logged_in : false });
-        if (!req.params.patient_id) return reqError(res, 400, "patient_id param", "missing");
-
-        var patient_id = req.params.patient_id;
-     
-        Doctor.update({ 
-            _id : req.session.doctor._id
-        }, 
-        {
-            $pull : {
-                'invites' : req.session.patient._id
-            }
-        }, 
-        function(err, newDoctor) {
-            if(err) return reqError(res,500,err);
-            
-            Patient.update({
-                _id : req.session.patient._id
-            },
-            {
-                $pull : {
-                    'pending' : doctor_id
-                }
-            },
-            function(err, newPatient) {
-                if(err) return reqError(res, 500, err);
-            
-                res.status(202).json(newPatient);
-            });
-        }); 
-    };
-        //       function(err, newPatient) {
-        //         if(err) return reqError(res, 500, err);
-        //   });
-            
-
+    }; 
+    
+// ToDo
     c.declineInvite = function(req, res, next){
         if(isEmpty(req.body)) return reqError(res, 400, "body", "missing");
         if(!req.session.doctor) return res.json({logged_in : false});
@@ -185,41 +149,7 @@ module.exports = function(){
         },
             function(err, newPatient) {
                 if(err) return reqError(res, 500, err);
-       });     
-   };
-
-    c.addInvite = function(req, res, next){
-        if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
-        if (!req.session.patient) return res.json ({ logged_in : false });
-        if (!req.body.doctor_id) return reqError(res, 400, "doctor_id", "missing");        
-        
-        Doctor.update({
-            _id : req.body.doctor_id
-        }, 
-        {
-            $addToSet : {
-                'invites' : req.session.patient._id
-                           }
-        }, 
-        function(err, num_upd){
-            if(err) return reqError(res, 500, err);
-            console.log(num_upd)
-            if(num_upd.n == 0) return reqError(res, 400, "doctor","does not exist");
-
-            Patient.update({
-                _id : req.session.patient._id
-            },
-            {
-                $addToSet : {
-                    'pending' : req.body.doctor_id
-                    }
-            },
-            function(err, newPatient){
-                if(err) return reqError(res, 500, err);
-                res.status(202).json(newPatient);
-            });
-     
-        });
+        });     
    };
 
  // doctor-patient has_access_to relationship controllers 
@@ -240,7 +170,7 @@ module.exports = function(){
                 'has_access_to' : patient_id
             },
             $pull : {
-                'invites' : patient_id
+                'pending' : patient_id
             }
         },
         function(err, newDoctor){
@@ -250,10 +180,9 @@ module.exports = function(){
             
             Patient.update({
                 _id : patient_id
-            },
-            {
+            }, {
                 $pull : {
-                    'pending' : doctor_id
+                    'requests' : doctor_id
                 },
             },
             function(err, newPatient){

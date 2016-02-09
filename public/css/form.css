@@ -1,8 +1,8 @@
 .margin-top {
-    margin-top: 12;
+    margin-top: 12px;
 }
-.margin-top {
-    margin-top: 12;
+.margin-bottom {
+    margin-bottom: 12px;
 }
 .ng-invalid {
     background-color: #ffe0e0;

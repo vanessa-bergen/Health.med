@@ -23,8 +23,7 @@ angular.module('module_patient')
 	$scope.edit = (function(body){
 		$scope.disabled = false;
 		console.log('Field Ready for Edit');
-		//$scope.model.profile.patient = body;
-		//console.log(JSON.stringify(body));
+		
 	});
 	$scope.http = {};
 	$scope.http.profile = {
@@ -35,7 +34,7 @@ angular.module('module_patient')
 		 .success(function(body){
         console.log('http.profile.save -> sucess');
 		$scope.model.profile.patient = body;
-        //$window.location.href = ENDPOINT + "/app/patient";
+        
 		})
 		.error(function(error){
             console.log('put patient error: ' + JSON.stringify(error));
