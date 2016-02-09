@@ -114,6 +114,7 @@ $uibModal, ENDPOINT, httpDoctor, httpPatient){
             }
 
             $scope.view.controller.openAccessChangedAlert(resDoctor, true);
+            getMe();
         }).error(function(err){
             console.log('httpDoctor.access.add -> error');
             console.log(JSON.stringify(err));
@@ -146,6 +147,26 @@ $uibModal, ENDPOINT, httpDoctor, httpPatient){
         });
     }
 
+    var getMe = function(){
+        httpPatient.getMe().success(function(me){
+            console.log('httpPatient.getMe -> success');
+            $scope.model.patient = me;
+        }).error(function(err){
+            console.log('httpPatient.getMe -> error');
+            console.log(JSON.stringify(err));
+        });
+    }
+
+    var getHasAccessToMe = function(){
+        httpDoctor.getHasAccessToMe().success(function(doctors){
+            $scope.model.doctor.hasAccessToMe = doctors;
+            console.log('httpDoctor.getHasAccessToMe -> success');
+        }).error(function(err){
+            console.log("httpDoctor.getHasAccessToMe -> error");
+            console.log(JSON.stringify(err));
+        });
+    }
+
 /*
     $scope.http.patient.cancel_invite = {
        delete : function(){
@@ -162,29 +183,9 @@ $uibModal, ENDPOINT, httpDoctor, httpPatient){
     };
 */
     
-    httpPatient.getMe().success(function(me){
-        console.log('httpPatient.getMe -> success');
-        $scope.model.patient = me;
-    }).error(function(err){
-        console.log('httpPatient.getMe -> error');
-        console.log(JSON.stringify(err));
-    });
-
-    httpDoctor.getHasAccessToMe().success(function(doctors){
-        $scope.model.doctor.hasAccessToMe = doctors;
-        console.log('httpDoctor.getHasAccessToMe -> success');
-    }).error(function(err){
-        console.log("httpDoctor.getHasAccessToMe -> error");
-        console.log(JSON.stringify(err));
-    });
-
-    httpDoctor.getIndex().success(function(doctors){
-        console.log("httpDoctor.getIndex -> success");
-        $scope.model.doctor.index = doctors;
-    }).error(function(err){
-        console.log("httpDoctor.getIndex -> error");
-        console.log(JSON.stringify(err));
-    });
+    getMe();
+    getHasAccessToMe();
+    
 });
 
 console.log("invite controller loaded");

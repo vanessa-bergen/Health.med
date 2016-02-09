@@ -1,130 +1,140 @@
-<h4>Search for your patient's medical records. Note: patients must 
-	first accept your access request for you to view their records.
-</h4>
+<div ng-controller="ctrlr_my_patients">
 
-<div>
-	<div class="col-sm-4">
-		<form name="searchPatientForm"
-			novalidate
-			ng-submit="queryPatient(model.patient.query)">
+	<h4>Search for your patient's medical records. Note: patients must 
+		first accept your access request for you to view their records.
+	</h4>
 
-			<div class="well">
-				<label>Search by</label>
+	<div>
+		<div class="col-sm-4">
+			<form name="searchPatientForm"
+				novalidate
+				ng-submit="queryPatient(model.patient.query)">
 
-				<div class="checkbox">
-					<label>
+				<div class="well">
+					<label>Search by</label>
+
+					<div class="checkbox">
+						<label>
+							<input 
+								type="checkbox"
+								ng-model="model.patient.queryParams.name_first">
+								First Name
+						</label>
+					</div>
+					<div class="checkbox">
+						<label>
+							<input 
+								type="checkbox"
+								ng-model="model.patient.queryParams.name_last">
+								Last Name
+						</label>
+					</div>
+
+					<!-- First Name -->
+					<div 
+						class="form-group"
+						ng-show="model.patient.queryParams.name_first">
+						<label>First Name</label>
 						<input 
-							type="checkbox"
-							ng-model="model.patient.queryParams.name_first">
-							First Name
-					</label>
-				</div>
-				<div class="checkbox">
-					<label>
+							name="name_first"
+							type="text"
+							class="form-control"
+							ng-model="model.patient.query.name_first"
+						/>
+					</div>
+
+					<!-- Last Name -->
+					<div 
+						class="form-group"
+						ng-show="model.patient.queryParams.name_last">
+						<label>Last Name</label>
 						<input 
-							type="checkbox"
-							ng-model="model.patient.queryParams.name_last">
-							Last Name
-					</label>
-				</div>
-
-				<!-- First Name -->
-				<div 
-					class="form-group"
-					ng-show="model.patient.queryParams.name_first">
-					<label>First Name</label>
-					<input 
-						name="name_first"
-						type="text"
-						class="form-control"
-						ng-model="model.patient.query.name_first"
-					/>
-				</div>
-
-				<!-- Last Name -->
-				<div 
-					class="form-group"
-					ng-show="model.patient.queryParams.name_last">
-					<label>Last Name</label>
-					<input 
-						name="name_last"
-						type="text"
-						class="form-control"
-						ng-model="model.patient.query.name_last"
-					/>
-				</div>
-
-				<button 
-					type="submit"
-					class="btn btn-primary btn-block"
-					ng-disabled="!view.controller.isQueryEnabled()">
-					Search
-				</button>
-			</div>
-		</form>
-	</div>
-
-	<div class="col-sm-8">
-		<label>Results</label>
-
-		<div 
-	        class="well"
-	        style="margin-top: 20px"
-	        ng-show="model.patient.queryResults.length == 0">
-	        No doctors match your query.
-	    </div>
-
-	    <div class="well"
-			ng-repeat="patient in model.patient.queryResults"
-            ng-style="{'margin-top' : ($first ? '20px' : '0px')}">
-
-			<div class="row">
-
-				<div class="col-sm-8">
-					<label>{{
-	                    patient.gender == "male" ? "Mr." : "Ms." 
-	                }} {{ patient.name_first }} {{ patient.name_last }}
-	                </label>
-
-	                <p>Health card number: {{ patient.health_card_number }}</p>
-	                <p>{{
-	                		view.controller.hasSecondaryPhone(patient)
-	                		? "Phone Number:"
-	                		: "Primary Number:"
-	                	}} {{ 
-	                		patient.phone_number.primary 
-	                	}}
-	                </p>
-	                
-                	<p ng-hide="view.controller.hasSecondaryPhone(patient)">Secondary Number: {{ patient.phone_number.secondary }}</p>
-				</div>
-
-				<div class="col-sm-4"
-					style="text-align: center;">
-					
-					<button 
-						class="btn btn-primary"
-						ng-show="!patient.hasAccess && !patient.accessPending"
-						ng-click="requestAccess(patient._id)">
-						Request Access
-					</button>
+							name="name_last"
+							type="text"
+							class="form-control"
+							ng-model="model.patient.query.name_last"
+						/>
+					</div>
 
 					<button 
-						class="btn btn-default"
-						disabled="true"
-						ng-show="patient.accessPending">
-						Record Access Pending
+						type="submit"
+						class="btn btn-primary btn-block"
+						ng-disabled="!view.controller.isQueryEnabled()">
+						Search
 					</button>
+				</div>
+			</form>
+		</div>
 
-					<button 
-						class="btn btn-danger margin-top"
-						ng-show="patient.accessPending"
-						ng-click="cancelAccessRequest(patient._id)">
-						Cancel Request
-					</button>
+		<div class="col-sm-8">
+			<label>Results</label>
+
+			<div 
+		        class="well"
+		        style="margin-top: 20px"
+		        ng-show="model.patient.queryResults.length == 0">
+		        No doctors match your query.
+		    </div>
+
+		    <div class="well"
+				ng-repeat="patient in model.patient.queryResults"
+	            ng-style="{'margin-top' : ($first ? '20px' : '0px')}">
+
+				<div class="row">
+
+					<div class="col-sm-8">
+						<label>{{
+		                    patient.gender == "male" ? "Mr." : "Ms." 
+		                }} {{ patient.name_first }} {{ patient.name_last }}
+		                </label>
+
+		                <p>Health card number: {{ patient.health_card_number }}</p>
+		                <p>{{
+		                		view.controller.hasSecondaryPhone(patient)
+		                		? "Phone Number:"
+		                		: "Primary Number:"
+		                	}} {{ 
+		                		patient.phone_number.primary 
+		                	}}
+		                </p>
+		                
+	                	<p ng-hide="view.controller.hasSecondaryPhone(patient)">Secondary Number: {{ patient.phone_number.secondary }}</p>
+					</div>
+
+					<div class="col-sm-4"
+						style="text-align: center;">
+						
+						<button 
+							class="btn btn-primary btn-block"
+							ng-show="!patient.haveAccessTo && !patient.accessPending"
+							ng-click="requestAccess(patient._id)">
+							Request Access
+						</button>
+
+						<div ng-show="patient.accessPending"> 
+							<button 
+								class="btn btn-default btn-block"
+								disabled="true">
+								Record Access Pending
+							</button>
+
+							<button 
+								class="btn btn-danger btn-block margin-top"
+								ng-click="cancelAccessRequest(patient._id)">
+								Cancel Request
+							</button>
+						</div>
+
+						<div ng-show="patient.haveAccessTo">
+							<button 
+								class="btn btn-default btn-block"
+								disabled="true">
+								<span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;My patient
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-
 </div>

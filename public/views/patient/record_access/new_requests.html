@@ -1,20 +1,40 @@
-<div class="well" ng-show="model.patient.pending.length == 0">
-    No doctors have access to your medical records.
-</div>
+<div ng-controller="ctrlr_recordAccess">
 
-<div ng-hide="model.patient.pending.length == 0">
-    <!-- Individual pending invitations in the DB -->
-    <!-- Pending is doctor model -->
-    <div class="well" ng-repeat="pending in model.patient.pending">
-        <h5><strong>
-            {{ pending.name_first + ", " + pending.name_last }} 
-        </strong><h5>
+    <div class="well margin-top" 
+        ng-show="model.patient.requests.length == 0">
+        No doctors have access to your medical records.
+    </div>
+
+    <div ng-hide="model.patient.requests.length == 0">
         
-        <span class="pull-right">
-            <button 
-                class="btn btn-default"
-                ng-click="http.patient.cancel_invite(pending._id)">                                                   Cancel
-            </button>
-       </span>
+        <div class="well"
+            ng-repeat="doctor in model.patient.requests"
+            ng-style="{'margin-top' : ($first ? '20px' : '0px')}">
+            
+            <div class="row">
+
+                <div class="col-sm-8">
+                    <label>Dr. {{ doctor.name_first }} {{ doctor.name_last }}</label>
+                    <p>MINC: {{ doctor.minc }}</p>
+                    <p>Specialization: {{ doctor.specialization }}</p> 
+                </div>
+                
+                <div class="col-sm-4"
+                    style="text-align: center;"> 
+                    
+                    <button
+                        class="btn btn-success btn-block"
+                        ng-click="addAccessTo(doctor._id)">
+                        Accept Request
+                    </button>
+
+                    <button
+                        class="btn btn-danger btn-block margin-top"
+                        ng-click="revokeAccessTo(doctor._id)">
+                        Reject Request
+                    </button>
+                </div>
+            </div>
+        </div> 
     </div>
 </div>
