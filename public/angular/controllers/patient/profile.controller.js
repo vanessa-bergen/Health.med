@@ -14,11 +14,8 @@ angular.module('module_patient')
 	
 	httpPatient.getMe().success(function(me){
 		console.log('httpPatient.getMe -> success');
-		var date = new Date(me.birthday);
-		var day = date.getDate();
-		var monthIndex = date.getMonth();
-		var year = date.getFullYear();
-		me.birthday = day + ' ' + monthNames[monthIndex] + ' ' + year;
+		var formatted_date = formatDate(me.birthday);	
+		me.birthday = formatted_date;
 		$scope.model.profile.patient = me;
 		console.log(JSON.stringify(me));
 	})
@@ -40,6 +37,8 @@ angular.module('module_patient')
 		$http.put(ENDPOINT + "/patient/edit", (JSON.stringify(body)))
 		 .success(function(body){
         console.log('http.profile.save -> sucess');
+       	var formatted_date = formatDate(body.birthday);
+       	body.birthday = formatted_date;
 		$scope.model.profile.patient = body;
         
 		})
@@ -50,5 +49,14 @@ angular.module('module_patient')
 		$scope.disabled = true;
 		}
 	}; 
+
+	var formatDate = function(dateToBeFormatted){
+		var date = new Date(dateToBeFormatted);
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+		var formatted = day + ' ' + monthNames[monthIndex] + ' ' + year;
+		return formatted;
+	};
 });
 
