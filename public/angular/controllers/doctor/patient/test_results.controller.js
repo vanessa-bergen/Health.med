@@ -20,7 +20,7 @@ angular.module('module_doctor').controller('ctrlr_test_results'
     var setupTestResults = function(test_results){
         $scope.model.patient.test_results = test_results;
         for(var i = 0; i < $scope.model.patient.test_results.length; i++){
-            $scope.labels[i] = $scope.model.patient.test_results[i].date;
+            $scope.labels[i] = formatDate($scope.model.patient.test_results[i].date);
             $scope.model.data[0][i] = $scope.model.patient.test_results[i].red_blood_cell_count;
             $scope.model.data[1][i] = $scope.model.patient.test_results[i].hemoglobin;
             $scope.model.data[2][i] = $scope.model.patient.test_results[i].hemotocrit;
@@ -79,6 +79,16 @@ angular.module('module_doctor').controller('ctrlr_test_results'
         pointHighlightStroke: brownLight
     }];
     // end: same
+
+    var monthNames = ["Jan.", "Feb.", "Mar.","Apr.", "May", "June", "July","Aug.", "Sept.", "Oct.","Nov.", "Dec."];
+    var formatDate = function(dateToBeFormatted){
+        var date = new Date(dateToBeFormatted);
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        var formatted = monthNames[monthIndex] + ' ' + day + ', ' + year;
+        return formatted;
+    };
 
 	var getTestResults = function(){
         console.log("getTestResults( " + patient_id + " )");
