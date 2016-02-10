@@ -1,1 +1,26 @@
-<h1>Doctor Profile</h1>
+<div class="container" ng-controller="ctrlr_profile_doctor">
+
+	
+	<h1> {{model.doctor.name_first}} {{model.doctor.name_last}}</h1>
+	<h3> {{model.doctor.specialization}} </h3>
+	
+	<div class="well">	
+	<h4><label>Personal Information</label></h4>
+    
+    <label>Gender:</label> 
+	<p> {{model.doctor.gender}} </p>
+	<label>Phone Number: </label>
+	<p> {{model.doctor.phone_number.primary}}</p>
+	<p> {{model.doctor.phone_number.secondary}}</p>
+	<label>Email:</label> 
+	<p> {{model.doctor.email}} </p>
+	<label>Address:</label> 
+	<p> {{model.doctor.address.street}} </p>
+	<p> {{model.doctor.address.city}}, {{model.doctor.address.province}} </p>
+	<p> {{model.doctor.address.postal_code}}</p>
+	</div>
+	
+	
+	
+</div>
+    		
