@@ -106,6 +106,8 @@ angular.module('module_patient')
                 
                 $scope.view.controller.toggleNewAllergy();
                 $scope.model.patient = patient;
+                $scope.model.newAllergy.allergy = {};
+                $scope.model.newAllergy.allergy.symptoms = {};
             })
             .error(function(err){
                 console.log('http.allergies.add -> error');
