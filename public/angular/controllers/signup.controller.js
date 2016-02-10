@@ -11,7 +11,8 @@ angular.module('module_login')
 
     $scope.postSignup = function(body){
         $scope.signupFailed = false;
-
+        d = new Date(body.birthday);
+        body.bithday = d;
         if ($scope.account_type == 'patient'){
             $http.post(ENDPOINT + "/patient", body)
             .success(function(data){
