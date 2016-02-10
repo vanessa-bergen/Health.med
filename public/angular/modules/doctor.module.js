@@ -8,7 +8,13 @@ angular.module('module_doctor', [
     , 'http_patient'
 ])
 .config(function($stateProvider, $urlRouterProvider){
+	$urlRouterProvider.otherwise('/profile');
+	
     $stateProvider
+		.state("profile", {
+            url : "/profile",
+            templateUrl : "../views/doctor/profile.html"
+        })
         .state('my_patients', {
             url : "/patients",
             templateUrl : "../views/doctor/my_patients/main.html"

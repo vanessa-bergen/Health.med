@@ -77,7 +77,7 @@ angular.module('module_patient')
             .success(function(res){
                 console.log("http.patient.get -> success");
 
-                $scope.model.patient = res.patient;
+                $scope.model.patient = res;
             })
             .error(function(){
                 console.log("http.patient.get -> failure");                        
@@ -133,6 +133,7 @@ angular.module('module_patient')
 
     $scope.http.patient.get();
     $scope.http.symptoms.get();
+    console.log($scope.model.patient);
 });
 
 console.log('allergy controller loaded');

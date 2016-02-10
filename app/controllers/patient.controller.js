@@ -179,10 +179,20 @@ module.exports = function(){
 
         Patient.findOne({
             _id : patient_id
-        }, function(err, patient){
+        }).populate('allergies')
+        .exec(function(err, unpopulated){
             if (err) return reqError(res, 500, err);
+            var options = {
+                path : "allergies.symptoms",
+                model : 'Symptom'
+            };
 
-            res.json(patient);
+            Patient.populate(unpopulated, options, function(err, patient){
+                if (err) return reqError(res, 500, err);
+
+                req.session.patient = patient;
+                res.json(patient);
+            });
         });
     };
 
