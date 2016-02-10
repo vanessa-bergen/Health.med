@@ -28,34 +28,34 @@
 			<!-- Patient Sign up form -->
             <div ng-show="account_type == 'patient'">
     
-                <form name="patient_signup_form"
-                    ng-controller="ctrlr_signup"
+                <form name="patient_signup_form" 
+					ng-controller="ctrlr_signup"
                     novalidate>                
                     
 					<div class="panel panel-default">
 					<div class="panel-body">
 					<div class="form-group">
+					
                     <h4><label>Personal Information</label></h4>
-					
-					
+										
 					<div class="well">
-            
-					<label>Name</label>
-												
+					          
+					<label>Name</label>		
                         <input
-                            placeholder="Enter First Name"
+							placeholder="Enter First Name"
                             class="form-control"
                             name="name_first"
                             ng-model="signup.patient.name_first"
                             required />
 						</br>
-                        <input
+						<input
                             placeholder="Enter Last Name"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="name_last"
                             ng-model="signup.patient.name_last"
                             required />
 						</br>
+												
 						
 					<label>Health Card Number</label>
                         <input
@@ -93,15 +93,17 @@
                             name="street"
                             ng-model="signup.patient.address.street"
                             required />
+						</br>
 						
 						<label>City</label>
                         <input
                             placeholder="Enter City"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="city"
                             ng-model="signup.patient.address.city"
                             required />
-									
+						</br>
+																					
 						<label>Province</label> 
 						<div>
                         <select class ="c-select" ng-model="signup.patient.address.province" required>
@@ -121,6 +123,8 @@
 							<option value="YT">YT</option>
 						</select>
 						</div>
+						</br>
+						
 						<style type="text/css">
 							.c-select {
 							width: 260px;
@@ -132,11 +136,11 @@
 						<label>Postal Code</label>
                         <input
                             placeholder="Enter Postal Code"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="postal_code"
                             ng-model="signup.patient.address.postal_code"
                             required />
-						
+						</br>
 						
 						<label>Country</label> 
 						<div>
@@ -154,23 +158,24 @@
 						<label>Email Address</label>
                         <input
                             placeholder="Enter Email Address"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="email"
                             ng-model="signup.patient.email"
                             required />
+						</br>
 						<label>Phone Number</label>
 						
                         <input
                             placeholder="Enter Primary Phone Number"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="phone_number"
                             ng-model="signup.patient.phone_number.primary"
                             required />
 						</br>
-
+						
                         <input 
                             placeholder="Enter Secondary Phone Number"
-                            class="form-control margin-top"
+                            class="form-control"
                             ng-model="signup.patient.phone_number.secondary" />
 						</div>
 						</div>
@@ -184,7 +189,7 @@
                     name="name"
                     ng-model="signup.patient.emergency_contact.type.name"
 					required />
-					<br>
+					</br>
 		<label>Phone Number</label>
                 <input
                     placeholder="Phone Number"
@@ -192,7 +197,7 @@
                     name="phone_number"
                     ng-model="signup.patient.emergency_contact.type.phone_number"
 					required />
-				<br>
+				</br>
 				<label>Relationship</label>
                 <input
                     placeholder="Relationship"
@@ -261,7 +266,7 @@
 						
                         <input
                             placeholder="Enter Last Name"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="name_last"
                             ng-model="signup.doctor.name_last"
                             required />
@@ -287,7 +292,7 @@
 						<label>Medical Specialization</label>
                         <input
                             placeholder="Enter Medical Specialization"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="specialization"
                             ng-model="signup.doctor.specialization"
                             required />
@@ -295,7 +300,7 @@
 						<label>MINC</label>
                         <input
                             placeholder="Enter MINC"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="minc"
                             ng-model="signup.doctor.minc"
                             required />
@@ -308,22 +313,23 @@
 						<label>Email Address</label>
                         <input
                             placeholder="Enter Email Address"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="email"
                             ng-model="signup.doctor.email"
                             required />
+						</br>
 						<label>Phone Number</label>
 						
                         <input
                             placeholder="Enter Primary Phone Number"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="primary_phone_number"
                             ng-model="signup.doctor.phone_number.primary"
                             required />
 						</br>
                         <input 
                             placeholder="Enter Secondary Phone Number"
-                            class="form-control margin-top"
+                            class="form-control"
 							name="secondary_phone_number"
                             ng-model="signup.doctor.phone_number.secondary" />
                     </div>
@@ -339,13 +345,15 @@
                             name="street"
                             ng-model="signup.doctor.address.street"
                             required />
+						</br>
 						<label>Enter City</label>
                         <input
                             placeholder="Enter City"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="city"
                             ng-model="signup.doctor.address.city"
                             required />
+						</br>
 					<label>Province</label> 
 						<div>
                         <select class ="c-select" ng-model="signup.doctor.address.province" required>
@@ -365,14 +373,15 @@
 							<option value="YT">YT</option>
                         </select>
 						</div>
-                                          
+                          </br>               
 						<label>Postal Code</label>
                         <input
                             placeholder="Enter Postal Code"
-                            class="form-control margin-top"
+                            class="form-control"
                             name="postal_code"
                             ng-model="signup.doctor.address.postal_code"
                             required />
+						</br>
 						<label>Country</label> 
 						<div>
                         <select class ="c-select" ng-model="signup.doctor.address.country" required>
