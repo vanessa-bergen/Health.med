@@ -35,22 +35,9 @@ var PatientSchema = new Schema({
         required : true
     },
     birthday : {
-        date : {
-            type : Number,
-            min : 1,
-            max : 31
-        },
-        month : {
-            type : Number, 
-            min : 1,
-            max : 12   
-        },
-        year : {
-            type : Number,
-            min : 1900
-        }
+        type : Date,
+        required : true
     },
-    
     address : {
         type : {
             street : {

@@ -8,10 +8,17 @@ angular.module('module_patient')
 	
 	$scope.model = {};
 	$scope.model.profile = {};
-	
+
+	var monthNames = ["January", "February", "March","April", "May", "June", "July","August", "September", "October","November", "December"];
+
 	
 	httpPatient.getMe().success(function(me){
 		console.log('httpPatient.getMe -> success');
+		var date = new Date(me.birthday);
+		var day = date.getDate();
+		var monthIndex = date.getMonth();
+		var year = date.getFullYear();
+		me.birthday = day + ' ' + monthNames[monthIndex] + ' ' + year;
 		$scope.model.profile.patient = me;
 		console.log(JSON.stringify(me));
 	})

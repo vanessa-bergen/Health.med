@@ -16,8 +16,7 @@
         <div ng-show="view.showNewTestResult">
             <b>New Test Result</b>
 
-            <form 
-                novalidate class="simple-form" name="patient_test_results_form"
+            <form novalidate class="simple-form" name="patient_test_results_form"
                 ng-show="model.test_result">
                 <div class="well">
                     <!--
@@ -71,7 +70,7 @@
                     <br/>
                     <label>Date</label>
                     <input
-                        placeholder="DD/MM/YYYY"
+                        placeholder="MM/DD/YYYY"
                         class="form-control"
                         name="date"
                         ng-model="model.test_result.date"
@@ -79,7 +78,7 @@
                     <br/>
                     <button 
                         type="button" 
-                        class="btn btn-primary btn-block"
+                        class="btn btn-primary"
                         ng-click="addTestResult(model.test_result)"
                         ng-model="add">
                         Add Test Results

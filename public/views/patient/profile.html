@@ -37,6 +37,15 @@
                         ng-model="model.profile.patient.health_card_number"
                         required />
 					</br>
+				<label>Birthday</label>
+                    <input
+                        placeholder="MM/DD/YYYY"
+                        class="form-control"
+                        name="birthday"
+						ng-disabled="disabled"
+                        ng-model="model.profile.patient.birthday"
+                        required />
+					</br>
              
              <label>Gender</label>
                 <div class="radio">
@@ -62,20 +71,22 @@
                 <label>Street</label>
                 <input
                     Placeholder="Street"
-                    class="form-control margin-top"
+                    class="form-control"
                     name="street"
                     ng-model="model.profile.patient.address.street"
 					ng-disabled="disabled"
                     required />
+					</br>
        
          <label>City</label>
                 <input
                     Placeholder="City"
-                    class="form-control margin-top"
+                    class="form-control"
                     name="city"
                     ng-model="model.profile.patient.address.city"
 					ng-disabled="disabled"
                     required />
+				</br>
 		<label>Province</label> 
 				<div>
                     <select class ="c-select" ng-model="model.profile.patient.address.province" ng-disabled="disabled">
@@ -95,6 +106,7 @@
 					<option value="YT">YT</option>
 					</select>
 				</div>
+			</br>
 			<style type="text/css">
 							.c-select {
 							width: 260px;
@@ -107,11 +119,12 @@
         <label>Postal Code</label>
             <input
                 Placeholder="Postal Code"
-                class="form-control margin-top"
+                class="form-control"
                 name="postal_code"
                 ng-model="model.profile.patient.address.postal_code"
 				ng-disabled="disabled"
                 required />
+			</br>
 		<label>Country</label> 
 			<div>
                 <select class ="c-select" ng-model="model.profile.patient.address.country" ng-disabled="disabled">
