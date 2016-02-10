@@ -35,6 +35,11 @@ angular.module('module_doctor', [
             templateUrl : "../views/doctor/patient/info.html",
             controller : 'ctrlr_patient_tabs'
         })
+        .state('patient.prescriptions', {
+            url : '/patient/prescriptions',
+            templateUrl : "../views/doctor/patient/prescriptions.html",
+            controller : 'ctrlr_patient_tabs'
+        })
         .state('patient.test_results', {
             url : '/patient/test_results',
             templateUrl : "../views/patient/test_results.html",
