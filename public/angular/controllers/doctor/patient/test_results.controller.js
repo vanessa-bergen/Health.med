@@ -29,20 +29,54 @@ angular.module('module_doctor').controller('ctrlr_test_results'
         };
     };
 
-    $scope.colours = [{ // red blood cell
-        fillColor: 'rgba(0,0,0,0)',
-        strokeColor: 'rgba(255,0,0,1)',
-        pointColor: 'rgba(255,0,0,1)',
-        pointStrokeColor: 'rgba(255, 127, 127, 1)',
-        pointHighlightFill: 'rgba(255, 127, 127, 1)',
-        pointHighlightStroke: 'rgba(255, 237, 127, 1)'
-    }, { // hemoglobin
-        fillColor: 'rgba(77,83,96,0.2)',
-        strokeColor: 'rgba(77,83,96,1)',
-        pointColor: 'rgba(77,83,96,1)',
-        pointStrokeColor: '#fff',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(77,83,96,1)'
+    var transparent = 'rgba(0, 0, 0, 0)';
+    var red = 'rgba(255, 0, 0, 1)';
+    var redLight = 'rgba(255, 127, 127, 1)';
+    var green = 'rgba(0, 255, 0, 1)'
+    var greenLight = 'rgba(127, 255, 127, 1)';
+    var orange = 'rgba(255, 127, 0, 1)';
+    var orangeLight = 'rgba(255, 191, 127, 1)';
+    var grey = 'rgba(63, 63, 63, 1)';
+    var greyLight = 'rgba(127, 127, 127, 1)';
+    var brown = 'rgba(104, 53, 32, 1)';
+    var brownLight = 'rgba(231, 180, 159, 1)';
+
+    $scope.colours = [
+    { // Red Blood Cell Count
+        fillColor: transparent,
+        strokeColor: red,
+        pointColor: red,
+        pointStrokeColor: red,
+        pointHighlightFill: redLight,
+        pointHighlightStroke: redLight
+    }, { // Hemoglobin
+        fillColor: transparent,
+        strokeColor: green,
+        pointColor: green,
+        pointStrokeColor: green,
+        pointHighlightFill: greenLight,
+        pointHighlightStroke: greenLight
+    }, { // Hemotocrit
+        fillColor: transparent,
+        strokeColor: orange,
+        pointColor: orange,
+        pointStrokeColor: orange,
+        pointHighlightFill: orangeLight,
+        pointHighlightStroke: orangeLight
+    }, { // White Blood Cell Count
+        fillColor: transparent,
+        strokeColor: grey,
+        pointColor: grey,
+        pointStrokeColor: grey,
+        pointHighlightFill: greyLight,
+        pointHighlightStroke: greyLight
+    }, { // Platelet
+        fillColor: transparent,
+        strokeColor: brown,
+        pointColor: brown,
+        pointStrokeColor: brown,
+        pointHighlightFill: brownLight,
+        pointHighlightStroke: brownLight
     }];
     // end: same
 

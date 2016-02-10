@@ -12,7 +12,7 @@ angular.module('module_patient')
     
     $scope.view = {};
     $scope.view.model = {};
-    
+
     // chart models
     $scope.model.data = [[],[],[],[],[]];
     $scope.labels = [];
@@ -20,6 +20,7 @@ angular.module('module_patient')
 
     var patient_id = $stateParams.patient_id;
 
+    // start: should be the same as patient/test_results.controller.js
     var setupTestResults = function(test_results){
         $scope.model.patient.test_results = test_results;
         for(var i = 0; i < $scope.model.patient.test_results.length; i++){
@@ -31,22 +32,57 @@ angular.module('module_patient')
             $scope.model.data[4][i] = $scope.model.patient.test_results[i].platelet_count;
         };
     };
-        
-    $scope.colours = [{ // grey
-        fillColor: 'rgba(148,159,177,0.2)',
-        strokeColor: 'rgba(148,159,177,1)',
-        pointColor: 'rgba(148,159,177,1)',
-        pointStrokeColor: '#fff',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(148,159,177,0.8)'
-    }, { // dark grey
-        fillColor: 'rgba(77,83,96,0.2)',
-        strokeColor: 'rgba(77,83,96,1)',
-        pointColor: 'rgba(77,83,96,1)',
-        pointStrokeColor: '#fff',
-        pointHighlightFill: '#fff',
-        pointHighlightStroke: 'rgba(77,83,96,1)'
+    
+    var transparent = 'rgba(0, 0, 0, 0)';
+    var red = 'rgba(255, 0, 0, 1)';
+    var redLight = 'rgba(255, 127, 127, 1)';
+    var green = 'rgba(0, 255, 0, 1)'
+    var greenLight = 'rgba(127, 255, 127, 1)';
+    var orange = 'rgba(255, 127, 0, 1)';
+    var orangeLight = 'rgba(255, 191, 127, 1)';
+    var grey = 'rgba(120, 130, 140, 1)';
+    var greyLight = 'rgba(180, 190, 200, 1)';
+    var brown = 'rgba(104, 53, 32, 1)';
+    var brownLight = 'rgba(231, 180, 159, 1)';
+
+    $scope.colours = [
+    { // Red Blood Cell Count
+        fillColor: transparent,
+        strokeColor: red,
+        pointColor: red,
+        pointStrokeColor: red,
+        pointHighlightFill: redLight,
+        pointHighlightStroke: redLight
+    }, { // Hemoglobin
+        fillColor: transparent,
+        strokeColor: green,
+        pointColor: green,
+        pointStrokeColor: green,
+        pointHighlightFill: greenLight,
+        pointHighlightStroke: greenLight
+    }, { // Hemotocrit
+        fillColor: transparent,
+        strokeColor: orange,
+        pointColor: orange,
+        pointStrokeColor: orange,
+        pointHighlightFill: orangeLight,
+        pointHighlightStroke: orangeLight
+    }, { // White Blood Cell Count
+        fillColor: transparent,
+        strokeColor: grey,
+        pointColor: grey,
+        pointStrokeColor: grey,
+        pointHighlightFill: greyLight,
+        pointHighlightStroke: greyLight
+    }, { // Platelet
+        fillColor: transparent,
+        strokeColor: brown,
+        pointColor: brown,
+        pointStrokeColor: brown,
+        pointHighlightFill: brownLight,
+        pointHighlightStroke: brownLight
     }];
+    // end: same
 
     var getTestResults = function(){
         if (patient_id){
