@@ -30,8 +30,6 @@ angular.module('module_patient')
             $scope.model.data[4][i] = $scope.model.patient.test_results[i].platelet_count;
         };
     };
-
-    
         
     $scope.colours = [{ // grey
         fillColor: 'rgba(148,159,177,0.2)',
@@ -51,7 +49,6 @@ angular.module('module_patient')
 
     var getTestResults = function(){
         if (patient_id){
-            console.log('accessed from doctor');
             httpPatient.test_results.get(patient_id).success(function(test_results){
                 console.log('httpPatient.test_results.get -> success');
                 setupTestResults(test_results);
@@ -79,16 +76,6 @@ angular.module('module_patient')
                 console.log(JSON.stringify(err));
             });
         }
-    };
-
-    $scope.addTestResult = function(test_result){
-        httpPatient.test_results.post(patient_id, test_result).success(function(res){
-            console.log('httpPatient.test_result.post -> success');
-            
-        }).error(function(err){
-            console.log('httpPatient.test_result.post -> success');
-            
-        });
     };
 
     getTestResults();
