@@ -12,9 +12,9 @@ module.exports = function(homeDir){
         if (!account_type){
             res.sendFile(homeDir + "/app/views/home.html");
         } else if (account_type === hmSession.account_type.PATIENT){
-            res.redirect("/patient");
+            res.redirect("/app/patient");
         } else if (account_type === hmSession.account_type.DOCTOR){
-            res.redirect("/doctor");
+            res.redirect("/app/doctor");
         } else {
             res.status(401).send("Unauthorized");
         }

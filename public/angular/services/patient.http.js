@@ -7,6 +7,9 @@ angular.module('http_patient')
 				params : queryParams
 			});
 		},
+		getById : function(patient_id){
+			return $http.get(base + "/id/" + patient_id);
+		},
 		getMe : function(){
 			return $http.get(base + "/me");
 		},
@@ -23,9 +26,14 @@ angular.module('http_patient')
 				});
 			}		
 		},
-		getTestResults : function(patient_id){
-			return $http.get(ENDPOINT + "/testresult/patient_id/" + patient_id);
-        },
+		test_results : {
+			get : function(patient_id){
+				return $http.get(ENDPOINT + "/testresult/patient_id/" + patient_id);
+	        },
+	        post : function(patient_id, test_result){
+	        	return $http.post(ENDPOINT + "/testresult/" + patient_id, test_result);
+	        }
+	    },
 		access : {
 			put : function(patient_id){
 				return $http.put(base + "/access/" + patient_id);

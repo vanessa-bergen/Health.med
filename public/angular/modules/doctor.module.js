@@ -25,5 +25,21 @@ angular.module('module_doctor', [
         .state('my_patients.add', {
             url : '/add',
             templateUrl : "../views/doctor/my_patients/add.html" 
+        })
+        .state('patient', {
+            url : '/patient/:patient_id',
+            templateUrl : '../views/doctor/patient/tabs.html',
+            controller : "ctrlr_patient_tabs"
+        })
+        .state('patient.information', {
+            url : '/patient/info',
+            templateUrl : "../views/doctor/patient/info.html",
+            // controller : 'ctrlr_patient_tabs'
+        })
+        .state('patient.test_results', {
+            url : '/patient/test_results',
+            templateUrl : "../views/patient/test_results.html",
+            controller : 'ctrlr_test_results'
         });
+
 });

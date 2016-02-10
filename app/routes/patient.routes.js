@@ -13,12 +13,12 @@ module.exports = function(app){
     app.put('/patient/access/:patient_id', patient_controller.requestAccess);
     app.delete('/patient/access/:patient_id', patient_controller.cancelRequestAccess);
 
-
     // patient.allergy CRUDs
     app.put('/patient/allergy/add', patient_controller.addAllergy);
     app.get('/patient/allergy', patient_controller.getAllergies);
     app.delete('/patient/allergy/', patient_controller.deleteAllergy); 
 
+    app.get('/patient/id/:patient_id', patient_controller.getById);
     app.get('/patient/me', patient_controller.getMe);
     app.get('/patient', patient_controller.query);
 

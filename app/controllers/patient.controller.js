@@ -171,6 +171,21 @@ module.exports = function(){
         });
     };
 
+    c.getById = function(req, res, next){
+        if (!req.params.patient_id) return reqError(res, 400, "patient_id", "missing");
+        if (!req.session.doctor) return reqError(res, 401, "Access denied");
+
+        var patient_id = req.params.patient_id;
+
+        Patient.findOne({
+            _id : patient_id
+        }, function(err, patient){
+            if (err) return reqError(res, 500, err);
+
+            res.json(patient);
+        });
+    };
+
     c.getMe = function(req, res, next){
         if (!req.session.patient) return res.json({ logged_in : false });
 

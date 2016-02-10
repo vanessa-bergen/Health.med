@@ -1,5 +1,5 @@
 angular.module('module_doctor')
-.controller('ctrlr_my_patients', function($scope, $http, $location, $window
+.controller('ctrlr_my_patients', function($scope, $state, $http, $location, $window
 , $uibModal, ENDPOINT, httpDoctor, httpPatient){
 
     var accessRequestedAlert = '' +
@@ -83,7 +83,10 @@ angular.module('module_doctor')
 
 	$scope.goToPatient = function(patient_id){
 		console.log('goToPatient(' + patient_id + ')');
-	}
+        $state.go('patient', { 
+            'patient_id' : patient_id
+        });
+	};
 
 	$scope.queryPatient = function(query){
 		httpPatient.queryPatient(query).success(function(patients){

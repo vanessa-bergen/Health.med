@@ -5,14 +5,18 @@ module.exports = function(){
 
     var c = {};
     c.create = function (req, res, next){
-        if(isEmpty(req.body)) return reqError(res, 400, "body","missing");
+        if (isEmpty(req.body)) return reqError(res, 400, "body","missing");
+        if (!req.params.patient_id) return reqError(res, 400, "patient_id", "missing");
 
+        req.body.patient_id = req.params.patient_id;
+        
         var newTestResult = new TestResult(req.body);
         newTestResult.save(function(err){
-            if(err) return reqError(res, 500, err);
+            if (err) return reqError(res, 500, err);
+            
             res.status(201).json({
                 testresult : newTestResult
-             });
+            });
         });
     };
 
@@ -28,9 +32,8 @@ module.exports = function(){
  
         // TODO --> check if person can view these records
         
-        TestResult.find({
-            patient_id : req.patient_id
-        }, function(err, docs){
+        TestResult.find({ patient_id : req.patient_id })
+        .sort('date').exec(function(err, docs){
             if (err) return reqError(res, 500, err);
 
             res.json(docs);
@@ -45,7 +48,7 @@ module.exports = function(){
             req.testresult = testresult;
 
             next();
-            });
+        });
 
     };
 
