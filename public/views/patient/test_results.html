@@ -108,9 +108,14 @@
         </div>
     </div>
     -->
-
+	 
+	
+	
     <div ng-class="view.getChartClass()">
-        <div class="panel panel-default" >
+		<div class="well" ng-show="model.patient.test_results.length==0">
+        You have no previous test results.
+		</div>
+        <div class="panel panel-default" ng-show="!model.patient.test_results.length==0">
             <div class="panel-heading"><b>Previous Blood Work</b></div>
             <div class="panel-body">
                 <canvas id="tables" 
@@ -125,4 +130,5 @@
             </div>
         </div>
     </div>
+	
 </div>
