@@ -25,6 +25,13 @@ angular.module("http_doctor")
 			delete : function(){
 				return $http.delete(base + "/login");
 			}
+		},
+		createPrescription : function(body) {
+			console.log(body);
+			return $http.post(ENDPOINT + "/prescription", body);
+		},
+		getPatientPrescriptions : function(patient_id){
+			return $http.get(ENDPOINT + "/prescription/" + patient_id);
 		}
 	}
 });

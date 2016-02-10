@@ -8,11 +8,17 @@
 
 	<li ng-class="view.controller.getTabClass(1)"
 		ng-click="view.controller.setCurrentTab(1)">
-		<a ui-sref="patient.prescriptions">Prescriptions</a>
+		<a ui-sref="patient.prescriptions">Allergies</a>
 	</li>
 
 	<li ng-class="view.controller.getTabClass(2)"
 		ng-click="view.controller.setCurrentTab(2)">
+		<a ui-sref="patient.prescriptions">Prescriptions</a>
+	</li>
+
+
+	<li ng-class="view.controller.getTabClass(3)"
+		ng-click="view.controller.setCurrentTab(3)">
 		<a ui-sref="patient.test_results">Test Results</a>
 	</li>
 </ul>

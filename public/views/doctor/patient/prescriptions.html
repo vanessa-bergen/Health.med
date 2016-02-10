@@ -1,1 +1,72 @@
-<h4>Prescriptions</h4>
+<div class="margin-top">
+
+    <div class="col-sm-4">
+    	 <button 
+            type="button" 
+            ng-hide="view.showNewPrescription"
+            class="btn btn-primary btn-block"
+            ng-click="view.toggleShowNewPrescription()">
+            Add New Test Result
+        </button>
+        <div ng-show = "view.showNewPrescription">
+			<b>New Prescription</b>
+			<form 
+			    novalidate class="simple-form" name="Prescription_form">
+			    <div class="well">
+			        <label>Drug Name</label>
+			        <input						
+			            placeholder="Drug Name"
+			            class="form-control"
+			            name="drug_name"
+			            ng-model="model.prescription.drug_name"
+			            />
+			        <br/>
+			        <label>Dosage</label>
+			        <input
+			            placeholder="Dosage"
+			            class="form-control"
+			            name="dosage"
+			            ng-model="model.prescription.dosage"
+			            />
+			        <br/>
+			        <label>Quantity</label>
+			        <input
+			            placeholder="Quantity"
+			            class="form-control"
+			            name="quantity"
+			            ng-model="model.prescription.quantity"
+			            />
+			        <br/>
+
+			        <label>Frequency</label>
+			        <input
+			            placeholder="Frequency"
+			            class="form-control"
+			            name="frequency"
+			            ng-model="model.prescription.frequency"
+			            />
+			        <br/>
+			        <button 
+		                type="button" 
+		                class="btn btn-primary btn-block"
+		                ng-click="controller.createPrescription(model.prescription)">
+		                Create Prescription
+		            </button>
+			   </div>
+			</form>
+		</div>
+	</div>
+		<div class="col-sm-8">
+			<b> Patient's Current Prescriptions </b>
+			<div class="well" ng-repeat="prescription in model.patient_prescriptions">
+				<label> Name : {{ prescription.drug_name}}</label>
+				<p> Dosage : {{prescription.dosage}} </p>
+				<p> Frequency : {{prescription.frequency}} </p>
+				<p> Quantity : {{prescription.quantity}} </p>
+				<p> Date Prescribed : {{prescription.date}} </p>
+		        <p> Perscribed by : {{prescription.doctor.name_first +" "+ prescription.doctor.name_last}}</p>
+		        <p> Doctor Specialization : {{prescription.doctor.specialization}} </p> 
+		    </div>
+		</div>
+	</div>
+</div>
