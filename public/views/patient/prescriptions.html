@@ -1,17 +1,14 @@
 <div class="container" ng-controller="ctrlr_prescription">
-    
-
-<h2>My Prescriptions</h2>
-
+    <h2>My Prescriptions</h2>
     <div class="well" ng-show="model.patient.prescriptions.length==0">
         You have no prescriptions.
     </div>
-
-    <div ng-hide="model.patient.prescriptions.length == 0">
+    <div> <!-- ng-hide="model.patient.prescriptions.length==0"> -->
     	<div class="well" ng-repeat="prescription in model.patient.prescriptions">
     		<label> Name : {{ prescription.drug_name}}</label>
     		<p> Dosage : {{prescription.dosage}} </p>
     		<p> Frequency : {{prescription.frequency}} </p>
+            <p> Quantity : {{prescription.quantity}} </p>
     		<p> Date Prescribed : {{prescription.date}} </p>
             <p>Perscribed by : {{prescription.doctor.name_first +" "+ prescription.doctor.name_last}}</p>
             <p>Doctor Specialization : {{prescription.doctor.specialization}} </p> 
@@ -21,7 +18,8 @@
                 ng-click = "controller.createPharmaryLink(prescription._id)">
                 Generate Link for Pharmacy
             </button>
+        </div>
     </div>
 </div>
-</div>
+
 
