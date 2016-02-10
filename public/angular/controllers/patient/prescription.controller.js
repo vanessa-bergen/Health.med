@@ -2,7 +2,7 @@ console.log('ctrlr_prescription');
 
 angular.module('module_patient')
 .controller('ctrlr_prescription', function($scope, $http, $location, $window, 
-$uibModal, ENDPOINT, httpDoctor, httpPatient){
+$uibModal, $timeout, ENDPOINT, httpDoctor, httpPatient){
 
     var pharmacy_link_generated_alert= '' +
     '<div class="modal-header">' +
@@ -28,17 +28,17 @@ $uibModal, ENDPOINT, httpDoctor, httpPatient){
     httpPatient.getMe().success(function(me){
         console.log('httpPatient.getMe -> success');
         $scope.model.patient = me;
+
+        httpPatient.getPrescriptions().success(function(prescriptions){
+            console.log('httpPatient.getPrescriptions -> success');
+            $scope.model.patient.prescriptions = prescriptions;
+            console.log(JSON.stringify(prescriptions));
+        }).error(function(err){
+            console.log('httpPatient.getPrescriptions -> error');
+            console.log(JSON.stringify(err));
+        });
     }).error(function(err){
         console.log('httpPatient.getMe -> error');
-        console.log(JSON.stringify(err));
-    });
-
-    httpPatient.getPrescriptions().success(function(prescriptions){
-        console.log('httpPatient.getPrescriptions -> success');
-        $scope.model.patient.prescriptions = prescriptions;
-        console.log(prescriptions)
-    }).error(function(err){
-        console.log('httpPatient.getPrescriptions -> error');
         console.log(JSON.stringify(err));
     });
    
@@ -58,7 +58,6 @@ $uibModal, ENDPOINT, httpDoctor, httpPatient){
       });
   };
   $scope.controller.openPharmacyLinkGenAlert = function(pharm_link_w_endpoint, pharmLinkGen){
-        console.log('hi');
         $uibModal.open({
             animation : true, 
             template : pharmacy_link_generated_alert,

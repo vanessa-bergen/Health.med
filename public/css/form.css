@@ -7,3 +7,13 @@
 span.error {
     color: red;
 }
+
+p.tab {
+	margin-left : 20px;
+	margin-bottom : 0px;
+}
+p.tab-header {
+	margin-bottom : 0px;
+}
+
+

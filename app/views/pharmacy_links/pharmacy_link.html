@@ -43,22 +43,15 @@
     		<label> Name : {{model.pharmacy_link.prescription_id.patient.name_first +", "+ model.pharmacy_link.prescription_id.patient.name_last}}</label>
     		<p> Gender : {{model.pharmacy_link.prescription_id.patient.gender}} </p>
     		<p> Health Card Number : {{model.pharmacy_link.prescription_id.patient.health_card_number}} </p> 
-    		<p class="tab-header"> Address :
+    		<p> Birthday : {{model.pharmacy_link.prescription_id.patient.birthday}}</p>
+		<p class="tab-header"> Address :
     		<p class="tab">Street : {{model.pharmacy_link.prescription_id.patient.address.street}}</p>
     		<p class="tab">Postal Code : {{model.pharmacy_link.prescription_id.patient.address.postal_code}}</p>
     		<p class="tab">City : {{model.pharmacy_link.prescription_id.patient.address.city}}</p>
     		<p class="tab">Postal Code : {{model.pharmacy_link.prescription_id.patient.address.postal_code}}</p>
     		<p class="tab">Country : {{model.pharmacy_link.prescription_id.patient.address.country}}</p>
         </p>
-            <p class="tab-header"> Birthday :
-            <p class="tab">Day : {{model.pharmacy_link.prescription_id.patient.birthday.date}}</p>
-            <p class="tab">Month : {{model.pharmacy_link.prescription_id.patient.birthday.month}}</p>
-            <p class="tab">Year : {{model.pharmacy_link.prescription_id.patient.birthday.year}}</p>
-        </p>
-            <p class="tab-header"> Phone Number :
-            <p class="tab">Primary : {{model.pharmacy_link.prescription_id.patient.phone_number.primary}}</p>
-            <p class="tab">Secondary : {{model.pharmacy_link.prescription_id.patient.phone_number.secondary}}</p>
-        </p>
+           	<p> Phone Number : {{model.pharmacy_link.prescription_id.patient.phone_number.primary}}</p>
     	</div>
 
 
@@ -67,12 +60,8 @@
             <label> Name : {{model.pharmacy_link.prescription_id.doctor.name_first +", "+ model.pharmacy_link.prescription_id.doctor.name_last}}</label>
             <p> MINC : {{model.pharmacy_link.prescription_id.doctor.minc}} </p>
             <p> Specialization : {{model.pharmacy_link.prescription_id.doctor.specialization}} </p> 
-            <p class="tab-header"> Phone Number :
-            <p class="tab">Primary : {{model.pharmacy_link.prescription_id.doctor.phone_number.primary}}</p>
-            <p class="tab">Secondary : {{model.pharmacy_link.prescription_id.doctor.phone_number.secondary}}</p>
-        </p>
-        </p>
-
+            <p> Phone Number : {{model.pharmacy_link.prescription_id.doctor.phone_number.primary}}</p>
+        </div>
 	</div>
 
 </body>

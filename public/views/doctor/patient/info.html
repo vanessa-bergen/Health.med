@@ -1,1 +1,23 @@
-<h1>Patient Information</h1>
+<h4><label>Patient Information</label></h4>
+<div class="well">
+	<label> Name : {{model.patient.name_first +", "+ model.patient.name_last}}</label>
+	<p> Gender : {{model.patient.gender}} </p>
+	<p> Health Card Number : {{model.patient.health_card_number}} </p> 
+	<p> Birthday : {{model.patient.birthday}}</p>
+	<p> Phone Number :  {{model.patient.phone_number.primary}}</p>
+	<p> Email : {{model.patient.email}} </p>
+	<p class="tab-header"> Address 
+	<p class="tab">Street : {{model.patient.address.street}}</p>
+	<p class="tab">Postal Code : {{model.patient.address.postal_code}}</p>
+	<p class="tab">City : {{model.patient.address.city}}</p>
+	<p class="tab">Postal Code : {{model.patient.address.postal_code}}</p>
+	<p class="tab">Country : {{model.patient.address.country}}</p>
+	</p>
+	<p class="tab-header"> Emergency Contact 
+	<p class="tab">Name : {{model.patient.emergency_contact.type.name}}</p>
+	<p class="tab">Phone Number : {{model.patient.emergency_contact.type.phone_number}}</p>
+	<p class="tab">Relationship : {{model.patient.emergency_contact.type.relationship}}</p>
+	</p>
+	
+
+</div>

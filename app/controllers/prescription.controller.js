@@ -10,6 +10,7 @@ module.exports = function(){
     var c = {};
  
     c.create = function(req, res, next){
+        console.log("body = " + JSON.stringify(req.body));
         if (isEmpty(req.body)) return reqError(res, 400, "body", "missing");
         if (!req.session.doctor) { 
             return reqError(res, 403, {
@@ -18,7 +19,8 @@ module.exports = function(){
             });
         }
 
-        req.body.doctor_id = req.session.doctor._id;
+        req.body.doctor = req.session.doctor._id;
+        req.body.date = Date.now();
         
         var newPrescription = new Prescription(req.body);
         newPrescription.save(function(err){
@@ -66,6 +68,20 @@ module.exports = function(){
         if (!req.prescription) return reqError(res, 400, "prescription", "missing");
 
         res.json(req.prescription);
+    };
+
+    c.getPrescriptionsPatient = function (req, res, next, patient_id){
+        Prescription.find({ 
+            "patient" : patient_id
+        }, "drug_name dosage frequency doctor date")
+        .populate('doctor','name_first specialization name_last')
+        
+        .exec(function(err, prescription){
+            if (err) return reqError(res, 500, err);
+               
+            res.json(prescription);
+        });
+
     };
 
     c.index = function(req, res, next){
