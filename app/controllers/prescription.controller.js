@@ -17,6 +17,8 @@ module.exports = function(){
                 msg : "not logged in as a doctor"
             });
         }
+
+        req.body.doctor_id = req.session.doctor._id;
         
         var newPrescription = new Prescription(req.body);
         newPrescription.save(function(err){
