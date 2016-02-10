@@ -53,7 +53,7 @@ module.exports = function(){
         
         Prescription.find({ 
             "patient" : req.session.patient._id
-        }, "drug_name dosage frequency doctor date")
+        }, "drug_name dosage frequency quantity doctor date")
         .populate('doctor','name_first specialization name_last')
         
         .exec(function(err, prescription){
@@ -73,7 +73,7 @@ module.exports = function(){
     c.getPrescriptionsPatient = function (req, res, next, patient_id){
         Prescription.find({ 
             "patient" : patient_id
-        }, "drug_name dosage frequency doctor date")
+        }, "drug_name dosage frequency quantity doctor date")
         .populate('doctor','name_first specialization name_last')
         
         .exec(function(err, prescription){

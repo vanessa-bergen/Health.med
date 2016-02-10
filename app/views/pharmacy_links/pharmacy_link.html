@@ -33,6 +33,7 @@
     		<label> Name : {{ model.pharmacy_link.prescription_id.drug_name}}</label>
     		<p> Dosage : {{model.pharmacy_link.prescription_id.dosage}} </p>
     		<p> Frequency : {{model.pharmacy_link.prescription_id.frequency}} </p>
+            <p> Quantity : {{model.pharmacy_link.prescription_id.quantity}} </p>
     		<p> Date Prescribed : {{model.pharmacy_link.prescription_id.date}} </p>
             <p>Perscribed by : {{model.pharmacy_link.prescription_id.doctor.name_first +", "+ model.pharmacy_link.prescription_id.doctor.name_last}}</p>
             <p>Doctor Specialization : {{model.pharmacy_link.prescription_id.doctor.specialization}} </p> 

@@ -37,6 +37,11 @@ var PrescriptionSchema = new Schema({
     date: {
         type : Date,
         required : true
+    },
+
+    quantity : {
+        type : String,
+        reqired : true
     }
 });
 

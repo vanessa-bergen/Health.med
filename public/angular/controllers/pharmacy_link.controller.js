@@ -19,8 +19,8 @@ angular.module('module_pharm_link')
     
     httpPharmLink.getCurrentPharmLink().success(function(pharm_link){
         console.log('httpPharmLink.getCurrentPharmLink -> success');
-        var formatted_date = formatDate(pharm_link.date);
-        pharm_link.date = formatted_date;
+        var formatted_date = formatDate(pharm_link.prescription_id.date);
+        pharm_link.prescription_id.date = formatted_date;
         var formatted_birthday = formatDate(pharm_link.prescription_id.patient.birthday);
         pharm_link.prescription_id.patient.birthday = formatted_birthday;
         $scope.model.pharmacy_link = pharm_link;
