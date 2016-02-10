@@ -1,8 +1,7 @@
-console.log('module_doctor');
-
 angular.module('module_doctor', [
     'ui.router'
     , 'ui.bootstrap'
+    , 'chart.js'
     , 'module_config'
     , 'module_basic_filters'
     , 'http_doctor'
@@ -34,7 +33,7 @@ angular.module('module_doctor', [
         .state('patient.information', {
             url : '/patient/info',
             templateUrl : "../views/doctor/patient/info.html",
-            // controller : 'ctrlr_patient_tabs'
+            controller : 'ctrlr_patient_tabs'
         })
         .state('patient.test_results', {
             url : '/patient/test_results',

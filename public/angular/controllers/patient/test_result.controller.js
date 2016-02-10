@@ -1,10 +1,10 @@
 console.log('ctrlr_test_result');
 
 angular.module('module_patient')
-.controller('ctrlr_test_result', function($scope, $stateParams
+.controller('ctrlr_test_results', function($scope, $stateParams
 , ENDPOINT, httpDoctor, httpPatient){
 
-	$scope.model = {};
+    $scope.model = {};
     $scope.model.patient = {};
     $scope.model.test_result = {};
     
@@ -12,15 +12,16 @@ angular.module('module_patient')
     
     $scope.view = {};
     $scope.view.model = {};
+    
+    // chart models
     $scope.model.data = [[],[],[],[],[]];
     $scope.labels = [];
     $scope.series = ['Red Blood Cell Count', 'Hemoglobin', 'Hemotocrit', 'White Blood Cell Count', 'Platelet'];
-    
+
     var patient_id = $stateParams.patient_id;
 
     var setupTestResults = function(test_results){
-        console.log
-        $scope.model.patient.test_results  = test_results;
+        $scope.model.patient.test_results = test_results;
         for(var i = 0; i < $scope.model.patient.test_results.length; i++){
             $scope.labels[i] = $scope.model.patient.test_results[i].date;
             $scope.model.data[0][i] = $scope.model.patient.test_results[i].red_blood_cell_count;
@@ -77,6 +78,11 @@ angular.module('module_patient')
             });
         }
     };
+
+    // same as in doctor/patient/test_results.controller.js
+    $scope.view.getChartClass = function(){
+        return "col-sm-12";
+    }
 
     getTestResults();
 

@@ -1,77 +1,92 @@
-<div ng-controller="ctrlr_test_result">
-    <div class="col-sm-6">
+<div class="margin-top" 
+    ng-controller="ctrlr_test_results">
 
-        <h2>My Test Results</h2>
+    <div 
+        ng-show="view.isDoctor" 
+        class="col-sm-4">
 
-        <form novalidate class="simple-form" name="patient_test_results_form"
-            ng-show="model.test_result">
-            <div class="well">
-                <!--
-                <style type="text/css">
-                    .simple-form {
-                    width: 260px;
-                    font-size: 16px;
-                    line-height: 1;
-                    height: 34px;}
-                </style> 
-                -->
-                <label>Red Blood Cell Count</label>
-                <input						
-                    placeholder="trillion cells/L"
-                    class="form-control"
-                    name="red_blood_cell_count"
-                    ng-model="model.test_result.red_blood_cell_count"
-                    />
-                <br/>
-                <label>Hemoglobin</label>
-                <input
-                    placeholder="grams/dL"
-                    class="form-control"
-                    name="hemoglobin"
-                    ng-model="model.test_result.hemoglobin"
-                    />
-                <br/>
-                <label>Hematocrit</label>
-                <input
-                    placeholder="percentage"
-                    class="form-control"
-                    name="hemotocrit"
-                    ng-model="model.test_result.hemotocrit"
-                    />
-                <br/>
-                <label>White Blood Cell Count</label>
-                <input
-                    placeholder="billion cells/L"
-                    class="form-control"
-                    name="white_blood_cell_count"
-                    ng-model="model.test_result.white_blood_cell_count"
-                    />
-                <br/>
-                <label>Platelet Count</label>
-                <input
-                    placeholder="billion/L"
-                    class="form-control"
-                    name="platelet_count"
-                    ng-model="model.test_result.platelet_count"
-                    />
-                <br/>
-                <label>Date</label>
-                <input
-                    placeholder="DD/MM/YYYY"
-                    class="form-control"
-                    name="date"
-                    ng-model="model.test_result.date"
-                    />
-                <br/>
-                <button 
-                    type="button" 
-                    class="btn btn-primary"
-                    ng-click="addTestResult(model.test_result)"
-                    ng-model="add">
-                    Add Test Results
-                </button>
-            </div>	
-        </form>
+        <button 
+            type="button" 
+            ng-hide="view.showNewTestResult"
+            class="btn btn-primary btn-block"
+            ng-click="view.toggleNewTestResult(model.test_result)">
+            Add New Test Result
+        </button>
+
+        <div ng-show="view.showNewTestResult">
+            <b>New Test Result</b>
+
+            <form 
+                novalidate class="simple-form" name="patient_test_results_form"
+                ng-show="model.test_result">
+                <div class="well">
+                    <!--
+                    <style type="text/css">
+                        .simple-form {
+                        width: 260px;
+                        font-size: 16px;
+                        line-height: 1;
+                        height: 34px;}
+                    </style> 
+                    -->
+                    <label>Red Blood Cell Count</label>
+                    <input						
+                        placeholder="trillion cells/L"
+                        class="form-control"
+                        name="red_blood_cell_count"
+                        ng-model="model.test_result.red_blood_cell_count"
+                        />
+                    <br/>
+                    <label>Hemoglobin</label>
+                    <input
+                        placeholder="grams/dL"
+                        class="form-control"
+                        name="hemoglobin"
+                        ng-model="model.test_result.hemoglobin"
+                        />
+                    <br/>
+                    <label>Hematocrit</label>
+                    <input
+                        placeholder="percentage"
+                        class="form-control"
+                        name="hemotocrit"
+                        ng-model="model.test_result.hemotocrit"
+                        />
+                    <br/>
+                    <label>White Blood Cell Count</label>
+                    <input
+                        placeholder="billion cells/L"
+                        class="form-control"
+                        name="white_blood_cell_count"
+                        ng-model="model.test_result.white_blood_cell_count"
+                        />
+                    <br/>
+                    <label>Platelet Count</label>
+                    <input
+                        placeholder="billion/L"
+                        class="form-control"
+                        name="platelet_count"
+                        ng-model="model.test_result.platelet_count"
+                        />
+                    <br/>
+                    <label>Date</label>
+                    <input
+                        placeholder="DD/MM/YYYY"
+                        class="form-control"
+                        name="date"
+                        ng-model="model.test_result.date"
+                        />
+                    <br/>
+                    <button 
+                        type="button" 
+                        class="btn btn-primary btn-block"
+                        ng-click="addTestResult(model.test_result)"
+                        ng-model="add">
+                        Add Test Results
+                    </button>
+                </div>	
+            </form>
+        </div>
     </div>
    
     <!--
@@ -94,9 +109,9 @@
     </div>
     -->
 
-    <div class="col-sm-6">
-        <div class="panel panel-default margin-top" >
-            <div class="panel-heading">Past Bood Work Chart</div>
+    <div ng-class="view.getChartClass()">
+        <div class="panel panel-default" >
+            <div class="panel-heading"><b>Previous Blood Work</b></div>
             <div class="panel-body">
                 <canvas id="tables" 
                     class="chart chart-line" 
