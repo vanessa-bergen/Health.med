@@ -35,10 +35,15 @@ angular.module('module_doctor', [
             templateUrl : "../views/doctor/patient/info.html",
             controller : 'ctrlr_patient_tabs'
         })
+        .state('patient.allergies', {
+            url : '/patient/allergies',
+            templateUrl : "../views/doctor/patient/allergies.html",
+            controller : 'ctrlr_patient_allergies'
+        })
         .state('patient.prescriptions', {
             url : '/patient/prescriptions',
             templateUrl : "../views/doctor/patient/prescriptions.html",
-            controller : 'ctrlr_patient_tabs'
+            controller : 'ctrlr_patient_prescriptions'
         })
         .state('patient.test_results', {
             url : '/patient/test_results',
