@@ -20,11 +20,16 @@ angular.module('module_patient')
 
     var patient_id = $stateParams.patient_id;
 
+    var monthNames = ["January", "February", "March","April", "May", "June", "July","August", "September", "October","November", "December"];
+
+
     // start: should be the same as patient/test_results.controller.js
     var setupTestResults = function(test_results){
         $scope.model.patient.test_results = test_results;
         for(var i = 0; i < $scope.model.patient.test_results.length; i++){
-            $scope.labels[i] = $scope.model.patient.test_results[i].date;
+            
+            var d = Date($scope.model.patient.test_results[i].date);
+            $scope.labels[i] = formatDate(d);
             $scope.model.data[0][i] = $scope.model.patient.test_results[i].red_blood_cell_count;
             $scope.model.data[1][i] = $scope.model.patient.test_results[i].hemoglobin;
             $scope.model.data[2][i] = $scope.model.patient.test_results[i].hemotocrit;
@@ -121,6 +126,15 @@ angular.module('module_patient')
     }
 
     getTestResults();
+
+    var formatDate = function(dateToBeFormatted){
+        var date = new Date(dateToBeFormatted);
+        var day = date.getDate();
+        var monthIndex = date.getMonth();
+        var year = date.getFullYear();
+        var formatted = day + ' ' + monthNames[monthIndex] + ' ' + year;
+        return formatted;
+    };
 
     // $scope.labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     // $scope.data = [
